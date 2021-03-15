@@ -1,0 +1,21 @@
+server.port: 8080
+
+spring.cloud.gateway.routes:
+  - id: friendModule
+    uri: http://localhost:9020/
+    predicates:
+      - Path=/friends/**
+  - id: postModule
+    uri: http://localhost:9010/
+    predicates:
+      - Path=/posts/**
+
+spring:
+  application:
+    name: gateway-app
+  boot:
+    admin:
+      client:
+        url: http://localhost:9000
+
+management.endpoints.web.exposure.include: '*'
