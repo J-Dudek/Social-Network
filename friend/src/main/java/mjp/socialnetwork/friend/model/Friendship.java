@@ -14,7 +14,6 @@ public class Friendship {
 
     @Id
     private Long firstUserId;
-    @Id
     private Long secondUserId;
 
     private Timestamp friendshipDate;

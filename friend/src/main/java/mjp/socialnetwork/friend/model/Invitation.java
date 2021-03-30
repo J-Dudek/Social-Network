@@ -17,7 +17,6 @@ public class Invitation {
 
     @Id
     private Long firstUserId;
-    @Id
     private Long secondUserId;
     private Timestamp invitationDate;
 }
