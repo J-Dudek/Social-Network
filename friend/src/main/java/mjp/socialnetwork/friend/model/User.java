@@ -1,13 +1,9 @@
 package mjp.socialnetwork.friend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -16,7 +12,8 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Data
+@Builder
 public class User {
 
     @Id

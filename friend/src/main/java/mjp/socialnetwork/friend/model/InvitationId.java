@@ -1,16 +1,16 @@
 package mjp.socialnetwork.friend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Data
+@Builder
 public class InvitationId implements Serializable {
 
     @Id
