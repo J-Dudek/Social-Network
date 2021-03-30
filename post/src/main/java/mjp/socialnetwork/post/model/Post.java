@@ -22,6 +22,6 @@ public class Post {
     private Timestamp publicationDate;
     private boolean isPublic;
 
-    private String authorId;
+    private Long userId;
 
 }
