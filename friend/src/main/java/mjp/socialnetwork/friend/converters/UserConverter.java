@@ -18,8 +18,8 @@ public class UserConverter {
         return Mono.just(modelMapper.map(user, UserDTO.class));
     }
 
-    public Flux<UserDTO> entityToDto(List<User> users) {
-        return Flux.fromIterable(users).flatMap(user -> entityToDto(user));
+    public Flux<UserDTO> entityToDto(Flux<User> users) {
+        return users.flatMap(user -> entityToDto(user));
     }
 
     public User dtoToEntity(UserDTO userDTO) {
