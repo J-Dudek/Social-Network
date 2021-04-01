@@ -1,9 +1,9 @@
 package mjp.socialnetwork.friend.services;
 
 import lombok.AllArgsConstructor;
-import mjp.socialnetwork.friend.converters.UserConverter;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -15,10 +15,10 @@ public class UserService {
 
 
     private final UserRepository userRepository;
-    private final UserConverter userConverter;
+    private final ModelMapper modelMapper;
 
     public Flux<UserDTO> findAllUsers() {
-         return userRepository.findAll().map(user -> userConverter.entityToDto(user));
+         return userRepository.findAll().map(user -> modelMapper.map(user,UserDTO.class));
     }
 
 }
