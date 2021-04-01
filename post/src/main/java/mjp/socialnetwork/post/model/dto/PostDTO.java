@@ -1,27 +1,29 @@
 package mjp.socialnetwork.post.model.dto;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import lombok.Builder;
 
+import java.time.LocalDateTime;
+
+@Builder
 public class PostDTO {
 
     private Long idPost;
     private String message;
-    private Timestamp publicationDate;
+    private LocalDateTime publicationDate;
     private boolean isPublic;
     private Long userId;
 
     public PostDTO() {
     }
 
-    public PostDTO(Long idPost, String message, Timestamp publicationDate, boolean isPublic, Long userId) {
+    public PostDTO(Long idPost, String message, LocalDateTime publicationDate, boolean isPublic, Long userId) {
         this.idPost = idPost;
         this.message = message;
         this.publicationDate = publicationDate;
         this.isPublic = isPublic;
         this.userId = userId;
     }
-    public PostDTO(String message, Timestamp publicationDate, boolean isPublic, Long userId) {
+    public PostDTO(String message, LocalDateTime publicationDate, boolean isPublic, Long userId) {
         this.message = message;
         this.publicationDate = publicationDate;
         this.isPublic = isPublic;
@@ -44,11 +46,11 @@ public class PostDTO {
         this.message = message;
     }
 
-    public Date getPublicationDate() {
+    public LocalDateTime getPublicationDate() {
         return publicationDate;
     }
 
-    public void setPublicationDate(Timestamp publicationDate) {
+    public void setPublicationDate(LocalDateTime publicationDate) {
         this.publicationDate = publicationDate;
     }
 

@@ -7,6 +7,7 @@ import mjp.socialnetwork.post.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Transactional
 @AllArgsConstructor
@@ -18,6 +19,11 @@ public class PostService {
 
 
     public Flux<PostDTO> findAllPosts() {
-        return postConverter.entityToDto(postRepository.findAll());
+
+        return postRepository.findAll().map(post -> postConverter.entityToDto(post));
+    }
+
+    public Mono<PostDTO> createNewPost(PostDTO postDTO) {
+        return postRepository.save(postConverter.dtoToEntity(postDTO)).map(post -> postConverter.entityToDto(post));
     }
 }
