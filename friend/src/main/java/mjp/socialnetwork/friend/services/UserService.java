@@ -18,7 +18,7 @@ public class UserService {
     private final UserConverter userConverter;
 
     public Flux<UserDTO> findAllUsers() {
-         return userConverter.entityToDto(userRepository.findAll());
+         return userRepository.findAll().map(user -> userConverter.entityToDto(user));
     }
 
 }

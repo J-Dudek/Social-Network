@@ -4,22 +4,13 @@ import mjp.socialnetwork.friend.model.User;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class UserConverter {
 
-    public Mono<UserDTO> entityToDto(User user) {
+    public UserDTO entityToDto(User user) {
         ModelMapper modelMapper = new ModelMapper();
-        return Mono.just(modelMapper.map(user, UserDTO.class));
-    }
-
-    public Flux<UserDTO> entityToDto(Flux<User> users) {
-        return users.flatMap(user -> entityToDto(user));
+        return modelMapper.map(user, UserDTO.class);
     }
 
     public User dtoToEntity(UserDTO userDTO) {
@@ -27,7 +18,4 @@ public class UserConverter {
         return modelMapper.map(userDTO, User.class);
     }
 
-    public List<User> dtoToEntity(List<UserDTO> usersDTO) {
-        return usersDTO.stream().map(this::dtoToEntity).collect(Collectors.toList());
-    }
 }
