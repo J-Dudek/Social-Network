@@ -43,4 +43,4 @@ jobs:
           keys:
             - admin-{{ checksum "pom.xml" }}
       # build and push docker image to docker hub
-      - run: mvn compile jib:build -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
