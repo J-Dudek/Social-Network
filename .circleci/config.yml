@@ -37,7 +37,8 @@ jobs:
       - image: circleci/openjdk:latest
     working_directory: ~/Social-Network/admin
     steps:
-      - checkout
+      - checkout:
+          path: ~/Social-Network
       - restore_cache:
           keys:
             - admin-{{ checksum "pom.xml" }}
