@@ -6,7 +6,7 @@ workflows:
       - dockadmin:
           context: Perso
           requires:
-            - build
+            - buildadmin
 
 jobs:
   buildadmin:
