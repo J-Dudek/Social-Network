@@ -1,0 +1,45 @@
+version: 2.1
+workflows:
+  build_and_dock:
+    jobs:
+      - buildadmin
+      - dockadmin:
+          context: Perso
+          requires:
+            - build
+
+jobs:
+  buildadmin:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/admin
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - admin-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - admin-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: admin-{{ checksum "pom.xml" }}
+      # package into a jar
+      - run: mvn clean package
+        # store raw contents of src code
+      - store_artifacts:
+          path: target/classes
+          destination: admin
+  dockadmin:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/admin
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - admin-{{ checksum "pom.xml" }}
+      # build and push docker image to docker hub
+      - run: mvn compile jib:build -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
