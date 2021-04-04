@@ -208,9 +208,10 @@ jobs:
   dockbdd:
     docker:
       - image: docker:17.05.0-ce-git
-    working_directory: ~/Social-Network/db/dockerapp
+    working_directory: ~/Social-Network/db
     steps:
-      - checkout
+      - checkout:
+          path: ~/Social-Network
       - setup_remote_docker
       - run:
           name: Build application Docker image
