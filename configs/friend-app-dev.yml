@@ -1,1 +1,5 @@
-server.port: 20204
+server.port: 9020
+spring.boot.admin.client.url: http://localhost:9000
+spring:
+  r2dbc:
+    url: r2dbc:mariadb://127.0.0.1:3306/friend?schema=friend

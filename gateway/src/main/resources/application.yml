@@ -1,23 +1,7 @@
-server.port: 20203
-
-spring.cloud.gateway.routes:
-  - id: friendModule
-    uri: http://juliendudek.synology.me:20204/
-    predicates:
-      - Path=/friends/**
-  - id: postModule
-    uri: http://juliendudek.synology.me:20205/
-    predicates:
-      - Path=/posts/**
 
 spring:
+  profiles:
+    active: @activatedProperties@
   application:
     name: gateway-app
-  boot:
-    admin:
-      client:
-        url: http://juliendudek.synology.me:20201/
-        instance:
-          service-base-url: http://juliendudek.synology.me
-
 management.endpoints.web.exposure.include: '*'

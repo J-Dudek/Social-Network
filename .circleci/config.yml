@@ -7,28 +7,46 @@ workflows:
           context: Perso
           requires:
             - buildadmin
+          filters:
+            branches:
+              only: main
       - buildconfig
       - dockconfig:
           context: Perso
           requires:
             - buildconfig
+          filters:
+            branches:
+              only: main
       - buildfriend
       - dockfriend:
           context: Perso
           requires:
             - buildfriend
+          filters:
+            branches:
+              only: main
       - buildgateway
       - dockgateway:
           context: Perso
           requires:
             - buildgateway
+          filters:
+            branches:
+              only: main
       - buildpost
       - dockpost:
           context: Perso
           requires:
             - buildpost
+          filters:
+            branches:
+              only: main
       - dockbdd:
           context: Perso
+          filters:
+            branches:
+              only: main
 
 
 jobs:
@@ -65,7 +83,7 @@ jobs:
       - restore_cache:
           keys:
             - admin-{{ checksum "pom.xml" }}
-      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Dspring.profiles.active=prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
   # --------------------------------------------
   # ------------ CONFIG MODULE -----------------
   # --------------------------------------------
@@ -99,7 +117,7 @@ jobs:
       - restore_cache:
           keys:
             - configuration-{{ checksum "pom.xml" }}
-      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Dspring.profiles.active=prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
   # --------------------------------------------
   # ------------ FRIEND MODULE -----------------
   # --------------------------------------------
@@ -133,7 +151,7 @@ jobs:
       - restore_cache:
           keys:
             - friend-{{ checksum "pom.xml" }}
-      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Dspring.profiles.active=prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
   # --------------------------------------------
   # ------------ GATEWAY MODULE ----------------
   # --------------------------------------------
@@ -167,7 +185,7 @@ jobs:
       - restore_cache:
           keys:
             - gateway-{{ checksum "pom.xml" }}
-      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Dspring.profiles.active=prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
   # --------------------------------------------
   # ------------ POST MODULE -------------------
   # --------------------------------------------
@@ -201,7 +219,7 @@ jobs:
       - restore_cache:
           keys:
             - post-{{ checksum "pom.xml" }}
-      - run: mvn compile jib:build -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+      - run: mvn compile jib:build -Dspring.profiles.active=prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
   # --------------------------------------------
   # ------------------- BDD --------------------
   # --------------------------------------------
