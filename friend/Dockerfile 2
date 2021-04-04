@@ -1,0 +1,5 @@
+FROM adoptopenjdk/openjdk11:latest
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} friend.jar
+EXPOSE 20204
+ENTRYPOINT ["java","-jar","/friend.jar"]

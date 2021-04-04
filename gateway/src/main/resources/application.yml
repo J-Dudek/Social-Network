@@ -1,12 +1,12 @@
-server.port: 8080
+server.port: 20203
 
 spring.cloud.gateway.routes:
   - id: friendModule
-    uri: http://localhost:9020/
+    uri: http://juliendudek.synology.me:20204/
     predicates:
       - Path=/friends/**
   - id: postModule
-    uri: http://localhost:9010/
+    uri: http://juliendudek.synology.me:20205/
     predicates:
       - Path=/posts/**
 
@@ -16,6 +16,8 @@ spring:
   boot:
     admin:
       client:
-        url: http://localhost:9000
+        url: http://juliendudek.synology.me:20201/
+        instance:
+          service-base-url: http://juliendudek.synology.me
 
 management.endpoints.web.exposure.include: '*'

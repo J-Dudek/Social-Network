@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "auth0.domain",
+      "type": "java.lang.String",
+      "description": "Description for auth0.domain."
+    },
+    {
+      "name": "auth0.audience",
+      "type": "java.lang.String",
+      "description": "Description for auth0.audience."
+    }
+  ] }

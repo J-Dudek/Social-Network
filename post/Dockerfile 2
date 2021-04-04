@@ -1,0 +1,5 @@
+FROM adoptopenjdk/openjdk11:latest
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} post.jar
+EXPOSE 20205
+ENTRYPOINT ["java","-jar","/post.jar"]
