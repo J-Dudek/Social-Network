@@ -1,0 +1,243 @@
+version: 2.1
+workflows:
+  build_and_dock:
+    jobs:
+      - buildadmin
+      - dockadmin:
+          context: Perso
+          requires:
+            - buildadmin
+          filters:
+            branches:
+              only: main
+      - buildconfig
+      - dockconfig:
+          context: Perso
+          requires:
+            - buildconfig
+          filters:
+            branches:
+              only: main
+      - buildfriend
+      - dockfriend:
+          context: Perso
+          requires:
+            - buildfriend
+          filters:
+            branches:
+              only: main
+      - buildgateway
+      - dockgateway:
+          context: Perso
+          requires:
+            - buildgateway
+          filters:
+            branches:
+              only: main
+      - buildpost
+      - dockpost:
+          context: Perso
+          requires:
+            - buildpost
+          filters:
+            branches:
+              only: main
+      - dockbdd:
+          context: Perso
+          filters:
+            branches:
+              only: main
+
+
+jobs:
+  # --------------------------------------------
+  # ------------ ADMIN MODULE -------------------
+  # --------------------------------------------
+  buildadmin:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/admin
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - admin-{{ checksum "pom.xml" }}
+            - admin-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: admin-{{ checksum "pom.xml" }}
+      - run: mvn clean package
+      - store_artifacts:
+          path: target/classes
+          destination: admin
+  dockadmin:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/admin
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - admin-{{ checksum "pom.xml" }}
+      - run: mvn compile jib:build -P prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+  # --------------------------------------------
+  # ------------ CONFIG MODULE -----------------
+  # --------------------------------------------
+  buildconfig:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/configuration
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - configuration-{{ checksum "pom.xml" }}
+            - configuration-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: configuration-{{ checksum "pom.xml" }}
+      - run: mvn clean package
+      - store_artifacts:
+          path: target/classes
+          destination: configuration
+  dockconfig:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/configuration
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - configuration-{{ checksum "pom.xml" }}
+      - run: mvn compile jib:build -P prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+  # --------------------------------------------
+  # ------------ FRIEND MODULE -----------------
+  # --------------------------------------------
+  buildfriend:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/friend
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - friend-{{ checksum "pom.xml" }}
+            - friend-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: friend-{{ checksum "pom.xml" }}
+      - run: mvn clean package -Dspring.profiles.active=prod
+      - store_artifacts:
+          path: target/classes
+          destination: friend
+  dockfriend:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/friend
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - friend-{{ checksum "pom.xml" }}
+      - run: mvn compile jib:build -P prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+  # --------------------------------------------
+  # ------------ GATEWAY MODULE ----------------
+  # --------------------------------------------
+  buildgateway:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/gateway
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - gateway-{{ checksum "pom.xml" }}
+            - gateway-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: gateway-{{ checksum "pom.xml" }}
+      - run: mvn clean package
+      - store_artifacts:
+          path: target/classes
+          destination: gateway
+  dockgateway:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/gateway
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - gateway-{{ checksum "pom.xml" }}
+      - run: mvn compile jib:build -P prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+  # --------------------------------------------
+  # ------------ POST MODULE -------------------
+  # --------------------------------------------
+  buildpost:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/post
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - post-{{ checksum "pom.xml" }}
+            - gateway-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: post-{{ checksum "pom.xml" }}
+      - run: mvn clean package
+      - store_artifacts:
+          path: target/classes
+          destination: post
+  dockpost:
+    docker:
+      - image: circleci/openjdk:latest
+    working_directory: ~/Social-Network/post
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - restore_cache:
+          keys:
+            - post-{{ checksum "pom.xml" }}
+      - run: mvn compile jib:build -P prod -Djib.from.auth.username=$DOCKER_HUB_USER_ID -Djib.from.auth.password=$DOCKERHUB_PASSWORD -Djib.to.auth.username=$DOCKER_HUB_USER_ID -Djib.to.auth.password=$DOCKERHUB_PASSWORD
+  # --------------------------------------------
+  # ------------------- BDD --------------------
+  # --------------------------------------------
+  dockbdd:
+    docker:
+      - image: docker:17.05.0-ce-git
+    working_directory: ~/Social-Network/db
+    steps:
+      - checkout:
+          path: ~/Social-Network
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build --cache-from=app -t app .
+      - deploy:
+          name: Publish application to docker hub
+          command: |
+            docker login -e $DOCKER_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKERHUB_PASSWORD
+            docker tag app $DOCKER_HUB_USER_ID/bdd-social-network:latest
+            docker push $DOCKER_HUB_USER_ID/bdd-social-network:latest
