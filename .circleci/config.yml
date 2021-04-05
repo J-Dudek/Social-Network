@@ -137,7 +137,7 @@ jobs:
           paths:
             - ~/.m2
           key: friend-{{ checksum "pom.xml" }}
-      - run: mvn clean package
+      - run: mvn clean package -Dspring.profiles.active=prod
       - store_artifacts:
           path: target/classes
           destination: friend
@@ -205,7 +205,7 @@ jobs:
           paths:
             - ~/.m2
           key: post-{{ checksum "pom.xml" }}
-      - run: mvn clean package
+      - run: mvn clean package -Dspring.profiles.active=prod
       - store_artifacts:
           path: target/classes
           destination: post
