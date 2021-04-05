@@ -1,5 +1,0 @@
-server.port: 20204
-spring.boot.admin.client.url: http://juliendudek.synology.me:20201/
-spring:
-  r2dbc:
-    url: r2dbc:mariadb//juliendudek.synology.me:16386/friend?schema=friend
