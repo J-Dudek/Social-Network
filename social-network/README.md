@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/db003998-dd26-48f7-b6e1-74cefda032ec/deploy-status)](https://app.netlify.com/sites/the-social-network/deploys)
+
 
 use [Tailwind](https://tailwindcss.com/)
 
