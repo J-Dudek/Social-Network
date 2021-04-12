@@ -8,4 +8,6 @@ import reactor.core.publisher.Flux;
 public interface UserRepository extends ReactiveCrudRepository<User, String> {
     @Query("SELECT * FROM user WHERE last_name = :lastname")
     Flux<User> findByLastName(String lastName);
+
+
 }

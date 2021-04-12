@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.security.Principal;
 
@@ -36,13 +37,19 @@ public class UserController {
     @GetMapping(path = "/all2")
     public Flux<UserDTO> findAllUsers2(Principal principal) {
         System.out.println("Appel partie secu");
-        System.out.println("auth = " + principal);System.out.println("name = " + principal.getName());
+        System.out.println("ID = " + principal.getName());
         try {
             return this.userService.findAllUsers();
         } catch (
                 SocialNetworkException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @GetMapping(path = "/logOrsign")
+    public Mono<UserDTO> logOrsign(Principal principal) {
+       return userService.logOrsign(principal).map(userService::userToDTO);
     }
 
 

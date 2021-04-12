@@ -8,8 +8,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-@Transactional
+import java.security.Principal;
+
+
 @AllArgsConstructor
 @Service
 public class UserService {
@@ -22,12 +25,30 @@ public class UserService {
          return userRepository.findAll().map(this::userToDTO);
     }
 
+    @Transactional
+    public Mono<User> logOrsign(Principal principal){
+        return userRepository.existsById(principal.getName())
+                .flatMap(aBoolean -> {
+                    if (!aBoolean) {
+                        User newUser = User.builder().id(principal.getName()).newUser(true).build();
+                        System.out.println("NewUser : "+newUser.toString());
+                        return userRepository.save(newUser);
+                    } else {
+                        Mono<User> user = userRepository.findById(principal.getName());
+                        System.out.println("Exist : "+user.toString());
+                        return user;
+                    }
+                });
+    }
+
+
+
     /**
      * permet de convertir user en DTO
      * @param user
      * @return
      */
-    private UserDTO userToDTO(User user){
+    public UserDTO userToDTO(User user){
         return modelMapper.map(user,UserDTO.class);
     }
 
@@ -36,7 +57,7 @@ public class UserService {
      * @param userDTO
      * @return
      */
-    private User dtoToUser(UserDTO userDTO){
+    public User dtoToUser(UserDTO userDTO){
         return modelMapper.map(userDTO,User.class);
     }
 
