@@ -1,20 +1,20 @@
 package mjp.socialnetwork.friend.controllers.open;
 
 import mjp.socialnetwork.friend.repositories.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import mjp.socialnetwork.friend.services.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/account")
+@RequestMapping(path = "/friends/account")
 public class AccountController {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    public AccountController( UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public AccountController( UserRepository userRepository, UserService userService){
         this.userRepository=userRepository;
-        this.passwordEncoder=passwordEncoder;
+        this.userService=userService;
     }
 
 

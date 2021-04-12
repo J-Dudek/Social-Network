@@ -19,7 +19,7 @@ public class LoggingAspect {
 
     // Cette méthode est appelée à chaque fois (et avant) qu'une méthode du
     // package est interceptée
-    @Before("execution(* mjp.socialnetwork.friend.*.*(..))")
+    @Before("execution(* mjp.socialnetwork.friend.controllers.open.*.*(..))")
     public void logMethodEntry(JoinPoint joinPoint) {
 
         Object[] args = joinPoint.getArgs();
@@ -40,7 +40,7 @@ public class LoggingAspect {
         logger.info(sb.toString());
     }
 
-    @AfterReturning(pointcut = "execution(* mjp.socialnetwork.friend.*.*(..))", returning = "result")
+    @AfterReturning(pointcut = "execution(* mjp.socialnetwork.friend.controllers.open.*.*(..))", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         // Nom de la méthode interceptée
         String name = joinPoint.getSignature().getName();

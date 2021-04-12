@@ -12,6 +12,8 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.security.Principal;
+
 @AllArgsConstructor
 @RestController
 @Transactional
@@ -23,6 +25,19 @@ public class PostController {
 
     @GetMapping(path = "/all")
     public Flux<PostDTO> findAllPosts() {
+        System.out.println("Appel partie non secure");
+        try {
+            return this.postService.findAllPosts();
+        } catch (
+                PostException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(path = "/all2")
+    public Flux<PostDTO> findAllPostsSecure(Principal principal) {
+        System.out.println("Appel partie secu");
+        System.out.println("Auth ID: "+principal.getName());
         try {
             return this.postService.findAllPosts();
         } catch (
@@ -32,7 +47,7 @@ public class PostController {
     }
 
     @PostMapping(path = "/create")
-    public Mono<PostDTO> createPost(@RequestBody PostDTO newPostDto) {
+    public Mono<PostDTO> createPost(@RequestBody PostDTO newPostDto, Principal principal) {
 
         try {
             return this.postService.createNewPost(newPostDto);
