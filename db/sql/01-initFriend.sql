@@ -1,4 +1,4 @@
-CREATE TABLE user (id BIGINT auto_increment PRIMARY KEY,
+CREATE TABLE user (id VARCHAR(255)  PRIMARY KEY,
                    first_name VARCHAR(255),
                    last_name VARCHAR(255),
                    birthdate DATE,
@@ -7,4 +7,5 @@ CREATE TABLE user (id BIGINT auto_increment PRIMARY KEY,
                    city VARCHAR(255),
                    sign_in_date TIMESTAMP,
                    username VARCHAR(255),
-                   password VARCHAR(255));
+                   is_new BOOLEAN
+                   );
