@@ -1,6 +1,5 @@
 package mjp.socialnetwork.friend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
@@ -17,7 +16,7 @@ import java.sql.Timestamp;
 public class User {
 
     @Id
-    private Long id;
+    private String id;
 
     private String firstName;
     private String lastName;
@@ -27,8 +26,6 @@ public class User {
     private String city;
     private Timestamp signInDate;
     private String username;
-
-    @JsonIgnore
-    private String password;
+    private Boolean isNew;
 
 }

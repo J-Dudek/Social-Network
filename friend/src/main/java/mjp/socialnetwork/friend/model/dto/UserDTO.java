@@ -27,12 +27,14 @@ public class UserDTO {
     @JsonView(UserViews.Friends.class)
     private String username;
     @JsonView(UserViews.Admin.class)
-    private String password;
+    private Boolean isNew;
+
+
 
     public UserDTO() {
     }
 
-    public UserDTO(Long idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate,String username, String password) {
+    public UserDTO(Long idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate,String username, Boolean isNew) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,9 +44,9 @@ public class UserDTO {
         this.city = city;
         this.signInDate = signInDate;
         this.username = username;
-        this.password = password;
+        this.isNew = isNew;
     }
-    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username,String password) {
+    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username,Boolean isNew) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -53,7 +55,7 @@ public class UserDTO {
         this.city = city;
         this.signInDate = signInDate;
         this.username= username;
-        this.password = password;
+        this.isNew = isNew;
     }
 
     public Long getIdUser() {
@@ -120,15 +122,15 @@ public class UserDTO {
         this.signInDate = signInDate;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username;}
-
-    public void setPassword(String password) {
-        this.password = password;
+    public Boolean getNew() {
+        return isNew;
     }
+
+    public void setNew(Boolean aNew) {
+        isNew = aNew;
+    }
+
 }
