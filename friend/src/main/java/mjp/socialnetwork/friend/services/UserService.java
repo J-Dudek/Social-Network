@@ -21,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
+    //TODO DELETE just for test
     public Flux<UserDTO> findAllUsers() {
          return userRepository.findAll().map(this::userToDTO);
     }
@@ -44,6 +45,8 @@ public class UserService {
                 });
     }
 
+
+
     /**
      *  Permet de mettre à jour un utilisateur
      * @param principal
@@ -56,7 +59,7 @@ public class UserService {
         userUpdated.setId(principal.getName());
         return userRepository.save(userUpdated);
     }
-    
+
 
 
     /**

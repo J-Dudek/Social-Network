@@ -23,8 +23,8 @@ public class UserController {
     private final UserService userService;
 
 
+    //TODO DELETE just for test
     @GetMapping(path = "/all")
-
     public Flux<UserDTO> findAllUsers() {
         System.out.println("Appel sans passer par partie sécu");
         try {
@@ -34,6 +34,7 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+    //TODO DELETE just for test
     @GetMapping(path = "/all2")
     public Flux<UserDTO> findAllUsers2(Principal principal) {
         System.out.println("Appel partie secu");
