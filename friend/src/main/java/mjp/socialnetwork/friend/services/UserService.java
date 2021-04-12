@@ -25,22 +25,38 @@ public class UserService {
          return userRepository.findAll().map(this::userToDTO);
     }
 
+    /**
+     * Recherche si l'utilisateur existe en base, si non, l'insert
+     * @param principal
+     * @return Mono user inséré ou trouvé en bdd
+     */
     @Transactional
     public Mono<User> logOrsign(Principal principal){
         return userRepository.existsById(principal.getName())
                 .flatMap(aBoolean -> {
                     if (!aBoolean) {
                         User newUser = User.builder().id(principal.getName()).newUser(true).build();
-                        System.out.println("NewUser : "+newUser.toString());
                         return userRepository.save(newUser);
                     } else {
                         Mono<User> user = userRepository.findById(principal.getName());
-                        System.out.println("Exist : "+user.toString());
                         return user;
                     }
                 });
     }
 
+    /**
+     *  Permet de mettre à jour un utilisateur
+     * @param principal
+     * @param userDTO
+     * @return
+     */
+    @Transactional
+    public Mono<User> updateUser(Principal principal,UserDTO userDTO){
+        User userUpdated = dtoToUser(userDTO);
+        userUpdated.setId(principal.getName());
+        return userRepository.save(userUpdated);
+    }
+    
 
 
     /**
