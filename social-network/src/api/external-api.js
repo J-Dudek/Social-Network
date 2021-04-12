@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useAuth0} from "@auth0/auth0-react";
+import React, { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ExternalApi = () => {
     const [message, setMessage] = useState("");
@@ -9,7 +9,7 @@ const ExternalApi = () => {
 
     const callApi = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/posts/all`);
+            const response = await fetch(`${serverUrl}/posts/all`);
 
             const responseData = await response.json();
 
@@ -24,7 +24,7 @@ const ExternalApi = () => {
             const token = await getAccessTokenSilently();
 
             const response = await fetch(
-                `http://localhost:8080/posts/all2`,
+                `${serverUrl}/friends/users/all2`,
                 {
                     method: 'GET',
                     headers: {
