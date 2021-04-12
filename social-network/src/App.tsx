@@ -1,24 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import {useAuth0} from "@auth0/auth0-react";
+import {Switch} from "react-router-dom";
 import './App.css';
+import Loading from './components/animations/Loading';
+import NavBar from './components/navbar/NavBar'
+import Profile from './components/identity/profile'
+import ProtectedRoute from "./auth/protected-route";
+import ExternalApi from './api/external-api';
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to the M1IIIS2 project : Social Network
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <div id="app" className="d-flex flex-column h-100">
+      <NavBar />
+      <div className="container flex-grow-1">
+        <Switch>
+          
+          <ProtectedRoute path="/profile" component={Profile} />
+          <ProtectedRoute path="/external-api" component={ExternalApi} />
+        </Switch>
+      </div>
     </div>
   );
 }
