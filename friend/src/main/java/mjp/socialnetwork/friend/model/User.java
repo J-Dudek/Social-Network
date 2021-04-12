@@ -2,6 +2,8 @@ package mjp.socialnetwork.friend.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -13,7 +15,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Data
 @Builder
-public class User {
+public class User implements Persistable {
 
     @Id
     private String id;
@@ -26,6 +28,20 @@ public class User {
     private String city;
     private Timestamp signInDate;
     private String username;
-    private Boolean isNew;
+
+
+    @Transient
+    private boolean newUser;
+
+    @Override
+    @Transient
+    public boolean isNew() {
+        return this.newUser || id == null;
+    }
+
+    public User setAsNew(){
+        this.newUser = true;
+        return this;
+    }
 
 }

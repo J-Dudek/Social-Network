@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 public class UserDTO {
 
     @JsonView(UserViews.Private.class)
-    private Long idUser;
+    private String idUser;
     @JsonView(UserViews.Public.class)
     private String firstName;
     @JsonView(UserViews.Public.class)
@@ -26,15 +26,14 @@ public class UserDTO {
     private Timestamp signInDate;
     @JsonView(UserViews.Friends.class)
     private String username;
-    @JsonView(UserViews.Admin.class)
-    private Boolean isNew;
+
 
 
 
     public UserDTO() {
     }
 
-    public UserDTO(Long idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate,String username, Boolean isNew) {
+    public UserDTO(String idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate,String username) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,9 +43,9 @@ public class UserDTO {
         this.city = city;
         this.signInDate = signInDate;
         this.username = username;
-        this.isNew = isNew;
+
     }
-    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username,Boolean isNew) {
+    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -55,14 +54,14 @@ public class UserDTO {
         this.city = city;
         this.signInDate = signInDate;
         this.username= username;
-        this.isNew = isNew;
+
     }
 
-    public Long getIdUser() {
+    public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
@@ -125,12 +124,6 @@ public class UserDTO {
     public String getUsername() { return username; }
 
     public void setUsername(String username) { this.username = username;}
-    public Boolean getNew() {
-        return isNew;
-    }
 
-    public void setNew(Boolean aNew) {
-        isNew = aNew;
-    }
 
 }
