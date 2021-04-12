@@ -4,4 +4,15 @@ spring:
     active: @activatedProperties@
   application:
     name: gateway-app
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+
+
 management.endpoints.web.exposure.include: '*'
