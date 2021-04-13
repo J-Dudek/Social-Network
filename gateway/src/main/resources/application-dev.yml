@@ -4,10 +4,16 @@ spring.cloud.gateway.routes:
     uri: http://localhost:9020/
     predicates:
       - Path=/friends/**
+    filters:
+      # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+      - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
   - id: postModule
     uri: http://localhost:9010/
     predicates:
       - Path=/posts/**
+    filters:
+      # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+      - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
 
 spring:
   boot:

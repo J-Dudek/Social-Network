@@ -9,10 +9,9 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "http://localhost:3000"
             allowedMethods: "*"
             allowedHeaders: "*"
-
 
 
 management.endpoints.web.exposure.include: '*'

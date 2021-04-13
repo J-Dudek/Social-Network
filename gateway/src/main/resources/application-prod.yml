@@ -4,10 +4,16 @@ spring.cloud.gateway.routes:
     uri: http://juliendudek.synology.me:20204/
     predicates:
       - Path=/friends/**
+    filters:
+      # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+      - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
   - id: postModule
     uri: http://juliendudek.synology.me:20205/
     predicates:
       - Path=/posts/**
+    filters:
+      # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+      - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
 
 spring:
   boot:
@@ -16,5 +22,6 @@ spring:
         url: http://juliendudek.synology.me:20201/
         instance:
           service-base-url: http://juliendudek.synology.me:20203
+
 application:
   current-profile: prod
