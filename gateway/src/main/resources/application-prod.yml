@@ -27,7 +27,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:20203"
+            allowedOrigins: "https://juliendudek.synology.me:20206"
             allowedMethods: "*"
             allowedHeaders: "*"
 
