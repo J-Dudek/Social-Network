@@ -21,7 +21,7 @@ spring:
       client:
         url: http://juliendudek.synology.me:20201/
         instance:
-          service-base-url: http://juliendudek.synology.me:20203
+          service-base-url: https://juliendudek.synology.me:3002/
   cloud:
     gateway:
       globalcors:
