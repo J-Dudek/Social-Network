@@ -22,6 +22,14 @@ spring:
         url: http://juliendudek.synology.me:20201/
         instance:
           service-base-url: http://juliendudek.synology.me:20203
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "https://juliendudek.synology.me:3001/"
+            allowedMethods: "*"
+            allowedHeaders: "*"
 
 application:
   current-profile: prod
