@@ -7,19 +7,8 @@ const ExternalApi = () => {
 
     const { getAccessTokenSilently } = useAuth0();
 
+
     const callApi = async () => {
-        try {
-            const response = await fetch(`${serverUrl}/posts/all`);
-
-            const responseData = await response.json();
-
-            setMessage(JSON.stringify(responseData));
-        } catch (error) {
-            setMessage(error.message);
-        }
-    };
-
-    const callSecureApi = async () => {
         try {
             const token = await getAccessTokenSilently();
 
@@ -41,6 +30,30 @@ const ExternalApi = () => {
         }
     };
 
+    const callSecureApi = async () => {
+        try {
+            const token = await getAccessTokenSilently();
+
+            const response = await fetch(
+                `${serverUrl}/posts/all2`,
+                {
+                    method: 'GET',
+                    mode: "cors",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                }
+            );
+
+            const responseData = await response.json();
+
+            setMessage(JSON.stringify(responseData));
+        } catch (error) {
+            setMessage(error.message);
+        }
+    };
+
     return (
         <div className="container">
             <h1>External API</h1>
@@ -50,20 +63,20 @@ const ExternalApi = () => {
                 the access token using the Auth0 Audience value.
       </p>
             <div
-                className="btn-group mt-5"
+                className="btn-
+                group mt-5"
                 role="group"
                 aria-label="External API Requests Examples"
             >
-                <button type="button" className="btn btn-primary" onClick={callApi}>
-                    Get Public Message
+                <button className="py-2  px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75" type="button" onClick={callApi}>
+                    fetch private users
         </button>
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={callSecureApi}
-                >
-                    Get Protected Message
-        </button>
+
+                <button className="py-2 ml-8 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75" type="button"
+                    onClick={callSecureApi}>
+                    All post appel secure
+                    </button>
+
             </div>
             {message && (
                 <div className="mt-5">
@@ -80,3 +93,4 @@ const ExternalApi = () => {
 };
 
 export default ExternalApi;
+
