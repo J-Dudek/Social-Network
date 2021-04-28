@@ -1,4 +1,4 @@
-package mjp.socialnetwork.friend.controllers.auth;
+package mjp.socialnetwork.friend.controllers;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.exceptions.errors.SocialNetworkException;
