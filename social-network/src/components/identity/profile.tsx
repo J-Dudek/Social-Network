@@ -10,7 +10,7 @@ const Profile = () => {
 
     return (
         
-        <div class="ui centered card">
+        <div className="ui centered card">
             <Card>
               <Image src={picture} wrapped ui={false} />
               <Card.Content>
