@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+button > a {
+  color: white;
+}
+
+.Footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 35px;
+}
