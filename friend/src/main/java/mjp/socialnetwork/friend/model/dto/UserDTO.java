@@ -1,11 +1,12 @@
 package mjp.socialnetwork.friend.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Builder;
 import mjp.socialnetwork.friend.views.UserViews;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-
+@Builder
 public class UserDTO {
 
     @JsonView(UserViews.Private.class)

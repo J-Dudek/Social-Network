@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.exceptions.errors.SocialNetworkException;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import java.security.Principal;
 @RequestMapping(path = "/friends/users")
 public class UserController {
 
-
+    @Autowired
     private final UserService userService;
 
 

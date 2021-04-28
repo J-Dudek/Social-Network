@@ -32,11 +32,3 @@ spring:
             allowedHeaders: "*"
 application:
   current-profile: prod
-logging:
-  level:
-    reactor:
-      netty: INFO
-    org:
-      springframework:
-        cloud:
-          gateway: TRACE
