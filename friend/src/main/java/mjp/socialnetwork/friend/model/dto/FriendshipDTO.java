@@ -1,52 +1,77 @@
 package mjp.socialnetwork.friend.model.dto;
 
-import java.sql.Timestamp;
+import lombok.Builder;
 
+import java.sql.Date;
+@Builder
 public class FriendshipDTO {
 
-    private Long firstUserId;
-    private Long secondUserId;
-    private Timestamp friendshipDate;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    private Long id;
+    private String firstUserId;
+    private String secondUserId;
+    private Date friendshipDate;
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    private Boolean status;
 
     public FriendshipDTO() {
     }
 
-    public FriendshipDTO(Long firstUserId, Long secondUserId, Timestamp friendshipDate) {
+    public FriendshipDTO(Long id,String firstUserId, String secondUserId, Date friendshipDate, boolean status) {
+        this.id = id;
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
         this.friendshipDate = friendshipDate;
+        this.status=status;
     }
 
-    public Long getFirstUserId() {
+    public String getFirstUserId() {
         return firstUserId;
     }
 
-    public void setFirstUserId(Long firstUserId) {
+    public void setFirstUserId(String firstUserId) {
         this.firstUserId = firstUserId;
     }
 
-    public Long getSecondUserId() {
+    public String getSecondUserId() {
         return secondUserId;
     }
 
-    public void setSecondUserId(Long secondUserId) {
+    public void setSecondUserId(String secondUserId) {
         this.secondUserId = secondUserId;
     }
 
-    public Timestamp getFriendshipDate() {
+    public Date getFriendshipDate() {
         return friendshipDate;
     }
 
-    public void setFriendshipDate(Timestamp friendshipDate) {
+    public void setFriendshipDate(Date friendshipDate) {
         this.friendshipDate = friendshipDate;
     }
 
     @Override
     public String toString() {
         return "FriendshipDTO{" +
+                "id= "+ id +
                 "firstUserId=" + firstUserId +
                 ", secondUserId=" + secondUserId +
                 ", friendshipDate=" + friendshipDate +
+                ", status= "+ status+
                 '}';
     }
 }

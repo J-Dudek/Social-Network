@@ -1,20 +1,41 @@
 package mjp.socialnetwork.friend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Friendship {
+@Builder
+public class Friendship implements Persistable {
 
     @Id
-    private Long firstUserId;
-    private Long secondUserId;
+    private Long id;
 
-    private Timestamp friendshipDate;
+    private String firstUserId;
+    private String secondUserId;
+
+    private Date friendshipDate;
+    private boolean status;
+
+    @Transient
+    private boolean newFriendShip;
+
+
+    @Override
+    @Transient
+    public boolean isNew() {
+        return this.newFriendShip || id == null;
+    }
+
+    public Friendship setAsNew(){
+        this.newFriendShip = true;
+        return this;
+    }
 }
