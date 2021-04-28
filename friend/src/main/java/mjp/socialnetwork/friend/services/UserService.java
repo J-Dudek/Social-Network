@@ -67,7 +67,13 @@ public class UserService {
         return userRepository.save(userUpdated);
     }
 
-
+    /**
+     * Suppression de l'user qui fait appel à la methode.
+     * @param principal
+     */
+    public void deleteUserById(Principal principal){
+        userRepository.deleteById(principal.getName());
+    }
 
     /**
      * permet de convertir user en DTO

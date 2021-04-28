@@ -60,5 +60,14 @@ public class UserController {
         }
     }
 
+    @DeleteMapping(path = "/delete/")
+    public void deleteUserById(Principal principal) {
+        try {
+            this.userService.deleteUserById(principal);
+        } catch (SocialNetworkException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
