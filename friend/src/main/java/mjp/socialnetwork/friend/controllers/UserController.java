@@ -8,10 +8,7 @@ import mjp.socialnetwork.friend.services.UserService;
 import mjp.socialnetwork.friend.views.UserViews;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -52,6 +49,15 @@ public class UserController {
     public Mono<UserDTO> findUserByUserId(@PathVariable("userId") String userId){
 
         return userService.findById(userId).map(userService::userToDTO);
+    }
+
+    @PutMapping(path = "/update")
+    public Mono<UserDTO> updateUser(Principal principal,@RequestBody UserDTO newUserDto) {
+        try {
+            return this.userService.updateUser(principal,newUserDto).map(userService::userToDTO);
+        } catch (SocialNetworkException exception) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
 

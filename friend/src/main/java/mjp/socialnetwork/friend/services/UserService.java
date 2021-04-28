@@ -45,14 +45,19 @@ public class UserService {
                 });
     }
 
+    /**
+     * Recuperation d'un utilisateur en passant son id technique en parametre
+     * @param userId
+     * @return
+     */
     public Mono<User> findById(String userId){
         return userRepository.findById(userId);
     }
 
     /**
      *  Permet de mettre à jour un utilisateur
-     * @param principal
-     * @param userDTO
+     * @param principal l'utilisateur connecte
+     * @param userDTO les données mise à jour
      * @return
      */
     @Transactional
