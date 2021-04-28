@@ -68,6 +68,16 @@ public class UserService {
     }
 
     /**
+     * Permet de rechercher les utilisateur ayant un nom ou un prenom qui like
+     * @param firstname
+     * @param lastname
+     * @return
+     */
+    public Flux<User> findByfirstOrlastNameLike(String firstname, String lastname){
+        return userRepository.findUsersByFirstNameLikeOrLastNameLike(firstname,lastname);
+    }
+
+    /**
      * Suppression de l'user qui fait appel à la methode.
      * @param principal
      */

@@ -67,5 +67,12 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = "/{firstName}/{lastName}")
+    @JsonView(UserViews.Public.class)
+    public Flux<UserDTO> findUsersByFirstNameOrLastName(@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName){
+
+        return userService.findByfirstOrlastNameLike(firstName,lastName).map(userService::userToDTO);
+    }
+
 
 }
