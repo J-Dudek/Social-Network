@@ -45,7 +45,9 @@ public class UserService {
                 });
     }
 
-
+    public Mono<User> findById(String userId){
+        return userRepository.findById(userId);
+    }
 
     /**
      *  Permet de mettre à jour un utilisateur
