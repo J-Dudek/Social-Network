@@ -3,10 +3,13 @@ import {useAuth0} from "@auth0/auth0-react";
 import {Switch} from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 import Loading from './components/animations/Loading';
-import HeaderComponent from './components/header'
-import Profile from './components/identity/profile'
+import HeaderComponent from './header'
+import Footer from './components/footer/footer'
+import Profile from './components/header/profile'
 import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from './api/external-api';
+import './App.css';
+
 
 function App() {
   const { isLoading } = useAuth0();
@@ -23,9 +26,12 @@ function App() {
           {/* <Profile /> */}
           <ProtectedRoute path="/profile" component={Profile} />
           <ProtectedRoute path="/external-api" component={ExternalApi} />
-        </Switch>
-      </div>
+        </Switch>        
+      </div>      
+      <Footer />            
     </div>
+    
+    
   );
 }
 
