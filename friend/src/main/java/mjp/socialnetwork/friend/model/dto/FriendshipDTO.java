@@ -6,14 +6,6 @@ import java.sql.Date;
 @Builder
 public class FriendshipDTO {
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     private Long id;
     private String firstUserId;
     private String secondUserId;
@@ -62,6 +54,14 @@ public class FriendshipDTO {
 
     public void setFriendshipDate(Date friendshipDate) {
         this.friendshipDate = friendshipDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
