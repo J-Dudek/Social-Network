@@ -1,5 +1,6 @@
 import React from "react";
 import AuthenticationButton from './identity/authentication-button'
+import Logo from './identity/logo'
 import {Header,  Segment } from 'semantic-ui-react'
 
 const HeaderComponent = () => (
@@ -8,7 +9,7 @@ const HeaderComponent = () => (
         <AuthenticationButton />                   
       </Header>
       <Header as='h2' floated='left'>
-        LOGO
+        <Logo />
       </Header>
     </Segment>
   )

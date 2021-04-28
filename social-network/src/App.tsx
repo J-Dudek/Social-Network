@@ -14,13 +14,13 @@ function App() {
   if (isLoading) {
     return <Loading />;
   }
-
+ 
   return (
      <div id="app" className="d-flex flex-column h-100">
       <HeaderComponent />
       <div className="container flex-grow-1">
         <Switch>
-          
+          {/* <Profile /> */}
           <ProtectedRoute path="/profile" component={Profile} />
           <ProtectedRoute path="/external-api" component={ExternalApi} />
         </Switch>
