@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Image } from 'semantic-ui-react'
+import {Card, Icon, Image} from 'semantic-ui-react'
 
 import {useAuth0} from "@auth0/auth0-react";
 

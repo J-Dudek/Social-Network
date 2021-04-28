@@ -1,7 +1,7 @@
 import React from "react";
 import AuthenticationButton from './components/header/authentication-button'
 import Logo from './components/header/logo'
-import {Header,  Segment } from 'semantic-ui-react'
+import {Header, Segment} from 'semantic-ui-react'
 
 const HeaderComponent = () => (
     <Segment clearing>
