@@ -26,10 +26,8 @@ public class UserController {
 
 
 
-    @GetMapping(path = "/all2")
+    @GetMapping(path = "/all")
     public Flux<UserDTO> findAllUsers2(Principal principal) {
-        System.out.println("Appel partie secu");
-        System.out.println("ID = " + principal.getName());
         try {
             return this.userService.findAllUsers();
         } catch (
