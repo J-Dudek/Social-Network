@@ -45,12 +45,19 @@ public class UserService {
                 });
     }
 
-
+    /**
+     * Recuperation d'un utilisateur en passant son id technique en parametre
+     * @param userId
+     * @return
+     */
+    public Mono<User> findById(String userId){
+        return userRepository.findById(userId);
+    }
 
     /**
      *  Permet de mettre à jour un utilisateur
-     * @param principal
-     * @param userDTO
+     * @param principal l'utilisateur connecte
+     * @param userDTO les données mise à jour
      * @return
      */
     @Transactional
@@ -60,7 +67,23 @@ public class UserService {
         return userRepository.save(userUpdated);
     }
 
+    /**
+     * Permet de rechercher les utilisateur ayant un nom ou un prenom qui like
+     * @param firstname
+     * @param lastname
+     * @return
+     */
+    public Flux<User> findByfirstOrlastNameLike(String firstname, String lastname){
+        return userRepository.findUsersByFirstNameLikeOrLastNameLike(firstname,lastname);
+    }
 
+    /**
+     * Suppression de l'user qui fait appel à la methode.
+     * @param principal
+     */
+    public void deleteUserById(Principal principal){
+        userRepository.deleteById(principal.getName());
+    }
 
     /**
      * permet de convertir user en DTO

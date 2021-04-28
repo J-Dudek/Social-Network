@@ -5,7 +5,7 @@ import lombok.Builder;
 import mjp.socialnetwork.friend.views.UserViews;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
 @Builder
 public class UserDTO {
 
@@ -24,7 +24,7 @@ public class UserDTO {
     @JsonView(UserViews.Friends.class)
     private String city;
     @JsonView(UserViews.Friends.class)
-    private Timestamp signInDate;
+    private Date signInDate;
     @JsonView(UserViews.Friends.class)
     private String username;
 
@@ -34,7 +34,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate,String username) {
+    public UserDTO(String idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Date signInDate, String username) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,7 +46,7 @@ public class UserDTO {
         this.username = username;
 
     }
-    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username) {
+    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Date signInDate, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -114,11 +114,11 @@ public class UserDTO {
         this.city = city;
     }
 
-    public Timestamp getSignInDate() {
+    public Date getSignInDate() {
         return signInDate;
     }
 
-    public void setSignInDate(Timestamp signInDate) {
+    public void setSignInDate(Date signInDate) {
         this.signInDate = signInDate;
     }
 
