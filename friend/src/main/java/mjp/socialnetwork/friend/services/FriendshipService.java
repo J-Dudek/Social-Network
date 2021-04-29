@@ -32,6 +32,11 @@ public class FriendshipService {
         return friendshipRepository.findAllByFirstUserId(principal.getName());
     }
 
+    /**
+     * Recupere les invitations que l'on a recus
+     * @param principal
+     * @return
+     */
     public Flux<Friendship> findInvitationReceived(Principal principal){
         return friendshipRepository.findAllBySecondUserId(principal.getName());
     }
@@ -55,6 +60,12 @@ public class FriendshipService {
         return friendshipRepository.save(friendship);
     }
 
+    /**
+     * Cré le liens d'mmitié entre deux être :)
+     * @param principal
+     * @param idInvitation
+     * @return
+     */
     public Mono<Friendship> acceptInvitation(Principal principal,Long idInvitation){
         Friendship friendship = Friendship.builder().
                 id(idInvitation)
@@ -64,6 +75,66 @@ public class FriendshipService {
                 .build();
         return friendshipRepository.save(friendship);
     }
+
+    /**
+     * Annule une invitation envoyée
+     * @param principal
+     * @param idInvitation
+     * @return
+     */
+    public Mono<Friendship> cancelPendingInvitation(Principal principal,Long idInvitation){
+        return friendshipRepository.findByFirstUserIdAndId(principal.getName(),idInvitation).flatMap(
+                invit -> this.friendshipRepository
+                        .deleteById(invit.getId())
+                        .thenReturn(invit)
+        );
+    }
+
+    /**
+     * Rejet d'une invitation reçus, provoque un delete
+     * @param principal
+     * @param idInvitation
+     * @return
+     */
+    public Mono<Friendship> rejectInvitation(Principal principal,Long idInvitation){
+        return this.friendshipRepository
+                .findBySecondUserIdAndId(principal.getName(), idInvitation)
+                .flatMap(
+                        invit -> this.friendshipRepository
+                                .deleteById(invit.getId())
+                                .thenReturn(invit)
+                );
+    }
+
+    /**
+     * Quand il y a rupture entre 2 amis :'(
+     * @param principal
+     * @param secondUserId
+     * @return
+     */
+    public Mono<Friendship> deleteRelation(Principal principal,String secondUserId){
+        return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
+                .flatMap(aBoolean -> {
+                    if (aBoolean) {
+                         return friendshipRepository.findByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
+                                .flatMap(invit-> {
+                                    assert invit.getId() != null;
+                                     return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit);
+                                });
+
+                    } else {
+                         return friendshipRepository.findByFirstUserIdAndSecondUserId(secondUserId, principal.getName())
+                                .flatMap(invit-> {
+                                    assert invit.getId() != null;
+                                     return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit);
+                                });
+                    }
+
+                });
+
+    }
+
+
     /**
      * Mapper de friendship en friendshipDTO
      * @param friendship
