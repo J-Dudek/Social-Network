@@ -4,22 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mjp.socialnetwork.post.model.Post;
 import mjp.socialnetwork.post.model.dto.PostDTO;
-import mjp.socialnetwork.post.repositories.PostRepository;
 import mjp.socialnetwork.post.services.PostService;
 import org.modelmapper.ModelMapper;
 import org.reactivestreams.Publisher;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
 @Slf4j
+@Component
 public class PostHandler {
 
     private final PostService postService;
     private final ModelMapper modelMapper;
-    private final PostRepository postRepository;
 
     Mono<ServerResponse> findAll(ServerRequest serverRequest) {
         log.debug(serverRequest.toString());
