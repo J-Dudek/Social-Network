@@ -13,7 +13,7 @@ const ExternalApi = () => {
             const token = await getAccessTokenSilently();
 
             const response = await fetch(
-                `${serverUrl}/friends/users/all2`,
+                `${serverUrl}/friends/users/all`,
                 {
                     method: 'GET',
                     headers: {
