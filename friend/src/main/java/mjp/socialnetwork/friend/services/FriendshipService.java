@@ -7,6 +7,7 @@ import mjp.socialnetwork.friend.repositories.FriendshipRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
@@ -22,6 +23,18 @@ public class FriendshipService {
     private final ModelMapper modelMapper;
     private final FriendshipRepository friendshipRepository;
 
+    /**
+     * Recupere les invitations envoyées
+     * @param principal
+     * @return
+     */
+    public Flux<Friendship> findInvitationSent(Principal principal){
+        return friendshipRepository.findAllByFirstUserId(principal.getName());
+    }
+
+    public Flux<Friendship> findInvitationReceived(Principal principal){
+        return friendshipRepository.findAllBySecondUserId(principal.getName());
+    }
 
     /**
      * Permet de créer une invitation
