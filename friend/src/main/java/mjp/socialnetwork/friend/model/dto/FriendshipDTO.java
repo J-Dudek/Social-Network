@@ -2,14 +2,15 @@ package mjp.socialnetwork.friend.model.dto;
 
 import lombok.Builder;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
 @Builder
 public class FriendshipDTO {
 
     private Long id;
     private String firstUserId;
     private String secondUserId;
-    private Date friendshipDate;
+    private Timestamp friendshipDate;
 
     public Boolean getStatus() {
         return status;
@@ -24,7 +25,7 @@ public class FriendshipDTO {
     public FriendshipDTO() {
     }
 
-    public FriendshipDTO(Long id,String firstUserId, String secondUserId, Date friendshipDate, boolean status) {
+    public FriendshipDTO(Long id, String firstUserId, String secondUserId, Timestamp friendshipDate, boolean status) {
         this.id = id;
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
@@ -48,11 +49,11 @@ public class FriendshipDTO {
         this.secondUserId = secondUserId;
     }
 
-    public Date getFriendshipDate() {
+    public Timestamp getFriendshipDate() {
         return friendshipDate;
     }
 
-    public void setFriendshipDate(Date friendshipDate) {
+    public void setFriendshipDate(Timestamp friendshipDate) {
         this.friendshipDate = friendshipDate;
     }
 

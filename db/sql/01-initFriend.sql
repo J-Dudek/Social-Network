@@ -5,15 +5,15 @@ CREATE TABLE user (id VARCHAR(255)  PRIMARY KEY,
                    email VARCHAR(255),
                    phone_number VARCHAR(255),
                    city VARCHAR(255),
-                   sign_in_date DATE,
+                   sign_in_date TIMESTAMP,
                    username VARCHAR(255),
                    is_new BOOLEAN
                    );
 create table frienship (
                            id bigint,
                            first_user_id VARCHAR(255),
-                           second_user_id INT VARCHAR(255),
-                           friendship_date DATE,
+                           second_user_id VARCHAR(255),
+                           friendship_date TIMESTAMP,
                            status BOOLEAN,
                            is_new BOOLEAN
 );
