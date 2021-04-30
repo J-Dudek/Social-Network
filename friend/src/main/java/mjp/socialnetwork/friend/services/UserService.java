@@ -11,6 +11,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @AllArgsConstructor
@@ -36,7 +38,7 @@ public class UserService {
         return userRepository.existsById(principal.getName())
                 .flatMap(aBoolean -> {
                     if (!aBoolean) {
-                        User newUser = User.builder().id(principal.getName()).newUser(true).build();
+                        User newUser = User.builder().id(principal.getName()).signInDate(Timestamp.valueOf(LocalDateTime.now())).newUser(true).build();
                         return userRepository.save(newUser);
                     } else {
                         Mono<User> user = userRepository.findById(principal.getName());
