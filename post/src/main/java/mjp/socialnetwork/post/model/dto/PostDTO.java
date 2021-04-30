@@ -1,72 +1,26 @@
 package mjp.socialnetwork.post.model.dto;
 
-import lombok.Builder;
+import lombok.*;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class PostDTO {
 
     private Long idPost;
     private String message;
-    private LocalDateTime publicationDate;
+    private Timestamp publicationDate;
     private boolean isPublic;
     private String userId;
 
-    public PostDTO() {
-    }
-
-    public PostDTO(Long idPost, String message, LocalDateTime publicationDate, boolean isPublic, String userId) {
-        this.idPost = idPost;
+    public PostDTO(String message, Timestamp publicationDate, boolean isPublic, String userId) {
         this.message = message;
         this.publicationDate = publicationDate;
         this.isPublic = isPublic;
-        this.userId = userId;
-    }
-    public PostDTO(String message, LocalDateTime publicationDate, boolean isPublic, String userId) {
-        this.message = message;
-        this.publicationDate = publicationDate;
-        this.isPublic = isPublic;
-        this.userId = userId;
-    }
-
-    public Long getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(Long idPost) {
-        this.idPost = idPost;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(LocalDateTime publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    public void setPublic(boolean aPublic) {
-        isPublic = aPublic;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
         this.userId = userId;
     }
 }
