@@ -37,8 +37,6 @@ public class SecurityConfig {
                 .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .pathMatchers( "/actuator/**").permitAll()
-                        .pathMatchers( "/friends/users/all2").permitAll()
-                        .pathMatchers( HttpMethod.OPTIONS,"/friends/users/all").hasAuthority("SCOPE_profile")
                         .pathMatchers( HttpMethod.GET,"/friends/users/all").hasAuthority("SCOPE_profile")
                         .anyExchange().authenticated()
                 )
