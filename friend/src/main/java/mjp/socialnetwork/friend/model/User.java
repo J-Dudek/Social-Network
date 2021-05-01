@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Getter
@@ -25,7 +26,7 @@ public class User implements Persistable {
     private String email;
     private String phoneNumber;
     private String city;
-    private Date signInDate;
+    private Timestamp signInDate;
     private String username;
 
 

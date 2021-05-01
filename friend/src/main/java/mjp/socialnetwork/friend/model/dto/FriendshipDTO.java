@@ -1,35 +1,51 @@
 package mjp.socialnetwork.friend.model.dto;
 
+import lombok.Builder;
+
 import java.sql.Timestamp;
 
+@Builder
 public class FriendshipDTO {
 
-    private Long firstUserId;
-    private Long secondUserId;
+    private Long id;
+    private String firstUserId;
+    private String secondUserId;
     private Timestamp friendshipDate;
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    private Boolean status;
 
     public FriendshipDTO() {
     }
 
-    public FriendshipDTO(Long firstUserId, Long secondUserId, Timestamp friendshipDate) {
+    public FriendshipDTO(Long id, String firstUserId, String secondUserId, Timestamp friendshipDate, boolean status) {
+        this.id = id;
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
         this.friendshipDate = friendshipDate;
+        this.status=status;
     }
 
-    public Long getFirstUserId() {
+    public String getFirstUserId() {
         return firstUserId;
     }
 
-    public void setFirstUserId(Long firstUserId) {
+    public void setFirstUserId(String firstUserId) {
         this.firstUserId = firstUserId;
     }
 
-    public Long getSecondUserId() {
+    public String getSecondUserId() {
         return secondUserId;
     }
 
-    public void setSecondUserId(Long secondUserId) {
+    public void setSecondUserId(String secondUserId) {
         this.secondUserId = secondUserId;
     }
 
@@ -41,12 +57,22 @@ public class FriendshipDTO {
         this.friendshipDate = friendshipDate;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "FriendshipDTO{" +
+                "id= "+ id +
                 "firstUserId=" + firstUserId +
                 ", secondUserId=" + secondUserId +
                 ", friendshipDate=" + friendshipDate +
+                ", status= "+ status+
                 '}';
     }
 }

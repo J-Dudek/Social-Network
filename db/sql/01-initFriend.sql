@@ -5,10 +5,18 @@ CREATE TABLE user (id VARCHAR(255)  PRIMARY KEY,
                    email VARCHAR(255),
                    phone_number VARCHAR(255),
                    city VARCHAR(255),
-                   sign_in_date DATE,
+                   sign_in_date TIMESTAMP,
                    username VARCHAR(255),
                    is_new BOOLEAN
                    );
+create table frienship (
+                           id bigint,
+                           first_user_id VARCHAR(255),
+                           second_user_id VARCHAR(255),
+                           friendship_date TIMESTAMP,
+                           status BOOLEAN,
+                           is_new BOOLEAN
+);
 insert into user (id, first_name, last_name, birthdate, email, phone_number, city, sign_in_date, username, is_new) values ('1', 'Konstantine', 'Cooke', '1994-03-17 16:10:08', 'kcooke0@moonfruit.com', '425 672 4214', 'Pasuruan', '2021-01-07 13:57:26', 'kcooke0', false);
 insert into user (id, first_name, last_name, birthdate, email, phone_number, city, sign_in_date, username, is_new) values ('2', 'Kermie', 'Isakovitch', '1981-09-02 02:13:19', 'kisakovitch1@gizmodo.com', '196 960 4015', 'Ulme', '2021-04-06 08:52:58', 'kisakovitch1', false);
 insert into user (id, first_name, last_name, birthdate, email, phone_number, city, sign_in_date, username, is_new) values ('3', 'Chandal', 'Pyrton', '1984-12-24 04:30:21', 'cpyrton2@nih.gov', '370 847 2374', 'Brooklyn', '2020-05-23 19:04:51', 'cpyrton2', false);
