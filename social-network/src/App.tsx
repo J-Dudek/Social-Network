@@ -30,7 +30,7 @@ function App() {
         <div > 
             <Switch>
               {/* <Profile /> */}
-              <Route path="/"  component={ Home}/>
+              <Route exact path="/"  component={ Home}/>
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/external-api" component={ExternalApi} />
               <ProtectedRoute path="/users" component={User} />
