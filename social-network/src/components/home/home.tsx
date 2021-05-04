@@ -62,13 +62,10 @@ const Home = () =>  {
       if (isAuthenticated) {
           getInfos()
       }
-       // Execute the created function directly
-    //getInfos();
   }, [getAccessTokenSilently,isAuthenticated,serverUrl]);
   
     return (
         <>
-            <h1>WELCOME</h1>
             {/* Ici j'ai mis Users mais en soit ça serait mieux la liste des posts des amis*/}
             {(isAuthenticated) ?
                 ((users.email) ? (<Users />) : (<div><UpdateUser /></div>))
