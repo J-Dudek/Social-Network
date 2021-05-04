@@ -5,7 +5,7 @@ CREATE TABLE user (id VARCHAR(255)  PRIMARY KEY,
                    email VARCHAR(255),
                    phone_number VARCHAR(255),
                    city VARCHAR(255),
-                   sign_in_date TIMESTAMP,
+                   sign_in_date DATETIME,
                    username VARCHAR(255),
                    is_new BOOLEAN
                    );

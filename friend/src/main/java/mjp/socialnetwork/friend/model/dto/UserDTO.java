@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Builder;
 import mjp.socialnetwork.friend.views.UserViews;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 public class UserDTO {
@@ -17,7 +17,7 @@ public class UserDTO {
     @JsonView(UserViews.Public.class)
     private String lastName;
     @JsonView(UserViews.Friends.class)
-    private Date birthdate;
+    private LocalDate birthdate;
     @JsonView(UserViews.Friends.class)
     private String email;
     @JsonView(UserViews.Friends.class)
@@ -25,7 +25,7 @@ public class UserDTO {
     @JsonView(UserViews.Friends.class)
     private String city;
     @JsonView(UserViews.Friends.class)
-    private Timestamp signInDate;
+    private LocalDateTime signInDate;
     @JsonView(UserViews.Friends.class)
     private String username;
 
@@ -35,7 +35,7 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String idUser, String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username) {
+    public UserDTO(String idUser, String firstName, String lastName, LocalDate birthdate, String email, String phoneNumber, String city, LocalDateTime signInDate, String username) {
         this.idUser = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,7 +47,7 @@ public class UserDTO {
         this.username = username;
 
     }
-    public UserDTO(String firstName, String lastName, Date birthdate, String email, String phoneNumber, String city, Timestamp signInDate, String username) {
+    public UserDTO(String firstName, String lastName, LocalDate birthdate, String email, String phoneNumber, String city, LocalDateTime signInDate, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
@@ -83,11 +83,11 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -115,11 +115,11 @@ public class UserDTO {
         this.city = city;
     }
 
-    public Timestamp getSignInDate() {
+    public LocalDateTime getSignInDate() {
         return signInDate;
     }
 
-    public void setSignInDate(Timestamp signInDate) {
+    public void setSignInDate(LocalDateTime signInDate) {
         this.signInDate = signInDate;
     }
 

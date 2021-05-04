@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, Icon, Image} from 'semantic-ui-react'
 
+
 import {useAuth0} from "@auth0/auth0-react";
 
 
@@ -23,14 +24,15 @@ const Profile = () => {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <a>
+                <div>
                   <Icon name='user' />
                   ici le nobre d'ami
-                </a>
+                </div>
               </Card.Content>
             </Card>
             
         </div>
+        
     );
 };
 
