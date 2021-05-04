@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 
@@ -38,7 +38,12 @@ public class UserService {
         return userRepository.existsById(principal.getName())
                 .flatMap(aBoolean -> {
                     if (!aBoolean) {
-                        User newUser = User.builder().id(principal.getName()).signInDate(Timestamp.valueOf(LocalDateTime.now())).newUser(true).build();
+                        User newUser = User.builder()
+                                .id(principal.getName())
+                                .signInDate(LocalDateTime.now())
+                                .isNew(true) // for stats
+                                .newUser(true) //transcient
+                                .build();
                         return userRepository.save(newUser);
                     } else {
                         Mono<User> user = userRepository.findById(principal.getName());
@@ -64,9 +69,22 @@ public class UserService {
      */
     @Transactional
     public Mono<User> updateUser(Principal principal,UserDTO userDTO){
-        User userUpdated = dtoToUser(userDTO);
-        userUpdated.setId(principal.getName());
-        return userRepository.save(userUpdated);
+
+        return userRepository
+                .findById(principal.getName())
+                .map(user -> {
+                    user.setFirstName(userDTO.getFirstName());
+                    user.setLastName(userDTO.getLastName());
+                    user.setBirthdate(userDTO.getBirthdate());
+                    user.setUsername(userDTO.getUsername());
+                    user.setEmail(userDTO.getEmail());
+                    user.setPhoneNumber(userDTO.getPhoneNumber());
+                    user.setCity(userDTO.getCity());
+                    user.setIsNew(false);
+                    return user;
+                })
+                .flatMap(this.userRepository::save);
+
     }
 
     /**
@@ -102,7 +120,16 @@ public class UserService {
      * @return
      */
     public User dtoToUser(UserDTO userDTO){
-        return modelMapper.map(userDTO,User.class);
+        return User.builder()
+                .id(userDTO.getIdUser())
+                .city(userDTO.getCity())
+                .email(userDTO.getEmail())
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .phoneNumber(userDTO.getPhoneNumber())
+                .birthdate(userDTO.getBirthdate().plusDays(1))
+        .build();
+
     }
 
 

@@ -13,9 +13,8 @@ public class PermissionFilter implements Converter<Map<String, Object>, Map<Stri
 
     public Map<String, Object> convert(Map<String, Object> claims) {
         Map<String, Object> convertedClaims = this.delegate.convert(claims);
-        List<String> userPermissions = (List<String>) convertedClaims.get("https://social-network.mjp/");
         String scope = (String) convertedClaims.get("scope");
-
+        List<String> userPermissions = (List<String>) convertedClaims.get("https://social-network.mjp/");
         convertedClaims.put("scope", scope + " " + userPermissions.stream().reduce("", (s, s2) -> s + " " + s2));
         return convertedClaims;
     }

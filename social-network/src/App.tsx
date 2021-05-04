@@ -1,15 +1,19 @@
-import React from 'react';
+
 import {useAuth0} from "@auth0/auth0-react";
-import {Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css'
 import Loading from './components/animations/Loading';
 import HeaderComponent from './header'
-import Footer from './components/footer/footer'
 import Profile from './components/header/profile'
+import User from "./components/friend/users";
+import Home from './components/home/home';
 import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from './api/external-api';
 import './App.css';
+import { QueryClient, QueryClientProvider } from 'react-query'
 
+
+const queryClient = new QueryClient()
 
 function App() {
   const { isLoading } = useAuth0();
@@ -19,19 +23,23 @@ function App() {
   }
  
   return (
+    <QueryClientProvider client={queryClient}>
      <div id="app" className="d-flex flex-column h-100">
       <HeaderComponent />
-      <div className="container flex-grow-1">
-        <Switch>
-          {/* <Profile /> */}
-          <ProtectedRoute path="/profile" component={Profile} />
-          <ProtectedRoute path="/external-api" component={ExternalApi} />
-        </Switch>        
-      </div>      
-      <Footer />            
+      <div className="ui center aligned grid">
+        <div > 
+            <Switch>
+              {/* <Profile /> */}
+              <Route path="/"  component={ Home}/>
+              <ProtectedRoute path="/profile" component={Profile} />
+              <ProtectedRoute path="/external-api" component={ExternalApi} />
+              <ProtectedRoute path="/users" component={User} />
+              
+            </Switch>       
+        </div>      
+      </div>               
     </div>
-    
-    
+    </QueryClientProvider>
   );
 }
 
