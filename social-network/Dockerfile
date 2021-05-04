@@ -1,21 +1,19 @@
-# pull official base image
 FROM node:14.5.0-alpine
 
-# set working directory
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
 RUN yarn install
+# If you are building your code for production
+# RUN npm install --only=production
 
-# add app
-COPY . ./
+# Bundle app source
+COPY . .
 
 EXPOSE 3000
-
-# start app
-CMD ["yarn", "start"]  
+CMD [ "yarn", "start" ]
