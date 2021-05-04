@@ -48,15 +48,8 @@ React.useEffect(() => {
       
     })
     .catch((ex) => {
-      let error = axios.isCancel(ex)
-        ? 'Request Cancelled'
-        : ex.code === 'ECONNABORTED'
-        ? 'A timeout has occurred'
-        : ex.response.status === 404
-        ? 'Resource Not Found'
-        : 'An unexpected error has occurred';
-
-      setError(error);
+       console.log(ex);
+      setError("error");
       
     });
     
