@@ -1,9 +1,9 @@
 import React from 'react';
 import axios  from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-import monkey from '../../images/monkeyInAsuit.jpg';
+import CardProfil from '../fonctionnals/cardProfil'
 
-import {Card, Image} from 'semantic-ui-react'
+import {Card,Input} from 'semantic-ui-react'
 
 interface IUser{
   idUser: number;
@@ -58,36 +58,22 @@ React.useEffect(() => {
   
 }, [getAccessTokenSilently]);
 
-return (
+  return (
+    <div>
+      <Input icon='users' iconPosition='left' placeholder='Search users...' />
   <div className="UserCards">
     
     <Card.Group>
     {users.map((user) =>(
-        <Card key={user.idUser}>
-            <Image
-              floated='right'
-              size='mini'
-              src={monkey}
-            />
-            <Card.Content>
-              <Card.Header>{user.firstName}  {user.lastName}</Card.Header>
-            </Card.Content>
-            <Card.Meta>Lives in : {user.city} Join : {user.signInDate}</Card.Meta>
-            <Card.Description>
-              <div>
-                Email : {user.email}
-              </div>
-              <div>
-                Phone : {user.phoneNumber}
-              </div>
-        </Card.Description>
-          </Card>
+      
+      <CardProfil user={user} key={ user.idUser}/>
       ))}
 
     </Card.Group>
     
     {error && <p className="error">{error}</p>}
-  </div>
+      </div>
+      </div>
 );
 };
 

@@ -16,5 +16,9 @@ public interface FriendshipRepository extends ReactiveCrudRepository<Friendship,
     Mono<Friendship> findByFirstUserIdAndId(String firstUserId,Long Id);
 
     Mono<Friendship> findByFirstUserIdAndSecondUserId(String firstUserId,String secondUserId);
+
     Mono<Boolean> existsFriendshipByFirstUserIdAndSecondUserId(String firstUserId,String secondUserId);
+
+    Flux<Friendship> findByFirstUserIdAndStatus(String firstUserId,Boolean status);
+    Flux<Friendship> findBySecondUserIdAndStatus(String secondUserId,Boolean status);
 }

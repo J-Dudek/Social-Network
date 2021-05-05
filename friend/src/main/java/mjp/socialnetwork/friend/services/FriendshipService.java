@@ -11,7 +11,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -22,6 +21,15 @@ public class FriendshipService {
 
     private final ModelMapper modelMapper;
     private final FriendshipRepository friendshipRepository;
+
+    public Flux<Friendship> getFriends(Principal principal){
+        Flux<Friendship> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
+        Flux<Friendship> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true);
+        Flux<Friendship> hisfriends;
+        hisfriends = hisRequests.mergeWith(theirRequests);
+        return hisfriends;
+    }
+
 
     /**
      * Recupere les invitations envoyées
@@ -51,7 +59,7 @@ public class FriendshipService {
         Friendship.FriendshipBuilder builder = Friendship.builder();
         builder.firstUserId(principal.getName());
         builder.secondUserId(idNewFriend);
-        builder.friendshipDate(Timestamp.valueOf(LocalDateTime.now()));
+        builder.friendshipDate(LocalDateTime.now());
         builder.status(false);
         builder.newFriendShip(true);
         Friendship friendship;
@@ -71,7 +79,7 @@ public class FriendshipService {
         friendship = Friendship.builder().
                 id(idInvitation)
                 .secondUserId(principal.getName())
-                .friendshipDate(Timestamp.valueOf(LocalDateTime.now()))
+                .friendshipDate(LocalDateTime.now())
                 .status(true)
                 .build();
         return friendshipRepository.save(friendship);
