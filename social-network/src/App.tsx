@@ -7,6 +7,7 @@ import HeaderComponent from './header'
 import Profile from './components/header/profile'
 import User from "./components/friend/users";
 import Home from './components/home/home';
+import Post from './components/post/post';
 import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from './api/external-api';
 import './App.css';
@@ -34,7 +35,7 @@ function App() {
               <ProtectedRoute path="/profile" component={Profile} />
               <ProtectedRoute path="/external-api" component={ExternalApi} />
               <ProtectedRoute path="/users" component={User} />
-              
+              <ProtectedRoute path="/posts" component={Post} />
             </Switch>       
         </div>      
       </div>               
