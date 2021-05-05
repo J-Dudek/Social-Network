@@ -25,7 +25,6 @@ public class UserController {
 
 
 
-
     @GetMapping(path = "/all")
     public Flux<UserDTO> findAllUsers(Principal principal) {
         try {

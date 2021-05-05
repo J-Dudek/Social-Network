@@ -18,7 +18,7 @@ public class PostController {
 
     @Autowired
     private final PostService postService;
-    private final PostDTO postDTO;
+    
 
     @GetMapping(path = "/all")
     public Flux<PostDTO> findAllPosts(){
