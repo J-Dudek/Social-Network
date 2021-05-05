@@ -103,4 +103,9 @@ public class FriendshipController {
     public Mono<FriendshipDTO> deleteRelation(Principal principal,@RequestBody String secondUserId){
         return friendshipService.deleteRelation(principal,secondUserId).map(friendshipService::userToDTO);
     }
+
+    @GetMapping(path = "/howManyFriends")
+    public Mono<Long> howManyFriends(Principal principal){
+        return friendshipService.howManyFriends(principal);
+    }
 }

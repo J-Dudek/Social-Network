@@ -11,7 +11,7 @@ const defaultUser: IUser = {};
 const Profile = () => {
   
   const [user, setUser] = useState<IUser>(defaultUser);
-  
+  const [count, setCount] = useState<number>(200); 
   
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -29,9 +29,7 @@ const Profile = () => {
       }
     })
             .then((response) => {
-                console.log(response);
-                console.log("data");
-                console.log(response.data);
+                
       setUser(response.data);
       
     })
@@ -39,7 +37,32 @@ const Profile = () => {
       console.log(ex);
       
     });
-        
+    }
+          getInfos()
+      
+  }, [getAccessTokenSilently, serverUrl]);
+
+  useEffect(() => {
+    // Create an scoped async function in the hook
+    async function getInfos() {
+        const token = await getAccessTokenSilently();
+        axios
+    .get<number>(`${serverUrl}/friends/friendship/howManyFriends`, {
+      
+        headers: {
+          Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    })
+            .then((response) => {
+                
+      setCount(response.data);
+      
+    })
+    .catch((ex) => {
+      console.log(ex);
+      
+    });
     }
           getInfos()
       
@@ -65,7 +88,7 @@ const Profile = () => {
               <Card.Content extra>
                 <div>
                   <Icon name='user' />
-                  ici le nobre d'ami
+                  {count} amis
                 </div>
               </Card.Content>
             </Card>

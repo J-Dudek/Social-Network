@@ -148,6 +148,15 @@ public class FriendshipService {
 
     }
 
+    /**
+     * Compte les amis de l'user
+     * @param principal l'user concerné
+     * @return Mono de Long resultat du count
+     */
+    public Mono<Long> howManyFriends(Principal principal){
+
+        return friendshipRepository.countFriendshipByStatusAndFirstUserIdOrSecondUserId(true, principal.getName(), principal.getName());
+    }
 
     /**
      * Mapper de friendship en friendshipDTO
