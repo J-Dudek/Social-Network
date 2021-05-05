@@ -24,8 +24,9 @@ public class FriendshipService {
 
     public Flux<Friendship> getFriends(Principal principal){
         Flux<Friendship> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
-        Flux<Friendship> theirRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
-        Flux<Friendship> hisfriends = hisRequests.mergeWith(theirRequests);
+        Flux<Friendship> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true);
+        Flux<Friendship> hisfriends;
+        hisfriends = hisRequests.mergeWith(theirRequests);
         return hisfriends;
     }
 
