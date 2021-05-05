@@ -2,7 +2,9 @@ package mjp.socialnetwork.post.services;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.model.Post;
+import mjp.socialnetwork.post.model.dto.PostDTO;
 import mjp.socialnetwork.post.repositories.PostRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -17,6 +19,11 @@ import java.time.LocalDateTime;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final ModelMapper modelMapper;
+
+    //TODO DELETE just for test
+    public Flux<PostDTO> findAllPosts() { return postRepository.findAll().map(this::postToDTO); }
+
 
     public Flux<Post> findAll() {
         return postRepository.findAll();
@@ -55,4 +62,15 @@ public class PostService {
         return this.postRepository
                 .save(new Post(null, post.getMessage(), Timestamp.valueOf(LocalDateTime.now()), post.isPublic(), post.getUserId()));
     }
+
+    /**
+     * permet de convertir user en DTO
+     * @param post
+     * @return
+     */
+    public PostDTO postToDTO(Post post){
+        return modelMapper.map(post,PostDTO.class);
+    }
+
+
 }
