@@ -22,6 +22,14 @@ public class FriendshipService {
     private final ModelMapper modelMapper;
     private final FriendshipRepository friendshipRepository;
 
+    public Flux<Friendship> getFriends(Principal principal){
+        Flux<Friendship> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
+        Flux<Friendship> theirRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
+        Flux<Friendship> hisfriends = hisRequests.mergeWith(theirRequests);
+        return hisfriends;
+    }
+
+
     /**
      * Recupere les invitations envoyées
      * @param principal passé en requete implicitement

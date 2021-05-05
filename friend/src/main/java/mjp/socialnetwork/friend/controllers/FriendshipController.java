@@ -18,6 +18,17 @@ public class FriendshipController {
     @Autowired
     private final FriendshipService friendshipService;
 
+
+    /**
+     * Permet d'obtenir toutes les relations existantes de l'user
+     * @param principal passé par token
+     * @return la liste des users
+     */
+    @GetMapping(path="/friends")
+    private final Flux<FriendshipDTO> getMyFriends(Principal principal){
+        return friendshipService.getFriends(principal).map(friendshipService::userToDTO);
+    }
+
     /**
      *
      * @param principal passé dans le token
