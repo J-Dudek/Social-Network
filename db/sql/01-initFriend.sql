@@ -13,7 +13,7 @@ create table frienship (
                            id bigint,
                            first_user_id VARCHAR(255),
                            second_user_id VARCHAR(255),
-                           friendship_date TIMESTAMP,
+                           friendship_date DATETIME,
                            status BOOLEAN,
                            is_new BOOLEAN
 );

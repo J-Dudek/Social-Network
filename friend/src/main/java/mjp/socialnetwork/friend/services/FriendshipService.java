@@ -11,7 +11,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -51,7 +50,7 @@ public class FriendshipService {
         Friendship.FriendshipBuilder builder = Friendship.builder();
         builder.firstUserId(principal.getName());
         builder.secondUserId(idNewFriend);
-        builder.friendshipDate(Timestamp.valueOf(LocalDateTime.now()));
+        builder.friendshipDate(LocalDateTime.now());
         builder.status(false);
         builder.newFriendShip(true);
         Friendship friendship;
@@ -71,7 +70,7 @@ public class FriendshipService {
         friendship = Friendship.builder().
                 id(idInvitation)
                 .secondUserId(principal.getName())
-                .friendshipDate(Timestamp.valueOf(LocalDateTime.now()))
+                .friendshipDate(LocalDateTime.now())
                 .status(true)
                 .build();
         return friendshipRepository.save(friendship);

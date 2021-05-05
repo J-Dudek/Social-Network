@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -22,7 +22,7 @@ public class Friendship implements Persistable {
     private String firstUserId;
     private String secondUserId;
 
-    private Timestamp friendshipDate;
+    private LocalDateTime friendshipDate;
 
     private boolean status;
 
