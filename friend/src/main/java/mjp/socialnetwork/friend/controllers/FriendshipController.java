@@ -3,7 +3,6 @@ package mjp.socialnetwork.friend.controllers;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
 import mjp.socialnetwork.friend.services.FriendshipService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,7 +14,6 @@ import java.security.Principal;
 @RequestMapping(path = "/friends/friendship")
 public class FriendshipController {
 
-    @Autowired
     private final FriendshipService friendshipService;
 
 

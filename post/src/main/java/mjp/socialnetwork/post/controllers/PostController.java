@@ -3,30 +3,54 @@ package mjp.socialnetwork.post.controllers;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.model.dto.PostDTO;
 import mjp.socialnetwork.post.services.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.security.Principal;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "/posts")
 public class PostController {
 
-    @Autowired
     private final PostService postService;
-    
 
     @GetMapping(path = "/all")
-    public Flux<PostDTO> findAllPosts(){
-        try{
-            return this.postService.findAllPosts();
-        }catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    public Flux<PostDTO> findAll() {
+        return this.postService.findAll();
     }
 
+    @GetMapping(path = "/all/private/{id}")
+    public Flux<PostDTO> findAllPrivate(Principal principal, @PathVariable("id") Long id) {
+                return this.postService.findAllPrivate(id);
+    }
+
+    @GetMapping(path = "/{id}")
+    public Mono<ResponseEntity<PostDTO>> findById(@PathVariable("id") Long id) {
+        return this.postService.findById(id)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity<Void>> deleteById(Principal principal, @PathVariable("id") Long id) {
+        return this.postService.delete(principal, id)
+                .map(ResponseEntity::ok)
+                .onErrorReturn(ResponseEntity.badRequest().build());
+    }
+
+    @PostMapping
+    public Mono<ResponseEntity<PostDTO>> create(@RequestBody Mono<PostDTO> postDTOMono) {
+        return this.postService.create(postDTOMono)
+                .map(ResponseEntity::ok);
+    }
+
+    @PutMapping(path = "/{id}")
+    public Mono<ResponseEntity<PostDTO>> update(@PathVariable("id") Long id, @RequestBody Mono<PostDTO> postDTOMono) {
+        return this.postService.update(id, postDTOMono)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 }
