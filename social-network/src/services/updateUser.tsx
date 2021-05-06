@@ -30,9 +30,7 @@ const UpdateUser = () => {
 
     updateInfos(data);
   };
-  const [error, setError]: [string, (error: string) => void] = React.useState(
-    ''
-  );
+
   async function updateInfos(user: User) {
     const token = await getAccessTokenSilently();
     axios
@@ -47,7 +45,6 @@ const UpdateUser = () => {
       })
       .catch((ex) => {
         console.log(ex);
-        setError(ex);
       });
 
   }

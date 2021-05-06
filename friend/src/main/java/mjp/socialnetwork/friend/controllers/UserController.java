@@ -83,12 +83,10 @@ public class UserController {
      * @return Flux avec 2 tuple
      */
     @GetMapping(path = "/aboutUser")
-    public Flux<Tuple2<UserDTO, Long>> aboutUser(Principal principal){
+    public Mono<Tuple2<UserDTO, Long>> aboutUser(Principal principal){
         Mono<UserDTO> map = userService.findById(principal.getName()).map(userService::userToDTO);
         Mono<Long> longMono = friendshipService.howManyFriends(principal);
-         Flux<Tuple2<UserDTO, Long>> zip;
-        zip = Flux.zip(map, longMono);
-        return zip;
+        return Mono.zip(map, longMono);
     }
 
 

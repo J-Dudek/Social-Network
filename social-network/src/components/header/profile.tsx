@@ -36,9 +36,9 @@ const Profile = () => {
 
           console.log(response);
           console.log("data");
-          console.log(response.data[0].t1)
-          setUser(response.data[0].t1)
-          setCount(response.data[0].t2)
+          console.log(response.data.t1)
+          setUser(response.data.t1)
+          setCount(response.data.t2)
 
         })
         .catch((ex) => {
@@ -52,7 +52,7 @@ const Profile = () => {
 
   return (
 
-    <div className="ui centered card">
+    <div>
       <Card>
         <Image src={monkey} wrapped ui={false} />
         <Card.Content>

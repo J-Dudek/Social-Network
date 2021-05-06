@@ -7,6 +7,7 @@ import ReactDatePicker from "react-datepicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
 import axios from 'axios';
+import moment from 'moment';
 type User = {
     idUser?: string;
     firstName?: string;
@@ -19,7 +20,7 @@ type User = {
     new: false;
 }
 
-function ModalUpdateUser(user?: IUser) {
+function ModalUpdateUser({ auser }: { auser: IUser }) {
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [open, setOpen] = React.useState(false)
@@ -28,9 +29,7 @@ function ModalUpdateUser(user?: IUser) {
         console.log("data", data);
         updateInfos(data);
     };
-    const [error, setError]: [string, (error: string) => void] = React.useState(
-        ''
-    );
+
 
     async function updateInfos(user: User) {
         const token = await getAccessTokenSilently();
@@ -46,7 +45,7 @@ function ModalUpdateUser(user?: IUser) {
             })
             .catch((ex) => {
                 console.log(ex);
-                setError(ex);
+
             });
 
     }
@@ -62,7 +61,7 @@ function ModalUpdateUser(user?: IUser) {
             <Modal.Content image>
                 <Image size='medium' src={Monkey} wrapped />
                 <Modal.Description>
-                    <Header>Default Profile Image</Header>
+                    <Header>Profil of {auser.username} {auser.lastName}</Header>
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
 
                         <Controller control={control} name="lastName"
@@ -145,7 +144,7 @@ function ModalUpdateUser(user?: IUser) {
                                     <ReactDatePicker
                                         onChange={onChange}
                                         onBlur={onBlur}
-                                        selected={value}
+                                        selected={value ? moment(value, 'DD-MM-YYYY').toDate() : moment(auser.birthdate).toDate()}
                                         required={true}
                                     />
                                 )}
@@ -156,7 +155,6 @@ function ModalUpdateUser(user?: IUser) {
                                 Cancel
                             </Button>
                             <Button
-
                                 content="Save"
                                 labelPosition='right'
                                 icon='checkmark'
