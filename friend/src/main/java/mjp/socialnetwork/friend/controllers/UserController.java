@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.exceptions.errors.SocialNetworkException;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
+import mjp.socialnetwork.friend.services.FriendshipService;
 import mjp.socialnetwork.friend.services.UserService;
 import mjp.socialnetwork.friend.views.UserViews;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 import java.security.Principal;
 
@@ -22,6 +24,8 @@ public class UserController {
 
     @Autowired
     private final UserService userService;
+    @Autowired
+    private final FriendshipService friendshipService;
 
 
 
@@ -71,6 +75,20 @@ public class UserController {
     public Flux<UserDTO> findUsersByFirstNameOrLastName(@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName){
 
         return userService.findByfirstOrlastNameLike(firstName,lastName).map(userService::userToDTO);
+    }
+
+    /**
+     * Recuperation des informations de l'user (count friend and infos)
+     * @param principal passé dans le token
+     * @return Flux avec 2 tuple
+     */
+    @GetMapping(path = "/aboutUser")
+    public Flux<Tuple2<UserDTO, Long>> aboutUser(Principal principal){
+        Mono<UserDTO> map = userService.findById(principal.getName()).map(userService::userToDTO);
+        Mono<Long> longMono = friendshipService.howManyFriends(principal);
+         Flux<Tuple2<UserDTO, Long>> zip;
+        zip = Flux.zip(map, longMono);
+        return zip;
     }
 
 

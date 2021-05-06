@@ -17,12 +17,15 @@ const Profile = () => {
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
+
+
   useEffect(() => {
     // Create an scoped async function in the hook
-    async function getInfos() {
+
+    async function getInfos2() {
       const token = await getAccessTokenSilently();
       axios
-        .get<IUser>(`${serverUrl}/friends/users/logOrsign`, {
+        .get(`${serverUrl}/friends/users/aboutUser`, {
 
           headers: {
             Authorization: `Bearer ${token}`,
@@ -31,7 +34,11 @@ const Profile = () => {
         })
         .then((response) => {
 
-          setUser(response.data);
+          console.log(response);
+          console.log("data");
+          console.log(response.data[0].t1)
+          setUser(response.data[0].t1)
+          setCount(response.data[0].t2)
 
         })
         .catch((ex) => {
@@ -39,33 +46,7 @@ const Profile = () => {
 
         });
     }
-    getInfos()
-
-  }, [getAccessTokenSilently, serverUrl]);
-
-  useEffect(() => {
-    // Create an scoped async function in the hook
-    async function getInfos() {
-      const token = await getAccessTokenSilently();
-      axios
-        .get<number>(`${serverUrl}/friends/friendship/howManyFriends`, {
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then((response) => {
-
-          setCount(response.data);
-
-        })
-        .catch((ex) => {
-          console.log(ex);
-
-        });
-    }
-    getInfos()
+    getInfos2()
 
   }, [getAccessTokenSilently, serverUrl]);
 
@@ -93,7 +74,7 @@ const Profile = () => {
                 </div>
         </Card.Content>
       </Card>
-      <ModalUpdateUser />
+      <ModalUpdateUser auser={user} />
     </div>
 
   );
