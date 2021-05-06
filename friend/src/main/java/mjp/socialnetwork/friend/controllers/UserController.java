@@ -20,7 +20,6 @@ import java.security.Principal;
 public class UserController {
 
     private final UserService userService;
-    @Autowired
     private final FriendshipService friendshipService;
 
     @GetMapping(path = "/all")
@@ -43,13 +42,13 @@ public class UserController {
     }
 
     @PutMapping(path = "/update")
-    public Mono<ResponseEntity<UserDTO>> updateUser(Principal principal, @RequestBody Mono<UserDTO> newUserDto) {
-        return this.userService.updateUser(principal, newUserDto)
+    public Mono<ResponseEntity<UserDTO>> updateUser(Principal principal, @RequestBody Mono<UserDTO> userDTOMono) {
+        return this.userService.updateUser(principal, userDTOMono)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = "/delete/")
+    @DeleteMapping
     public Mono<Void> deleteUserById(Principal principal) {
         return this.userService.deleteUserById(principal);
     }
@@ -57,7 +56,6 @@ public class UserController {
     @GetMapping(path = "/{firstName}/{lastName}")
     @JsonView(UserViews.Public.class)
     public Flux<UserDTO> findUsersByFirstNameOrLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
-
         return userService.findByfirstOrlastNameLike(firstName, lastName);
     }
 
@@ -68,7 +66,7 @@ public class UserController {
      */
     @GetMapping(path = "/aboutUser")
     public Mono<Tuple2<UserDTO, Long>> aboutUser(Principal principal){
-        Mono<UserDTO> map = userService.findById(principal.getName()).map(userService::userToDTO);
+        Mono<UserDTO> map = userService.findById(principal.getName());
         Mono<Long> longMono = friendshipService.howManyFriends(principal);
         return Mono.zip(map, longMono);
     }
