@@ -5,7 +5,6 @@ import mjp.socialnetwork.friend.model.User;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.repositories.UserRepository;
 import mjp.socialnetwork.friend.utils.UserMapper;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -22,7 +21,6 @@ public class UserService {
 
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
 
     //TODO DELETE just for test
     public Flux<UserDTO> findAllUsers() {
@@ -64,8 +62,7 @@ public class UserService {
     }
 
     /**
-     * Permet de mettre à jour un utilisateur
-     *
+     *  Permet de mettre à jour un utilisateur
      * @param principal l'utilisateur connecte
      * @param userDTOMono   les données mise à jour
      * @return l'user mis à jour
