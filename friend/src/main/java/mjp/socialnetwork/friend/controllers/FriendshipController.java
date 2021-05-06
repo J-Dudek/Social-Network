@@ -29,8 +29,8 @@ public class FriendshipController {
      * @return la liste des users
      */
     @GetMapping(path="/friends")
-    private  Flux<UserDTO> getMyFriends(Principal principal){
-        return friendshipService.getFriends(principal).map(userService::userToDTO);
+    public Flux<FriendshipDTO> getMyFriends(Principal principal){
+        return friendshipService.getFriends(principal).map(friendshipService::userToDTO);
     }
 
     /**
@@ -62,6 +62,11 @@ public class FriendshipController {
     @PostMapping(path="/sendInvit")
     public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser){
         return friendshipService.createInvitation(principal,idUser).map(friendshipService::userToDTO);
+    }
+
+    @GetMapping(path = "/verify/{id}")
+    public Mono<Boolean> verifyFriendship(Principal principal, @PathVariable("id") String friendId) {
+        return this.friendshipService.isFriend(principal, friendId);
     }
 
     /**
