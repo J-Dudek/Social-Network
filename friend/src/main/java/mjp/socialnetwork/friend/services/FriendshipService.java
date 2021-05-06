@@ -47,6 +47,7 @@ public class FriendshipService {
 
     /**
      * Recupere les invitations envoyées
+     *
      * @param principal passé en requete implicitement
      * @return l'invitation en question
      */
@@ -56,6 +57,7 @@ public class FriendshipService {
 
     /**
      * Recupere les invitations que l'on a recus
+     *
      * @param principal passé en requete implicitement
      * @return la liste des invitation acceptée ou en pending
      */
@@ -65,7 +67,8 @@ public class FriendshipService {
 
     /**
      * Permet de créer une invitation
-     * @param principal passé en requete implicitement
+     *
+     * @param principal   passé en requete implicitement
      * @param idNewFriend l'id de la personne demandée en amis
      * @return L'invitation créée
      */
@@ -101,7 +104,8 @@ public class FriendshipService {
 
     /**
      * Annule une invitation envoyée
-     * @param principal passé en requete implicitement
+     *
+     * @param principal    passé en requete implicitement
      * @param idInvitation une invitation emise mais ni acceptée ni rejetée
      * @return la suppression de l'invitation
      */
@@ -138,7 +142,8 @@ public class FriendshipService {
 
     /**
      * Quand il y a rupture entre 2 amis :'(
-     * @param principal passé en requete implicitement
+     *
+     * @param principal    passé en requete implicitement
      * @param secondUserId l'id du second user de la relation
      * @return la relation supprimé en BDD. ils ne sont plus Friendship
      */
@@ -175,6 +180,7 @@ public class FriendshipService {
 
     /**
      * Mapper de friendship en friendshipDTO
+     *
      * @param friendship le Friendship à mapper en DYO
      * @return la version DTO du Friendship
      */
@@ -184,6 +190,7 @@ public class FriendshipService {
 
     /**
      * mapper de friendshipDTO en friendship
+     *
      * @param friendshipDTO le DTO à mapper en Friendship
      * @return la version Friendship du DTO passé en param
      */
