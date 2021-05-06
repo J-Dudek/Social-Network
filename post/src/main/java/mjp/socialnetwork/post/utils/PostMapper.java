@@ -15,12 +15,6 @@ public class PostMapper {
     }
 
     public static Post toEntity(PostDTO postDTO) {
-        return Post.builder()
-                .id(postDTO.getIdPost())
-                .userId(postDTO.getUserId())
-                .isPublic(postDTO.isPublic())
-                .message(postDTO.getMessage())
-                .publicationDate(postDTO.getPublicationDate())
-                .build();
+        return modelMapper.map(postDTO, Post.class);
     }
 }

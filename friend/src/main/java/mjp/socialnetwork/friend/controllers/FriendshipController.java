@@ -17,9 +17,7 @@ import java.security.Principal;
 @RequestMapping(path = "/friends/friendship")
 public class FriendshipController {
 
-    @Autowired
     private final FriendshipService friendshipService;
-    @Autowired
     private final UserService userService;
 
 
