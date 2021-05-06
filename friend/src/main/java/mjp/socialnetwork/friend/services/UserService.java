@@ -29,6 +29,8 @@ public class UserService {
 
     /**
      * Recherche si l'utilisateur existe en base, si non, l'insert
+     *
+     * @param principal
      * @param principal passé dans le token
      * @return Mono user inséré ou trouvé en bdd
      */
@@ -45,9 +47,8 @@ public class UserService {
                                 .build();
                         return userRepository.save(newUser);
                     } else {
-                        Mono<User> user;
-                        user = userRepository.findById(principal.getName());
-                        return user;
+                        return userRepository.findById(principal.getName())
+                                .map(UserMapper::toDto);
                     }
                 });
     }
@@ -64,6 +65,8 @@ public class UserService {
     /**
      *  Permet de mettre à jour un utilisateur
      * @param principal l'utilisateur connecte
+     * @param userDTO   les données mise à jour
+     * @return
      * @param userDTO les données mise à jour
      * @return l'user mis à jour
      */
@@ -72,64 +75,37 @@ public class UserService {
 
         return userRepository
                 .findById(principal.getName())
-                .map(user -> {
-                    user.setFirstName(userDTO.getFirstName());
-                    user.setLastName(userDTO.getLastName());
-                    user.setBirthdate(userDTO.getBirthdate().plusDays(1));
-                    user.setUsername(userDTO.getUsername());
-                    user.setEmail(userDTO.getEmail());
-                    user.setPhoneNumber(userDTO.getPhoneNumber());
-                    user.setCity(userDTO.getCity());
-                    user.setIsNew(false);
-                    return user;
-                })
-                .flatMap(this.userRepository::save);
-
+                .flatMap(user -> userDTO
+                        .map(UserMapper::toEntity)
+                        .doOnNext(u -> u.setIsNew(false))
+                )
+                .flatMap(this.userRepository::save)
+                .map(UserMapper::toDto);
     }
 
     /**
      * Permet de rechercher les utilisateur ayant un nom ou un prenom qui like
+     *
+     * @param firstname
+     * @param lastname
+     * @return
      * @param firstname prenom ou nom , au final ou fait un match des deux
      * @param lastname prenom ou nom, au final on fait un match des deux
      * @return liste d'users compatible
      */
-    public Flux<User> findByfirstOrlastNameLike(String firstname, String lastname){
-        return userRepository.findUsersByFirstNameLikeOrLastNameLike(firstname,lastname);
+    public Flux<UserDTO> findByfirstOrlastNameLike(String firstname, String lastname) {
+        return userRepository.findUsersByFirstNameLikeOrLastNameLike(firstname, lastname)
+                .map(UserMapper::toDto);
     }
 
     /**
      * Suppression de l'user qui fait appel à la methode.
+     *
+     * @param principal
      * @param principal passé dans le token
      */
-    public void deleteUserById(Principal principal){
-        userRepository.deleteById(principal.getName());
-    }
-
-    /**
-     * permet de convertir user en DTO
-     * @param user user à transformer en DTO
-     * @return dto de l'user
-     */
-    public UserDTO userToDTO(User user){
-        return modelMapper.map(user,UserDTO.class);
-    }
-
-    /**
-     * permet de convertir DTO en user
-     * @param userDTO dto à passer en en user
-     * @return l'user
-     */
-    public User dtoToUser(UserDTO userDTO){
-        return User.builder()
-                .id(userDTO.getIdUser())
-                .city(userDTO.getCity())
-                .email(userDTO.getEmail())
-                .firstName(userDTO.getFirstName())
-                .lastName(userDTO.getLastName())
-                .phoneNumber(userDTO.getPhoneNumber())
-                .birthdate(userDTO.getBirthdate().plusDays(1))
-        .build();
-
+    public Mono<Void> deleteUserById(Principal principal) {
+        return userRepository.deleteById(principal.getName());
     }
 
 
