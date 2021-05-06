@@ -75,7 +75,7 @@ public class UserService {
                 .map(user -> {
                     user.setFirstName(userDTO.getFirstName());
                     user.setLastName(userDTO.getLastName());
-                    user.setBirthdate(userDTO.getBirthdate());
+                    user.setBirthdate(userDTO.getBirthdate().plusDays(1));
                     user.setUsername(userDTO.getUsername());
                     user.setEmail(userDTO.getEmail());
                     user.setPhoneNumber(userDTO.getPhoneNumber());

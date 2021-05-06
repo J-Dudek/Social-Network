@@ -2,12 +2,12 @@ import React from 'react'
 import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import Monkey from '../../images/monkeyInAsuit.jpg'
 import { useForm, Controller } from "react-hook-form";
-import { Form } from 'semantic-ui-react'
+import { Form, Icon } from 'semantic-ui-react'
 import ReactDatePicker from "react-datepicker";
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
 import axios from 'axios';
-import moment from 'moment';
+
 type User = {
     idUser?: string;
     firstName?: string;
@@ -52,10 +52,11 @@ function ModalUpdateUser({ auser }: { auser: IUser }) {
 
     return (
         <Modal
+
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Edit Profil</Button>}
+            trigger={<button><Icon name="edit" /></button>}
         >
             <Modal.Header>You can change your infos</Modal.Header>
             <Modal.Content image>
@@ -144,7 +145,7 @@ function ModalUpdateUser({ auser }: { auser: IUser }) {
                                     <ReactDatePicker
                                         onChange={onChange}
                                         onBlur={onBlur}
-                                        selected={value ? moment(value, 'DD-MM-YYYY').toDate() : moment(auser.birthdate).toDate()}
+                                        selected={value}
                                         required={true}
                                     />
                                 )}

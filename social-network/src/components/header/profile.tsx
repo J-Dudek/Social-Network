@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from "../../types/IUser";
 import axios from "axios";
-import { Card, Image, Icon } from "semantic-ui-react";
+import { Card, Image, Icon, Grid } from "semantic-ui-react";
 import monkey from '../../images/monkeyInAsuit.jpg';
 import ModalUpdateUser from '../friend/modalUpdateUser'
 
@@ -43,7 +43,6 @@ const Profile = () => {
         })
         .catch((ex) => {
           console.log(ex);
-
         });
     }
     getInfos2()
@@ -52,30 +51,36 @@ const Profile = () => {
 
   return (
 
-    <div>
-      <Card>
-        <Image src={monkey} wrapped ui={false} />
-        <Card.Content>
-          <Card.Header >{user.username}</Card.Header>
-          <Card.Header><small>({user.lastName} {user.firstName})</small></Card.Header>
-          <Card.Meta>
-            <div><Icon name="mail" /> {user.email} </div>
-            <div><Icon name="phone" /> {user.phoneNumber} </div>
-          </Card.Meta>
-          <Card.Description>
-            <div>Hi, I'm {user.firstName}, I'm leave in {user.city}.</div>
-            <div><Icon name="birthday cake" />I was born on {user.birthdate}.</div>
-          </Card.Description>
-        </Card.Content>
-        <Card.Content extra>
-          <div>
-            <Icon name='user' />
-            {count} amis
+    <Grid container columns={3}>
+      <Grid.Column>
+        <Card>
+
+          <Image src={monkey} wrapped ui={false} />
+          <Card.Content className="ui middle aligned divided list">
+
+            <span className="right floated content"><ModalUpdateUser auser={user} /></span>
+            <Card.Header >{user.username}</Card.Header>
+
+            <Card.Header><small>({user.lastName} {user.firstName})</small></Card.Header>
+            <Card.Meta>
+              <div><Icon name="mail" /> {user.email} </div>
+              <div><Icon name="phone" /> {user.phoneNumber} </div>
+            </Card.Meta>
+            <Card.Description>
+              <div>Hi, I'm {user.firstName}, I'm leave in {user.city}.</div>
+              <div><Icon name="birthday cake" />I was born on {user.birthdate}.</div>
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <div>
+              <Icon name='user' />
+              {count} amis
                 </div>
-        </Card.Content>
-      </Card>
-      <ModalUpdateUser auser={user} />
-    </div>
+          </Card.Content>
+        </Card>
+      </Grid.Column>
+
+    </Grid>
 
   );
 };
