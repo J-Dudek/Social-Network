@@ -70,6 +70,6 @@ public class UserController {
         Mono<Long> longMono = friendshipService.howManyFriends(principal);
         return Mono.zip(map, longMono);
     }
-    
+
 
 }
