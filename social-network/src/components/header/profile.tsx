@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from "../../types/IUser";
 import axios from "axios";
-import { Card, Image, Icon, Grid } from "semantic-ui-react";
+import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 import monkey from '../../images/monkeyInAsuit.jpg';
 import ModalUpdateUser from '../friend/modalUpdateUser'
+import InvitationR from '../fonctionnals/invitationR'
+import InvitationS from '../fonctionnals/invitationS'
+import Friend from '../fonctionnals/friend'
 
 const defaultUser: IUser = {};
 
@@ -22,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     // Create an scoped async function in the hook
 
-    async function getInfos2() {
+    async function getInfos() {
       const token = await getAccessTokenSilently();
       axios
         .get(`${serverUrl}/friends/users/aboutUser`, {
@@ -33,10 +36,6 @@ const Profile = () => {
           }
         })
         .then((response) => {
-
-          console.log(response);
-          console.log("data");
-          console.log(response.data.t1)
           setUser(response.data.t1)
           setCount(response.data.t2)
 
@@ -45,40 +44,128 @@ const Profile = () => {
           console.log(ex);
         });
     }
-    getInfos2()
+    getInfos()
 
   }, [getAccessTokenSilently, serverUrl]);
 
   return (
 
-    <Grid container columns={3}>
-      <Grid.Column>
-        <Card>
+    <Grid container columns='equal'>
+      <Grid.Row >
+        <Grid.Column>
+          <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
+            <div><Segment inverted color='blue'>
+              Friends
+             </Segment></div>
+            <Segment.Group vertical >
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+              <Segment ><Friend /></Segment>
+            </Segment.Group>
+          </Segment>
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <Segment>
+            <Card fluid>
+              <Image src={monkey} size='small' centered />
+              <Card.Content className="ui middle aligned divided list">
+                <span className="right floated content"><ModalUpdateUser auser={user} /></span>
+                <Card.Header >{user.username}</Card.Header>
 
-          <Image src={monkey} wrapped ui={false} />
-          <Card.Content className="ui middle aligned divided list">
-
-            <span className="right floated content"><ModalUpdateUser auser={user} /></span>
-            <Card.Header >{user.username}</Card.Header>
-
-            <Card.Header><small>({user.lastName} {user.firstName})</small></Card.Header>
-            <Card.Meta>
-              <div><Icon name="mail" /> {user.email} </div>
-              <div><Icon name="phone" /> {user.phoneNumber} </div>
-            </Card.Meta>
-            <Card.Description>
-              <div>Hi, I'm {user.firstName}, I'm leave in {user.city}.</div>
-              <div><Icon name="birthday cake" />I was born on {user.birthdate}.</div>
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <div>
-              <Icon name='user' />
-              {count} amis
+                <Card.Header><small>({user.lastName} {user.firstName})</small></Card.Header>
+                <Card.Meta>
+                  <div><Icon name="mail" /> {user.email} </div>
+                  <div><Icon name="phone" /> {user.phoneNumber} </div>
+                </Card.Meta>
+                <Card.Description>
+                  <div>Hi, I'm {user.firstName}, I'm leave in {user.city}.</div>
+                  <div><Icon name="birthday cake" />I was born on {user.birthdate}.</div>
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <div>
+                  <Icon name='user' />
+                  {count} amis
                 </div>
-          </Card.Content>
-        </Card>
-      </Grid.Column>
+              </Card.Content>
+            </Card>
+          </Segment>
+          <Segment style={{ overflow: 'auto', maxHeight: '50vh' }} className="ui middle">
+            <Header color="blue" attached="top" block={true} dividing={true} textAlign="center">Les posts de l'users</Header>
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+            <InvitationR />
+          </Segment>
+        </Grid.Column>
+        <Grid.Column>
+          <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
+            <h2>Les invits reçus</h2>
+            <Card.Group>
+              <InvitationR />
+              <InvitationR />
+              <InvitationR />
+              <InvitationR />
+              <InvitationR />
+            </Card.Group>
+          </Segment>
+          <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
+            <h2>Les invits envoyées</h2>
+            <InvitationS />
+            <InvitationS />
+            <InvitationS />
+            <InvitationS />
+            <InvitationS />
+          </Segment>
+        </Grid.Column>
+
+      </Grid.Row>
 
     </Grid>
 
