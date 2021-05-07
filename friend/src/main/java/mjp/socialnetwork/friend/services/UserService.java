@@ -75,6 +75,7 @@ public class UserService {
                 .flatMap(user -> userDTOMono
                         .map(UserMapper::toEntity)
                         .doOnNext(u -> u.setIsNew(false))
+                        .doOnNext(u -> u.setId(user.getId()))
                         .doOnNext(u -> u.setBirthdate(u.getBirthdate().plusDays(1)))
                 )
                 .flatMap(this.userRepository::save)
