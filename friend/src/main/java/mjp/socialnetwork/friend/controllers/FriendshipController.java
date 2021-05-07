@@ -10,6 +10,7 @@ import mjp.socialnetwork.friend.utils.UserMapper;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 import java.security.Principal;
 
@@ -38,8 +39,8 @@ public class FriendshipController {
      * @return la liste des invitations envoyés et non traitées
      */
     @GetMapping(path = "/mysent")
-    public Flux<FriendshipDTO> getMySent(Principal principal){
-        return friendshipService.findInvitationSent(principal).map(FriendshipMapper::toDto);
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMySent(Principal principal){
+        return friendshipService.findInvitationSent(principal);
     }
 
     /**
@@ -48,8 +49,8 @@ public class FriendshipController {
      * @return la liste des invitations reçus en attente d'une action
      */
     @GetMapping(path="/myreceived")
-    public Flux<FriendshipDTO> getMyReceived(Principal principal){
-        return friendshipService.findInvitationReceived(principal).map(FriendshipMapper::toDto);
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMyReceived(Principal principal){
+        return friendshipService.findInvitationReceived(principal);
     }
 
     /**

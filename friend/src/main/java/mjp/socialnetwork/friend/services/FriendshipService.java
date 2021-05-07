@@ -3,13 +3,18 @@ package mjp.socialnetwork.friend.services;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.model.Friendship;
 import mjp.socialnetwork.friend.model.User;
+import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
+import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.repositories.FriendshipRepository;
 import mjp.socialnetwork.friend.repositories.UserRepository;
+import mjp.socialnetwork.friend.utils.FriendshipMapper;
+import mjp.socialnetwork.friend.utils.UserMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -24,7 +29,7 @@ public class FriendshipService {
     private final FriendshipRepository friendshipRepository;
     private final UserRepository userRepository;
 
-    public Flux<User> getFriends(Principal principal){
+    public Flux<User> getFriends(Principal principal) {
         Flux<User> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true)
                 .flatMap(friendship -> userRepository.findById(friendship.getSecondUserId()));
         Flux<User> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true).
@@ -50,8 +55,15 @@ public class FriendshipService {
      * @param principal passé en requete implicitement
      * @return l'invitation en question
      */
-    public Flux<Friendship> findInvitationSent(Principal principal) {
-        return friendshipRepository.findAllByFirstUserId(principal.getName());
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> findInvitationSent(Principal principal) {
+        return friendshipRepository.findAllByFirstUserId(principal.getName())
+                    .flatMap(friendship -> Mono.zip(
+                            this.userRepository.findById(friendship.getSecondUserId())
+                                    .map(UserMapper::toDto),
+                            Mono.just(friendship)
+                                    .map(FriendshipMapper::toDto)
+                            )
+                    );
     }
 
     /**
@@ -60,8 +72,15 @@ public class FriendshipService {
      * @param principal passé en requete implicitement
      * @return la liste des invitation acceptée ou en pending
      */
-    public Flux<Friendship> findInvitationReceived(Principal principal) {
-        return friendshipRepository.findAllBySecondUserId(principal.getName());
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> findInvitationReceived(Principal principal) {
+        return friendshipRepository.findAllBySecondUserId(principal.getName())
+                .flatMap(friendship -> Mono.zip(
+                        this.userRepository.findById(friendship.getFirstUserId())
+                                .map(UserMapper::toDto),
+                        Mono.just(friendship)
+                                .map(FriendshipMapper::toDto)
+                        )
+                );
     }
 
     /**
@@ -170,10 +189,11 @@ public class FriendshipService {
 
     /**
      * Compte les amis de l'user
+     *
      * @param principal l'user concerné
      * @return Mono de Long resultat du count
      */
-    public Mono<Long> howManyFriends(Principal principal){
+    public Mono<Long> howManyFriends(Principal principal) {
 
         return friendshipRepository.countFriendshipByStatusAndFirstUserIdOrSecondUserId(true, principal.getName(), principal.getName());
     }
