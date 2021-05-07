@@ -10,16 +10,41 @@ import InvitationS from '../fonctionnals/invitationS'
 import Friend from '../fonctionnals/friend'
 
 const defaultUser: IUser = {};
-
+const sefaultFriends: IUser[] = [];
 
 const Profile = () => {
 
   const [user, setUser] = useState<IUser>(defaultUser);
-  const [count, setCount] = useState<number>(200);
+  const [count, setCount] = useState<number>(0);
+  const [friends, setFriends] = useState<IUser[]>(sefaultFriends);
 
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
+
+  useEffect(() => {
+    // Create an scoped async function in the hook
+
+    async function getFriends() {
+      const token = await getAccessTokenSilently();
+      axios
+        .get(`${serverUrl}/friends/friendship/friends`, {
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+          setFriends(response.data)
+        })
+        .catch((ex) => {
+          console.log(ex);
+        });
+    }
+    getFriends()
+
+  }, [getAccessTokenSilently, serverUrl]);
 
 
   useEffect(() => {
@@ -58,28 +83,13 @@ const Profile = () => {
               Friends
              </Segment></div>
             <Segment.Group vertical >
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
-              <Segment ><Friend /></Segment>
+              {friends.map((friend) => (
+                <Segment key={friend.idUser}><Friend user={friend} /></Segment>
+              ))}
             </Segment.Group>
           </Segment>
         </Grid.Column>
-        <Grid.Column width={8}>
+        <Grid.Column width={10}>
           <Segment>
             <Card fluid>
               <Image src={monkey} size='small' centered />
