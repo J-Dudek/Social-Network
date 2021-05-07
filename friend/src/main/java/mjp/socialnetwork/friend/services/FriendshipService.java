@@ -86,7 +86,8 @@ public class FriendshipService {
 
     /**
      * Cré le liens d'mmitié entre deux être :)
-     * @param principal passé en requete implicitement
+     *
+     * @param principal    passé en requete implicitement
      * @param idInvitation une invitation emise mais ni acceptée ni rejetée
      * @return Relayion créée avec passage status true et date insérée
      */
