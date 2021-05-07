@@ -2,9 +2,10 @@ import React,{useEffect} from 'react';
 import axios  from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
-import UpdateUser from '../../services/updateUser'
+import UpdateUser from '../../services/updateUser';
+import Post from '../post/post';
 
-import Users from './../friend/users'
+import Users from './../friend/users';
 
 const defaultUser: IUser = {};
 
@@ -61,7 +62,7 @@ const Home = () =>  {
         <>
             {/* Ici j'ai mis Users mais en soit ça serait mieux la liste des posts des amis*/}
             {(isAuthenticated) ?
-                ((users.email) ? (<Users />) : (<div><UpdateUser /></div>))
+                ((users.email) ? (<div><Users /></div>) : (<div><UpdateUser /></div>))
                 :
                 (<div>WIP : Soon there will be a homepage for non logged in users </div>)}
             {error && <p className="error">{error}</p>}
