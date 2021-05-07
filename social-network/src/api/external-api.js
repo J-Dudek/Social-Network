@@ -14,7 +14,7 @@ const ExternalApi = () => {
             const token = await getAccessTokenSilently();
 
             const response = await fetch(
-                `${serverUrl}/posts/all`,
+                `${serverUrl}/friends/users/61`,
                 {
                     method: 'GET',
                     headers: {
