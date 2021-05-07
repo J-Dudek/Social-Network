@@ -2,7 +2,9 @@ package mjp.socialnetwork.friend.controllers;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
+import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.services.FriendshipService;
+import mjp.socialnetwork.friend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -17,6 +19,8 @@ public class FriendshipController {
 
     @Autowired
     private final FriendshipService friendshipService;
+    @Autowired
+    private final UserService userService;
 
 
     /**
@@ -25,8 +29,8 @@ public class FriendshipController {
      * @return la liste des users
      */
     @GetMapping(path="/friends")
-    private final Flux<FriendshipDTO> getMyFriends(Principal principal){
-        return friendshipService.getFriends(principal).map(friendshipService::userToDTO);
+    private  Flux<UserDTO> getMyFriends(Principal principal){
+        return friendshipService.getFriends(principal).map(userService::userToDTO);
     }
 
     /**

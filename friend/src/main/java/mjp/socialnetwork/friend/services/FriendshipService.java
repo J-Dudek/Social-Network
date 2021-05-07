@@ -2,8 +2,10 @@ package mjp.socialnetwork.friend.services;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.model.Friendship;
+import mjp.socialnetwork.friend.model.User;
 import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
 import mjp.socialnetwork.friend.repositories.FriendshipRepository;
+import mjp.socialnetwork.friend.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +23,14 @@ public class FriendshipService {
 
     private final ModelMapper modelMapper;
     private final FriendshipRepository friendshipRepository;
+    private final UserRepository userRepository;
 
-    public Flux<Friendship> getFriends(Principal principal){
-        Flux<Friendship> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true);
-        Flux<Friendship> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true);
-        Flux<Friendship> hisfriends;
-        hisfriends = hisRequests.mergeWith(theirRequests);
-        return hisfriends;
+    public Flux<User> getFriends(Principal principal){
+        Flux<User> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true)
+                .flatMap(friendship -> userRepository.findById(friendship.getSecondUserId()));
+        Flux<User> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true).
+                flatMap(friendship -> userRepository.findById(friendship.getFirstUserId()));
+        return hisRequests.mergeWith(theirRequests);
     }
 
 
