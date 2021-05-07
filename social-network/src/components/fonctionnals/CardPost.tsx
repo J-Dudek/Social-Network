@@ -52,14 +52,15 @@ const CardPost =({ post }:{ post:IPost })=>  {
       }, [getAccessTokenSilently]);
     
     return (
-        <div>
-        <Card key={user.idUser}>
+        
+        <Card fluid>
             <Card.Content>
-              <Card.Header>{user.firstName}  {user.lastName}</Card.Header>
+              <div className="header">{user.firstName}  {user.lastName}</div>
+            
+            <div className="description">Message : {post.message} </div>
             </Card.Content>
-            <Card.Meta>Message : {post.message} </Card.Meta>
-    </Card>
-    </div>
+        </Card>
+
     )
 }
 

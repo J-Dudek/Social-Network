@@ -36,7 +36,7 @@ const ExternalApi = () => {
             const token = await getAccessTokenSilently();
 
             const response = await fetch(
-                `${serverUrl}/posts/all2`,
+                `${serverUrl}/posts/all`,
                 {
                     method: 'GET',
                     mode: "cors",

@@ -3,8 +3,8 @@ import axios  from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import monkey from '../../images/monkeyInAsuit.jpg';
 import CardPost from '../fonctionnals/CardPost';
+import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 
-import {Image} from 'semantic-ui-react'
 import { setupMaster } from 'cluster';
 
 interface IPost{
@@ -76,18 +76,23 @@ const Post = () => {
   
   
   return (
-    <div className="ui items">
-        <div className="item">
+
+    <Grid container columns='equal'>
+        <Grid.Row >
+        <Grid.Column width={10}>
             {posts.map((post) =>(
               <div>
                 <CardPost post = {post} />
               </div>
                 
             ))}
-        </div>
-      
+    
       {error && <p className="error">{error}</p>}
-    </div>
+        </Grid.Column>
+        </Grid.Row>
+    </Grid>
+
+    
   );
   };
   
