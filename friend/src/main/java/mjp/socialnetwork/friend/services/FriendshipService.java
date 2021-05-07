@@ -3,7 +3,6 @@ package mjp.socialnetwork.friend.services;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.friend.model.Friendship;
 import mjp.socialnetwork.friend.model.User;
-import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
 import mjp.socialnetwork.friend.repositories.FriendshipRepository;
 import mjp.socialnetwork.friend.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -36,7 +35,7 @@ public class FriendshipService {
     public Mono<Boolean> isFriend(Principal principal, String friendId) {
         return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), friendId)
                 .flatMap(isFriend -> {
-                    if (isFriend) {
+                    if (Boolean.TRUE.equals(isFriend)) {
                         return Mono.just(true);
                     } else {
                         return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(friendId, principal.getName());
@@ -150,7 +149,7 @@ public class FriendshipService {
     public Mono<Friendship> deleteRelation(Principal principal, String secondUserId) {
         return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
                 .flatMap(aBoolean -> {
-                    if (!aBoolean)
+                    if (Boolean.FALSE.equals(aBoolean))
                         return friendshipRepository.findByFirstUserIdAndSecondUserId(secondUserId, principal.getName())
                                 .flatMap(invit -> {
                                     assert invit.getId() != null;
@@ -177,26 +176,4 @@ public class FriendshipService {
 
         return friendshipRepository.countFriendshipByStatusAndFirstUserIdOrSecondUserId(true, principal.getName(), principal.getName());
     }
-
-    /**
-     * Mapper de friendship en friendshipDTO
-     *
-     * @param friendship le Friendship à mapper en DYO
-     * @return la version DTO du Friendship
-     */
-    public FriendshipDTO userToDTO(Friendship friendship) {
-        return modelMapper.map(friendship, FriendshipDTO.class);
-    }
-
-    /**
-     * mapper de friendshipDTO en friendship
-     *
-     * @param friendshipDTO le DTO à mapper en Friendship
-     * @return la version Friendship du DTO passé en param
-     */
-    public Friendship dtoToUser(FriendshipDTO friendshipDTO) {
-        return modelMapper.map(friendshipDTO, Friendship.class);
-    }
-
-
 }

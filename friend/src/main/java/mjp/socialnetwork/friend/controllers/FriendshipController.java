@@ -5,7 +5,8 @@ import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.services.FriendshipService;
 import mjp.socialnetwork.friend.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import mjp.socialnetwork.friend.utils.FriendshipMapper;
+import mjp.socialnetwork.friend.utils.UserMapper;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -27,8 +28,8 @@ public class FriendshipController {
      * @return la liste des users
      */
     @GetMapping(path="/friends")
-    public Flux<FriendshipDTO> getMyFriends(Principal principal){
-        return friendshipService.getFriends(principal).map(friendshipService::userToDTO);
+    public Flux<UserDTO> getMyFriends(Principal principal){
+        return friendshipService.getFriends(principal).map(UserMapper::toDto);
     }
 
     /**
@@ -38,7 +39,7 @@ public class FriendshipController {
      */
     @GetMapping(path = "/mysent")
     public Flux<FriendshipDTO> getMySent(Principal principal){
-        return friendshipService.findInvitationSent(principal).map(friendshipService::userToDTO);
+        return friendshipService.findInvitationSent(principal).map(FriendshipMapper::toDto);
     }
 
     /**
@@ -48,7 +49,7 @@ public class FriendshipController {
      */
     @GetMapping(path="/myreceived")
     public Flux<FriendshipDTO> getMyReceived(Principal principal){
-        return friendshipService.findInvitationReceived(principal).map(friendshipService::userToDTO);
+        return friendshipService.findInvitationReceived(principal).map(FriendshipMapper::toDto);
     }
 
     /**
@@ -59,7 +60,7 @@ public class FriendshipController {
      */
     @PostMapping(path="/sendInvit")
     public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser){
-        return friendshipService.createInvitation(principal,idUser).map(friendshipService::userToDTO);
+        return friendshipService.createInvitation(principal,idUser).map(FriendshipMapper::toDto);
     }
 
     @GetMapping(path = "/verify/{id}")
@@ -75,7 +76,7 @@ public class FriendshipController {
      */
     @PutMapping(path="/accept")
     public Mono<FriendshipDTO> acceptInvitation(Principal principal, @RequestBody Long idInvit){
-        return friendshipService.acceptInvitation(principal,idInvit).map(friendshipService::userToDTO);
+        return friendshipService.acceptInvitation(principal,idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
@@ -86,7 +87,7 @@ public class FriendshipController {
      */
     @PutMapping(path="/cancel")
     public Mono<FriendshipDTO> cancelInvitation(Principal principal,@RequestBody Long idInvit){
-        return friendshipService.cancelPendingInvitation(principal,idInvit).map(friendshipService::userToDTO);
+        return friendshipService.cancelPendingInvitation(principal,idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
@@ -97,7 +98,7 @@ public class FriendshipController {
      */
     @DeleteMapping(path="/reject")
     public Mono<FriendshipDTO> rejectInvitation(Principal principal, @RequestBody Long idInvit){
-        return friendshipService.cancelPendingInvitation(principal,idInvit).map(friendshipService::userToDTO);
+        return friendshipService.cancelPendingInvitation(principal,idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
@@ -108,7 +109,7 @@ public class FriendshipController {
      */
     @DeleteMapping(path="delete")
     public Mono<FriendshipDTO> deleteRelation(Principal principal,@RequestBody String secondUserId){
-        return friendshipService.deleteRelation(principal,secondUserId).map(friendshipService::userToDTO);
+        return friendshipService.deleteRelation(principal,secondUserId).map(FriendshipMapper::toDto);
     }
 
     @GetMapping(path = "/howManyFriends")
