@@ -7,20 +7,49 @@ import monkey from '../../images/monkeyInAsuit.jpg';
 import ModalUpdateUser from '../friend/modalUpdateUser'
 import InvitationR from '../fonctionnals/invitationR'
 import InvitationS from '../fonctionnals/invitationS'
+import PersonnalPost from '../fonctionnals/personnalPost'
 import Friend from '../fonctionnals/friend'
+import { IInvit } from "../../types/IInvit";
+import { IPost } from "../../types/IPost";
 
 const defaultUser: IUser = {};
-const sefaultFriends: IUser[] = [];
+const defaultFriends: IUser[] = [];
+const defaultInvitsReceived: IInvit[] = [];
+const defaultPersonnalPost: IPost[] = [];
 
 const Profile = () => {
 
   const [user, setUser] = useState<IUser>(defaultUser);
   const [count, setCount] = useState<number>(0);
-  const [friends, setFriends] = useState<IUser[]>(sefaultFriends);
-
+  const [friends, setFriends] = useState<IUser[]>(defaultFriends);
+  const [invitsR, setInvitsR] = useState<IInvit[]>(defaultInvitsReceived);
+  const [postsPerso, setPosts] = useState<IPost[]>(defaultPersonnalPost);
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
+  useEffect(() => {
+    // Create an scoped async function in the hook
+
+    async function getMyPosts() {
+      const token = await getAccessTokenSilently();
+      axios
+        .get(`${serverUrl}/posts/my`, {
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+          setPosts(response.data)
+        })
+        .catch((ex) => {
+          console.log(ex);
+        });
+    }
+    getMyPosts()
+
+  }, [getAccessTokenSilently, serverUrl]);
 
   useEffect(() => {
     // Create an scoped async function in the hook
@@ -46,6 +75,30 @@ const Profile = () => {
 
   }, [getAccessTokenSilently, serverUrl]);
 
+  useEffect(() => {
+    // Create an scoped async function in the hook
+
+    async function getInvitsR() {
+      const token = await getAccessTokenSilently();
+      axios
+        .get<IInvit[]>(`${serverUrl}/friends/friendship/myreceived`, {
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          //setInvitsR(response.data)
+        })
+        .catch((ex) => {
+          console.log(ex);
+        });
+    }
+    getInvitsR()
+
+  }, [getAccessTokenSilently, serverUrl]);
 
   useEffect(() => {
     // Create an scoped async function in the hook
@@ -77,7 +130,7 @@ const Profile = () => {
 
     <Grid container columns='equal'>
       <Grid.Row >
-        <Grid.Column>
+        <Grid.Column width={4}>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
             <div><Segment inverted color='blue'>
               Friends
@@ -89,7 +142,7 @@ const Profile = () => {
             </Segment.Group>
           </Segment>
         </Grid.Column>
-        <Grid.Column width={10}>
+        <Grid.Column width={8}>
           <Segment>
             <Card fluid>
               <Image src={monkey} size='small' centered />
@@ -117,44 +170,10 @@ const Profile = () => {
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }} className="ui middle">
             <Header color="blue" attached="top" block={true} dividing={true} textAlign="center">Les posts de l'users</Header>
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
-            <InvitationR />
+            {postsPerso.map(p => (<PersonnalPost post={p} key={p.idPost} />))}
           </Segment>
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column width={4}>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
             <h2>Les invits reçus</h2>
             <Card.Group>
