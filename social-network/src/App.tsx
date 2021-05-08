@@ -5,8 +5,9 @@ import Loading from "./components/animations/Loading";
 import HeaderComponent from "./header";
 import Profile from "./components/header/profile";
 import User from "./components/friend/users";
-import UserPage from "./components/friend/UserPage";
+// import UserPage from "./components/friend/UserPage";
 import Home from "./components/home/home";
+import MyFriendPost from "./components/fonctionnals/myfriendpost";
 import Post from "./components/post/post";
 import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from "./api/external-api";
@@ -32,8 +33,9 @@ function App() {
               {/* <Profile /> */}
               <Route exact path="/" component={Home} />
               <ProtectedRoute path="/profile" component={Profile} />
-              <ProtectedRoute path="/user/:id" component={UserPage} />
+              {/* <ProtectedRoute path="/user/:id" component={UserPage} /> */}
               <ProtectedRoute path="/external-api" component={ExternalApi} />
+              <ProtectedRoute path="/myfriendpost" component={MyFriendPost} />
               <ProtectedRoute path="/users" component={User} />
               <ProtectedRoute path="/posts" component={Post} />
             </Switch>
