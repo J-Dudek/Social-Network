@@ -6,7 +6,8 @@ import CardProfil from '../fonctionnals/cardProfil'
 import {Card,Input} from 'semantic-ui-react'
 
 interface IUser{
-  idUser: number;
+  idUser: string
+  ;
   firstName: string;
   lastName: string;
   birthdate?: string;

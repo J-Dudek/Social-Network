@@ -1,7 +1,8 @@
-import React from 'react'
+import React , { useEffect, useState }from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios  from 'axios';
 import { IPost } from '../../types/IPost';
+import { IUser } from '../../types/IUser';
 import { useForm, Controller } from "react-hook-form";
 <<<<<<< refs/remotes/origin/postcard
 <<<<<<< refs/remotes/origin/postcard
@@ -28,6 +29,7 @@ const isPublic = [
     { key: '1', text: '1', value: 1 },
   ]
 
+<<<<<<< refs/remotes/origin/postcard
 =======
     public?: string;
 }
@@ -43,8 +45,14 @@ const isPublic = [
   ]
 
 >>>>>>> :poop: post edition
+=======
+const defaultUser: IUser = {};
+
+>>>>>>> :adhesive_bandage: edit post user id
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
+    const [user, setUser] = useState<IUser>(defaultUser);
+    const [count, setCount] = useState<number>(0);
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [open, setOpen] = React.useState(false)
     const { handleSubmit, control } = useForm<Post>();
@@ -53,8 +61,34 @@ function CreatePost(){
         updateInfos(data);
     };
 
+    useEffect(() => {
+        // Create an scoped async function in the hook
+    
+        async function getInfos() {
+          const token = await getAccessTokenSilently();
+          axios
+            .get(`${serverUrl}/friends/users/aboutUser`, {
+    
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              }
+            })
+            .then((response) => {
+              setUser(response.data.t1)
+              setCount(response.data.t2)
+            })
+            .catch((ex) => {
+              console.log(ex);
+            });
+        }
+        getInfos()
+    
+      }, [getAccessTokenSilently, serverUrl]);
+
     async function updateInfos(post: Post) {
         const token = await getAccessTokenSilently();
+        post.userId = user.idUser;
         axios
             .post<IPost>(`${serverUrl}/posts`, post, {
                 headers: {

@@ -17,7 +17,7 @@ interface IPost{
 }
 
 export interface IUser{
-  idUser?: number;
+  idUser?: string;
   firstName?: string;
   lastName?: string;
   birthdate?: string;
