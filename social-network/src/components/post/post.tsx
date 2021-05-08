@@ -5,6 +5,7 @@ import monkey from '../../images/monkeyInAsuit.jpg';
 import CardPost from '../fonctionnals/CardPost';
 import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 
+
 import { setupMaster } from 'cluster';
 
 interface IPost{
