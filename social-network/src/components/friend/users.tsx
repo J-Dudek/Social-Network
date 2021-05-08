@@ -61,15 +61,13 @@ React.useEffect(() => {
   return (
     <div>
       <Input icon='users' iconPosition='left' placeholder='Search users...' />
-  <div className="UserCards">
+  <div className="ui items">
     
-    <Card.Group>
     {users.map((user) =>(
       
       <CardProfil user={user} key={ user.idUser}/>
       ))}
 
-    </Card.Group>
     
     {error && <p className="error">{error}</p>}
       </div>

@@ -55,3 +55,9 @@ button > a {
 .UserCards{
   margin: 4% 0 0 2%;
 }
+
+.ui.fluid.card {
+  margin: 1em;
+  width: 100%;
+  max-width: 9999px;
+}
