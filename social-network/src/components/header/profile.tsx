@@ -5,114 +5,23 @@ import axios from "axios";
 import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 import monkey from '../../images/monkeyInAsuit.jpg';
 import ModalUpdateUser from '../friend/modalUpdateUser'
-import InvitationR from '../fonctionnals/invitationR'
-import InvitationS from '../fonctionnals/invitationS'
 import PersonnalPost from '../fonctionnals/personnalPost'
-import Friend from '../fonctionnals/friend'
-import { IInvit } from "../../types/IInvit";
-import { IPost } from "../../types/IPost";
+import MySentInvit from '../fonctionnals/mySentInvits'
+import MyReceivedInvits from '../fonctionnals/MyReceivedInvits'
+import MyFriends from '../fonctionnals/myfriends'
+import MyPosts from '../fonctionnals/myPosts'
 
 const defaultUser: IUser = {};
-const defaultFriends: IUser[] = [];
-const defaultInvitsReceived: IInvit[] = [];
-const defaultPersonnalPost: IPost[] = [];
 
 const Profile = () => {
-
   const [user, setUser] = useState<IUser>(defaultUser);
   const [count, setCount] = useState<number>(0);
-  const [friends, setFriends] = useState<IUser[]>(defaultFriends);
-  const [invitsR, setInvitsR] = useState<IInvit[]>(defaultInvitsReceived);
-  const [postsPerso, setPosts] = useState<IPost[]>(defaultPersonnalPost);
+
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-  useEffect(() => {
-    // Create an scoped async function in the hook
-
-    async function getMyPosts() {
-      const token = await getAccessTokenSilently();
-      axios
-        .get(`${serverUrl}/posts/my`, {
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then((response) => {
-          setPosts(response.data)
-        })
-        .catch((ex) => {
-          console.log(ex);
-        });
-    }
-    getMyPosts()
-
-  }, [getAccessTokenSilently, serverUrl]);
 
   useEffect(() => {
-    // Create an scoped async function in the hook
-
-    async function getFriends() {
-      const token = await getAccessTokenSilently();
-      axios
-        .get(`${serverUrl}/friends/friendship/friends`, {
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then((response) => {
-          setFriends(response.data)
-
-        })
-        .catch((ex) => {
-          console.log(ex);
-        });
-    }
-    getFriends()
-
-  }, [getAccessTokenSilently, serverUrl]);
-
-  useEffect(() => {
-
-    // Create an scoped async function in the hook
-
-    async function getInvitsR() {
-      const token = await getAccessTokenSilently();
-      axios
-        .get(`${serverUrl}/friends/friendship/myreceived`, {
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        })
-        .then((response) => {
-          let invit: IInvit[] = [];
-          response.data.map(r => {
-            const inv: IInvit = {
-              t1: r.t1,
-              t2: r.t2,
-            }
-            invit.push(inv)
-          }
-          )
-
-          setInvitsR(invit)
-        })
-        .catch((ex) => {
-          console.log(ex);
-        });
-    }
-    getInvitsR()
-
-  }, [getAccessTokenSilently, serverUrl]);
-
-  useEffect(() => {
-    // Create an scoped async function in the hook
 
     async function getInfos() {
       const token = await getAccessTokenSilently();
@@ -143,13 +52,11 @@ const Profile = () => {
       <Grid.Row >
         <Grid.Column width={4}>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
-            <div><Segment inverted color='blue'>
+            <div><Segment inverted textAlign="center" color='blue'>
               Friends
              </Segment></div>
             <Segment.Group vertical >
-              {friends.map((friend) => (
-                <Segment key={friend.idUser}><Friend user={friend} /></Segment>
-              ))}
+              <MyFriends />
             </Segment.Group>
           </Segment>
         </Grid.Column>
@@ -181,23 +88,23 @@ const Profile = () => {
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }} className="ui middle">
             <Header color="blue" attached="top" block={true} dividing={true} textAlign="center">Les posts de l'users</Header>
-            {postsPerso.map(p => (<PersonnalPost post={p} key={p.idPost} />))}
+            <MyPosts />
           </Segment>
         </Grid.Column>
         <Grid.Column width={4}>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
-            <h2>Les invits reçus</h2>
+            <div><Segment inverted textAlign="center" color='blue'>
+              Received Invitations
+             </Segment></div>
             <Card.Group>
-              {invitsR.map(i => <InvitationR invit={i} key={i.t2.id} />)}
+              <MyReceivedInvits />
             </Card.Group>
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
-            <h2>Les invits envoyées</h2>
-            <InvitationS />
-            <InvitationS />
-            <InvitationS />
-            <InvitationS />
-            <InvitationS />
+            <div><Segment inverted textAlign="center" color='blue'>
+              Pending invitation
+             </Segment></div>
+            <MySentInvit />
           </Segment>
         </Grid.Column>
 

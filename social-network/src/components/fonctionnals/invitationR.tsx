@@ -9,8 +9,7 @@ import axios from 'axios';
 const InvitationR = ({ invit }: { invit: IInvit }) => {
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
-
-
+    
     const acceptClick = (e) => {
         alert(invit.t2.id)
         e.preventDefault();
