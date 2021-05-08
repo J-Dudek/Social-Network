@@ -71,5 +71,9 @@ public class PostService {
                 );
     }
 
+    public Flux<PostDTO> findMyPosts(Principal principal){
+        return postRepository.findAllByUserId(principal.getName()).map(PostMapper::toDto);
+    }
+
 
 }

@@ -37,6 +37,8 @@ public class SecurityConfig  {
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .pathMatchers(  HttpMethod.GET,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers(  HttpMethod.OPTIONS,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .anyExchange().authenticated()

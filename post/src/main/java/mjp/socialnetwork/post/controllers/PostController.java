@@ -60,4 +60,9 @@ public class PostController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
+    @GetMapping(path="/my")
+    public Flux<PostDTO> my(Principal principal){
+        return postService.findMyPosts(principal);
+    }
 }
