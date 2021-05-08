@@ -10,8 +10,6 @@ const defaultUser: IUser = {};
 
 const CardPost =({ post }:{ post:IPost })=>  {
 
-
-
     
         const { getAccessTokenSilently } = useAuth0();
         const [user,setUser]:[IUser,(user: IUser)=> void] = React.useState(

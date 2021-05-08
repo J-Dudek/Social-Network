@@ -5,6 +5,7 @@ import monkey from '../../images/monkeyInAsuit.jpg';
 import CardPost from '../fonctionnals/CardPost';
 import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 
+
 import { setupMaster } from 'cluster';
 
 interface IPost{
@@ -12,11 +13,11 @@ interface IPost{
     message?: string;
     publicationDate?: string ;
     userId?: string;
-    public?: string;
+    public?: number;
 }
 
 export interface IUser{
-  idUser?: number;
+  idUser?: string;
   firstName?: string;
   lastName?: string;
   birthdate?: string;
