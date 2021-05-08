@@ -2,6 +2,7 @@ package mjp.socialnetwork.post.controllers;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.model.dto.PostDTO;
+import mjp.socialnetwork.post.model.dto.UserDTO;
 import mjp.socialnetwork.post.services.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,12 @@ public class PostController {
 
     @GetMapping(path = "/all/private/{id}")
     public Flux<PostDTO> findAllPrivate(Principal principal, @PathVariable("id") Long id) {
-                return this.postService.findAllPrivate(id);
+        return this.postService.findAllPrivate(id);
+    }
+
+    @GetMapping(path = "/all/friends")
+    public Flux<PostDTO> findAllFriendsPosts(Principal principal, @RequestBody Flux<UserDTO> userDTOFlux) {
+        return this.postService.findAllFriendsPosts(userDTOFlux);
     }
 
     @GetMapping(path = "/{id}")
@@ -42,8 +48,8 @@ public class PostController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<PostDTO>> create(@RequestBody Mono<PostDTO> postDTOMono) {
-        return this.postService.create(postDTOMono)
+    public Mono<ResponseEntity<PostDTO>> create(Principal principal, @RequestBody Mono<PostDTO> postDTOMono) {
+        return this.postService.create(principal, postDTOMono)
                 .map(ResponseEntity::ok);
     }
 

@@ -3,6 +3,7 @@ package mjp.socialnetwork.post.services;
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.exceptions.PostException;
 import mjp.socialnetwork.post.model.dto.PostDTO;
+import mjp.socialnetwork.post.model.dto.UserDTO;
 import mjp.socialnetwork.post.repositories.PostRepository;
 import mjp.socialnetwork.post.utils.PostMapper;
 import org.springframework.stereotype.Service;
@@ -29,13 +30,20 @@ public class PostService {
                 .map(PostMapper::toDto);
     }
 
+    public Flux<PostDTO> findAllFriendsPosts(Flux<UserDTO> userDTOFlux) {
+        return userDTOFlux
+                .flatMap(userDTO -> this.postRepository.findAllByUserId(userDTO.getIdUser()))
+                .map(PostMapper::toDto);
+    }
+
     public Mono<PostDTO> findById(Long id) {
         return this.postRepository.findById(id).map(PostMapper::toDto);
     }
 
-    public Mono<PostDTO> create(Mono<PostDTO> postDTO) {
+    public Mono<PostDTO> create(Principal principal, Mono<PostDTO> postDTO) {
         return postDTO
                 .map(PostMapper::toEntity)
+                .doOnNext(post -> post.setUserId(principal.getName()))
                 .flatMap(this.postRepository::save)
                 .map(PostMapper::toDto);
     }

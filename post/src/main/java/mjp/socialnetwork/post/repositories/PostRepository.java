@@ -6,5 +6,6 @@ import reactor.core.publisher.Flux;
 
 public interface PostRepository extends ReactiveCrudRepository<Post, Long> {
 
-    public Flux<Post> findPostByIdAndPublic(Long id, boolean isPublic);
+    Flux<Post> findPostByIdAndPublic(Long id, boolean isPublic);
+    Flux<Post> findAllByUserId(String userId);
 }

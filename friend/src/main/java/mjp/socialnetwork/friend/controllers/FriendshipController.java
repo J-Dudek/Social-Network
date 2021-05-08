@@ -25,43 +25,43 @@ public class FriendshipController {
 
     /**
      * Permet d'obtenir toutes les relations existantes de l'user
+     *
      * @param principal passé par token
      * @return la liste des users
      */
-    @GetMapping(path="/friends")
-    public Flux<UserDTO> getMyFriends(Principal principal){
+    @GetMapping(path = "/friends")
+    public Flux<UserDTO> getMyFriends(Principal principal) {
         return friendshipService.getFriends(principal).map(UserMapper::toDto);
     }
 
     /**
-     *
      * @param principal passé dans le token
      * @return la liste des invitations envoyés et non traitées
      */
     @GetMapping(path = "/mysent")
-    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMySent(Principal principal){
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMySent(Principal principal) {
         return friendshipService.findInvitationSent(principal);
     }
 
     /**
-     *
      * @param principal passé dans le token
      * @return la liste des invitations reçus en attente d'une action
      */
-    @GetMapping(path="/myreceived")
-    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMyReceived(Principal principal){
+    @GetMapping(path = "/myreceived")
+    public Flux<Tuple2<UserDTO, FriendshipDTO>> getMyReceived(Principal principal) {
         return friendshipService.findInvitationReceived(principal);
     }
 
     /**
      * Permet de créer une invitation
+     *
      * @param principal passé dans le token
-     * @param idUser l'id de l'user invité
+     * @param idUser    l'id de l'user invité
      * @return l'invitation en question
      */
-    @PostMapping(path="/sendInvit")
-    public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser){
-        return friendshipService.createInvitation(principal,idUser).map(FriendshipMapper::toDto);
+    @PostMapping(path = "/sendInvit")
+    public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser) {
+        return friendshipService.createInvitation(principal, idUser).map(FriendshipMapper::toDto);
     }
 
     @GetMapping(path = "/verify/{id}")
@@ -71,50 +71,54 @@ public class FriendshipController {
 
     /**
      * Acceptation de l'invitation. création du lien en base
+     *
      * @param principal passé dans le token
-     * @param idInvit l'invitation a accepter
+     * @param idInvit   l'invitation a accepter
      * @return la relation etablie
      */
-    @PutMapping(path="/accept")
-    public Mono<FriendshipDTO> acceptInvitation(Principal principal, @RequestBody Long idInvit){
-        return friendshipService.acceptInvitation(principal,idInvit).map(FriendshipMapper::toDto);
+    @PutMapping(path = "/accept")
+    public Mono<FriendshipDTO> acceptInvitation(Principal principal, @RequestBody Long idInvit) {
+        return friendshipService.acceptInvitation(principal, idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
      * Annulation d'une invitation envoyée.
+     *
      * @param principal passé dans le token,corrsspond à celui qui a fait l'invitation
-     * @param idInvit l'invitation à annuler
+     * @param idInvit   l'invitation à annuler
      * @return l'invitation supprimée.
      */
-    @PutMapping(path="/cancel")
-    public Mono<FriendshipDTO> cancelInvitation(Principal principal,@RequestBody Long idInvit){
-        return friendshipService.cancelPendingInvitation(principal,idInvit).map(FriendshipMapper::toDto);
+    @PutMapping(path = "/cancel")
+    public Mono<FriendshipDTO> cancelInvitation(Principal principal, @RequestBody Long idInvit) {
+        return friendshipService.cancelPendingInvitation(principal, idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
      * Refu d'une invitation recus
+     *
      * @param principal passé dans le token, correspond à l'user
-     * @param idInvit l'invitation concernée
+     * @param idInvit   l'invitation concernée
      * @return l'invitation supprimée
      */
-    @DeleteMapping(path="/reject")
-    public Mono<FriendshipDTO> rejectInvitation(Principal principal, @RequestBody Long idInvit){
-        return friendshipService.cancelPendingInvitation(principal,idInvit).map(FriendshipMapper::toDto);
+    @DeleteMapping(path = "/reject")
+    public Mono<FriendshipDTO> rejectInvitation(Principal principal, @RequestBody Long idInvit) {
+        return friendshipService.cancelPendingInvitation(principal, idInvit).map(FriendshipMapper::toDto);
     }
 
     /**
      * Quand un amis supprime sa relation avec un autre
-     * @param principal l'user qui prend la decision de rompre
+     *
+     * @param principal    l'user qui prend la decision de rompre
      * @param secondUserId l'id du futur ex-ami
      * @return la relation supprimée
      */
-    @DeleteMapping(path="delete")
-    public Mono<FriendshipDTO> deleteRelation(Principal principal,@RequestBody String secondUserId){
-        return friendshipService.deleteRelation(principal,secondUserId).map(FriendshipMapper::toDto);
+    @DeleteMapping(path = "delete")
+    public Mono<FriendshipDTO> deleteRelation(Principal principal, @RequestBody String secondUserId) {
+        return friendshipService.deleteRelation(principal, secondUserId).map(FriendshipMapper::toDto);
     }
 
     @GetMapping(path = "/howManyFriends")
-    public Mono<Long> howManyFriends(Principal principal){
+    public Mono<Long> howManyFriends(Principal principal) {
         return friendshipService.howManyFriends(principal);
     }
 }
