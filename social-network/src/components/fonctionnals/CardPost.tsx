@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Image,Segment } from 'semantic-ui-react';
+import { Card,Image } from 'semantic-ui-react';
 import { IUser } from '../../types/IUser';
 import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
@@ -16,10 +16,6 @@ const CardPost =({ post }:{ post:IPost })=>  {
           defaultUser
         );
        
-      
-        const [error, setError]: [string, (error: string) => void] = React.useState(
-          ''
-        );
       
       React.useEffect(() => {
         const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -40,14 +36,13 @@ const CardPost =({ post }:{ post:IPost })=>  {
           })
           .catch((ex) => {
              console.log(ex);
-            setError("error");
             
           });
           
         }
         getAll();
         
-      }, [getAccessTokenSilently]);
+      }, [getAccessTokenSilently, post.userId]);
     
     return (
         <>

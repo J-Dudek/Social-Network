@@ -5,7 +5,6 @@ import axios from "axios";
 import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
 import monkey from '../../images/monkeyInAsuit.jpg';
 import ModalUpdateUser from '../friend/modalUpdateUser'
-import PersonnalPost from '../fonctionnals/personnalPost'
 import MySentInvit from '../fonctionnals/mySentInvits'
 import MyReceivedInvits from '../fonctionnals/MyReceivedInvits'
 import MyFriends from '../fonctionnals/myfriends'

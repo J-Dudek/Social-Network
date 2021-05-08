@@ -46,7 +46,7 @@ const MyReceivedInvits = () => {
 
     return (
         <>
-            {invits.map(invit => <Invitation invit={invit} key={invit.t2.id} />)}
+            {invits.map((invit) => (<Invitation invit={invit} key={invit.t2.id} />))}
         </>
 
     )

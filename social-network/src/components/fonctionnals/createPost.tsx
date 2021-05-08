@@ -5,7 +5,7 @@ import { IPost } from '../../types/IPost';
 import { IUser } from '../../types/IUser';
 import { useForm, Controller } from "react-hook-form";
 
-import {Modal , Checkbox, Form, Icon, Input, Button, Header, Radio, Select, TextArea,} from 'semantic-ui-react';
+import {Modal , Form, Button,  Select,} from 'semantic-ui-react';
 
 type Post = {
     idPost?: number;
@@ -28,7 +28,6 @@ var defaultPublic: boolean = false;
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
     const [user, setUser] = useState<IUser>(defaultUser);
-    const [count, setCount] = useState<number>(0);
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [open, setOpen] = React.useState(false)
     const { handleSubmit, control } = useForm<Post>();
@@ -57,7 +56,6 @@ function CreatePost(){
             })
             .then((response) => {
               setUser(response.data.t1)
-              setCount(response.data.t2)
             })
             .catch((ex) => {
               console.log(ex);

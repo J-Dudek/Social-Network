@@ -1,12 +1,8 @@
 import React from 'react';
 import axios  from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
-import monkey from '../../images/monkeyInAsuit.jpg';
 import CardPost from '../fonctionnals/CardPost';
-import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
-
-
-import { setupMaster } from 'cluster';
+import { Grid, Segment } from "semantic-ui-react";
 
 interface IPost{
     idPost?: number;
@@ -37,9 +33,7 @@ const Post = () => {
       defaultPost
     );
 
-    const [user,setUser]:[IPost[],(posts: IPost[])=>void ] = React.useState(
-      defaultPost
-    );
+
     
    
   
@@ -72,7 +66,7 @@ const Post = () => {
     }
     getAll();
     
-  }, [getAccessTokenSilently]);
+  }, [error, getAccessTokenSilently]);
 
   
   

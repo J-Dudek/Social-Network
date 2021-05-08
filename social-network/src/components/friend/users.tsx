@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import CardProfil from "../fonctionnals/cardProfil";
 
-import { Card, Input } from "semantic-ui-react";
+import {  Input } from "semantic-ui-react";
 
 interface IUser {
   idUser: string;

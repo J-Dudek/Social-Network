@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image, Icon, Button } from 'semantic-ui-react';
+import { Card, Image, Button } from 'semantic-ui-react';
 import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
