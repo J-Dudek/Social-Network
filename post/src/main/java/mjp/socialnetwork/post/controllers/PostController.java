@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.model.dto.PostDTO;
 import mjp.socialnetwork.post.model.dto.UserDTO;
 import mjp.socialnetwork.post.services.PostService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
