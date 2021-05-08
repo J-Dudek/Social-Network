@@ -3,13 +3,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios  from 'axios';
 import { IPost } from '../../types/IPost';
 import { useForm, Controller } from "react-hook-form";
+<<<<<<< refs/remotes/origin/postcard
 import {Modal , Checkbox, Form, Icon, Input, Button, Header, Radio, Select, TextArea,} from 'semantic-ui-react';
+=======
+import {Modal , Form, Icon, Button, Header} from 'semantic-ui-react';
+>>>>>>> :construction: edit post
 
 type Post = {
     idPost?: number;
     message?: string;
     publicationDate?: string ;
     userId?: string;
+<<<<<<< refs/remotes/origin/postcard
     public?: number;
 }
 
@@ -18,6 +23,11 @@ const isPublic = [
     { key: '1', text: '1', value: 1 },
   ]
 
+=======
+    public?: string;
+}
+
+>>>>>>> :construction: edit post
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -60,6 +70,7 @@ function CreatePost(){
                 <Modal.Description>
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
 
+<<<<<<< refs/remotes/origin/postcard
                     <Controller control={control} name="public"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.Field
@@ -75,6 +86,8 @@ function CreatePost(){
 
                         />
 
+=======
+>>>>>>> :construction: edit post
                         <Controller control={control} name="message"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.TextArea fluid label='Message'
@@ -87,8 +100,11 @@ function CreatePost(){
                                 />
                             )}
                         />
+<<<<<<< refs/remotes/origin/postcard
 
                         
+=======
+>>>>>>> :construction: edit post
                         
                         <Modal.Actions>
                             <Button color='black' onClick={() => setOpen(false)}>
