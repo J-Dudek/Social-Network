@@ -42,7 +42,12 @@ public class SecurityConfig  {
 =======
                         .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers(  HttpMethod.OPTIONS,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+<<<<<<< refs/remotes/origin/postcard
 >>>>>>> #4 findMyPosts
+=======
+                        .pathMatchers(  HttpMethod.DELETE,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
+                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
+>>>>>>> 💩  PersonnalPost
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .anyExchange().authenticated()
