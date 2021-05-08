@@ -12,17 +12,18 @@ type Post = {
     message?: string;
     publicationDate?: string ;
     userId?: string;
-    public?: number;
+    public?: boolean;
 }
 
 
+
 const isPublic = [
-    { key: '0', text: '0', value: 0 },
-    { key: '1', text: '1', value: 1 },
+    { key: '0', text: '0', value: false },
+    { key: '1', text: '1', value: true },
   ]
 
 const defaultUser: IUser = {};
-
+var defaultPublic: boolean = false;
 
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
@@ -31,10 +32,15 @@ function CreatePost(){
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [open, setOpen] = React.useState(false)
     const { handleSubmit, control } = useForm<Post>();
+    const   handleDropDownSelect = (event, data) => {
+           defaultPublic = data.value;
+    };       
     const setData = (data: Post) => {
-        console.log("toto data", data);
+        data.public = defaultPublic;
         updateInfos(data);
     };
+
+
 
     useEffect(() => {
         // Create an scoped async function in the hook
@@ -75,11 +81,12 @@ function CreatePost(){
                 return window.location.href = '/posts';
             })
             .catch((ex) => {
-                console.log("tot" + ex);
+                console.log(ex);
 
             });
 
     }
+
 
     return (
         <Modal
@@ -87,7 +94,7 @@ function CreatePost(){
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Show Modal</Button>}
+            trigger={<Button>Ecrire un post</Button>}
         >
             <Modal.Header>You can change your infos</Modal.Header>
             <Modal.Content image>
@@ -100,11 +107,14 @@ function CreatePost(){
                                 control={Select}
                                 options={isPublic}
                                 label={{ children: 'Public', htmlFor: 'public' }}
+                                onChange={handleDropDownSelect}
                                 placeholder='Public'
                                 selected={value}
                                 search
                                 searchInput={{ id: 'public' }}
                               />
+                            
+                              
                             )}
 
                         />
