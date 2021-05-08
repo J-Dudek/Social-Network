@@ -59,7 +59,7 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.OPTIONS,"/friends/friendship/myreceived").hasAuthority(Scope.FRIEND_READ.scope())
                         .pathMatchers(HttpMethod.GET,"/friends/friendship/mysent").hasAuthority(Scope.FRIEND_READ.scope())
                         .pathMatchers(HttpMethod.OPTIONS,"/friends/friendship/mysent").hasAuthority(Scope.FRIEND_READ.scope())
-                        .pathMatchers(HttpMethod.DELETE,"/friends/friendship/reject").hasAuthority(Scope.FRIEND_DELETE.scope())
+                        .pathMatchers(HttpMethod.PUT,"/friends/friendship/reject").hasAuthority(Scope.FRIEND_DELETE.scope())
                         .pathMatchers(HttpMethod.OPTIONS,"/friends/friendship/reject").hasAuthority(Scope.FRIEND_DELETE.scope())
                         .pathMatchers(HttpMethod.POST,"/friends/friendship/sendInvit").hasAuthority(Scope.FRIEND_SEARCH.scope())
                         .pathMatchers(HttpMethod.OPTIONS,"/friends/friendship/sendInvit").hasAuthority(Scope.FRIEND_SEARCH.scope())

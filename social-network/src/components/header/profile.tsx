@@ -66,6 +66,7 @@ const Profile = () => {
         })
         .then((response) => {
           setFriends(response.data)
+
         })
         .catch((ex) => {
           console.log(ex);
@@ -76,12 +77,13 @@ const Profile = () => {
   }, [getAccessTokenSilently, serverUrl]);
 
   useEffect(() => {
+
     // Create an scoped async function in the hook
 
     async function getInvitsR() {
       const token = await getAccessTokenSilently();
       axios
-        .get<IInvit[]>(`${serverUrl}/friends/friendship/myreceived`, {
+        .get(`${serverUrl}/friends/friendship/myreceived`, {
 
           headers: {
             Authorization: `Bearer ${token}`,
@@ -89,8 +91,17 @@ const Profile = () => {
           }
         })
         .then((response) => {
-          console.log(response.data);
-          //setInvitsR(response.data)
+          let invit: IInvit[] = [];
+          response.data.map(r => {
+            const inv: IInvit = {
+              t1: r.t1,
+              t2: r.t2,
+            }
+            invit.push(inv)
+          }
+          )
+
+          setInvitsR(invit)
         })
         .catch((ex) => {
           console.log(ex);
@@ -177,11 +188,7 @@ const Profile = () => {
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
             <h2>Les invits reçus</h2>
             <Card.Group>
-              <InvitationR />
-              <InvitationR />
-              <InvitationR />
-              <InvitationR />
-              <InvitationR />
+              {invitsR.map(i => <InvitationR invit={i} key={i.t2.id} />)}
             </Card.Group>
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>

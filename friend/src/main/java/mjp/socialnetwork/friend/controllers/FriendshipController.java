@@ -108,7 +108,7 @@ public class FriendshipController {
      */
     @DeleteMapping(path = "/reject")
     public Mono<FriendshipDTO> rejectInvitation(Principal principal, @RequestBody Long idInvit) {
-        return friendshipService.cancelPendingInvitation(principal, idInvit).map(FriendshipMapper::toDto);
+        return friendshipService.rejectInvitation(principal, idInvit).map(FriendshipMapper::toDto);
     }
 
     /**

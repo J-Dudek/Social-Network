@@ -4,14 +4,10 @@ import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
-import { createPortal } from 'react-dom';
-
 
 
 const PersonnalPost = ({ post }: { post: IPost }) => {
     const { getAccessTokenSilently } = useAuth0();
-
-
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const handleClick = (e) => {
@@ -29,8 +25,7 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
                     timeout: 10000,
                 })
                 .then((response) => {
-                    console.log(response.data)
-                    alert("delete")
+
 
                 })
                 .catch((ex) => {
