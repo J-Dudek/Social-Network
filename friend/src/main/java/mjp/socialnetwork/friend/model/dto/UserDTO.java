@@ -29,9 +29,6 @@ public class UserDTO {
     @JsonView(UserViews.Friends.class)
     private String username;
 
-
-
-
     public UserDTO() {
     }
 

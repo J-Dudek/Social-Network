@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.model.dto.PostDTO;
 import mjp.socialnetwork.post.model.dto.UserDTO;
 import mjp.socialnetwork.post.services.PostService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -24,9 +23,19 @@ public class PostController {
         return this.postService.findAll();
     }
 
+    @GetMapping(path = "/all/{id}")
+    public Flux<PostDTO> findAllByUserId(Principal principal, @PathVariable("id") String userId) {
+        return this.postService.findAllByUserId(userId);
+    }
+
     @GetMapping(path = "/all/private/{id}")
-    public Flux<PostDTO> findAllPrivate(Principal principal, @PathVariable("id") Long id) {
-        return this.postService.findAllPrivate(id);
+    public Flux<PostDTO> findAllPrivateByUserId(Principal principal, @PathVariable("id") String userId) {
+        return this.postService.findAllByUserIdAndPublic(userId, false);
+    }
+
+    @GetMapping(path = "/all/public/{id}")
+    public Flux<PostDTO> findAllPublicByUserId(Principal principal, @PathVariable("id") String userId) {
+        return this.postService.findAllByUserIdAndPublic(userId, true);
     }
 
     @GetMapping(path = "/all/friends")

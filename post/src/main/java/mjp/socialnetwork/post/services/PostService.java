@@ -25,8 +25,13 @@ public class PostService {
                 .map(PostMapper::toDto);
     }
 
-    public Flux<PostDTO> findAllPrivate(long id) {
-        return this.postRepository.findPostByIdAndPublic(id, false)
+    public Flux<PostDTO> findAllByUserId(String userId) {
+        return this.postRepository.findAllByUserId(userId)
+                .map(PostMapper::toDto);
+    }
+
+    public Flux<PostDTO> findAllByUserIdAndPublic(String userId, boolean isPublic) {
+        return this.postRepository.findPostByUserIdAndPublic(userId, isPublic)
                 .map(PostMapper::toDto);
     }
 

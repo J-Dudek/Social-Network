@@ -41,6 +41,14 @@ public class UserController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
+    @GetMapping(path = "/friend/{userId}")
+    @JsonView(UserViews.Friends.class)
+    public Mono<ResponseEntity<UserDTO>> findFriendByUserId(@PathVariable("userId") String userId) {
+        return userService.findById(userId)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
     @PutMapping(path = "/update")
     public Mono<ResponseEntity<UserDTO>> updateUser(Principal principal, @RequestBody Mono<UserDTO> userDTOMono) {
         return this.userService.updateUser(principal, userDTOMono)
