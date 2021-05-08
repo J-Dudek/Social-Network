@@ -4,16 +4,21 @@ import axios  from 'axios';
 import { IPost } from '../../types/IPost';
 import { useForm, Controller } from "react-hook-form";
 <<<<<<< refs/remotes/origin/postcard
+<<<<<<< refs/remotes/origin/postcard
 import {Modal , Checkbox, Form, Icon, Input, Button, Header, Radio, Select, TextArea,} from 'semantic-ui-react';
 =======
 import {Modal , Form, Icon, Button, Header} from 'semantic-ui-react';
 >>>>>>> :construction: edit post
+=======
+import {Modal , Checkbox, Form, Icon, Input, Button, Header, Radio, Select, TextArea,} from 'semantic-ui-react';
+>>>>>>> :poop: post edition
 
 type Post = {
     idPost?: number;
     message?: string;
     publicationDate?: string ;
     userId?: string;
+<<<<<<< refs/remotes/origin/postcard
 <<<<<<< refs/remotes/origin/postcard
     public?: number;
 }
@@ -28,6 +33,16 @@ const isPublic = [
 }
 
 >>>>>>> :construction: edit post
+=======
+    public?: number;
+}
+
+const isPublic = [
+    { key: '0', text: '0', value: 0 },
+    { key: '1', text: '1', value: 1 },
+  ]
+
+>>>>>>> :poop: post edition
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -71,6 +86,9 @@ function CreatePost(){
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
 
 <<<<<<< refs/remotes/origin/postcard
+<<<<<<< refs/remotes/origin/postcard
+=======
+>>>>>>> :poop: post edition
                     <Controller control={control} name="public"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.Field
@@ -86,8 +104,11 @@ function CreatePost(){
 
                         />
 
+<<<<<<< refs/remotes/origin/postcard
 =======
 >>>>>>> :construction: edit post
+=======
+>>>>>>> :poop: post edition
                         <Controller control={control} name="message"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.TextArea fluid label='Message'
@@ -101,10 +122,15 @@ function CreatePost(){
                             )}
                         />
 <<<<<<< refs/remotes/origin/postcard
+<<<<<<< refs/remotes/origin/postcard
 
                         
 =======
 >>>>>>> :construction: edit post
+=======
+
+                        
+>>>>>>> :poop: post edition
                         
                         <Modal.Actions>
                             <Button color='black' onClick={() => setOpen(false)}>
