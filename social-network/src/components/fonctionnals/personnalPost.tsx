@@ -4,6 +4,8 @@ import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
+import { createPortal } from 'react-dom';
+
 
 
 const PersonnalPost = ({ post }: { post: IPost }) => {
@@ -12,11 +14,13 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
 
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-    function handleClick(idPost) {
-        async function deletePost(idPost) {
+    const handleClick = (e) => {
+        e.preventDefault();
+        deletePost(e)
+        async function deletePost(e) {
             const token = await getAccessTokenSilently();
             axios
-                .delete<IPost>(`${serverUrl}/posts/${idPost}`, {
+                .delete<IPost>(`${serverUrl}/posts/${e.target.id}`, {
 
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -26,6 +30,7 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
                 })
                 .then((response) => {
                     console.log(response.data)
+                    alert("delete")
 
                 })
                 .catch((ex) => {
@@ -40,7 +45,7 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
         <>
             <Card fluid className="postcard">
                 <Card.Content>
-                    <Button floated='left' icon='trash' />
+                    <Button floated='left' icon='trash' id={post.idPost} onClick={handleClick} />
                     <Image
                         floated='right'
                         size='mini'
