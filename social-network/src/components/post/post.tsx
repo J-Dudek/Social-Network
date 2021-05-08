@@ -10,7 +10,7 @@ import { setupMaster } from 'cluster';
 interface IPost{
     idPost?: number;
     message?: string;
-    publicationDate?: string;
+    publicationDate?: string ;
     userId?: string;
     public?: string;
 }
@@ -76,22 +76,22 @@ const Post = () => {
   
   
   return (
-
-    <Grid container columns='equal'>
-        <Grid.Row >
-        <Grid.Column width={10}>
-            {posts.map((post) =>(
-              <div>
-                <CardPost post = {post} />
-              </div>
-                
-            ))}
-    
-      {error && <p className="error">{error}</p>}
-        </Grid.Column>
-        </Grid.Row>
-    </Grid>
-
+      <Segment style={{ padding :'4%' }} className="ui middle">
+        <Grid>
+              <Grid.Row >
+              <Grid.Column width={14}>
+                  {posts.map((post) =>(
+                    <div>
+                      <CardPost post = {post} />
+                    </div>
+                      
+                  ))}
+          
+            {error && <p className="error">{error}</p>}
+              </Grid.Column>
+              </Grid.Row>
+          </Grid>
+      </Segment>
     
   );
   };

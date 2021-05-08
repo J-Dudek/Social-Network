@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card,Image } from 'semantic-ui-react';
+import { Card,Image,Segment } from 'semantic-ui-react';
 import { IUser } from '../../types/IUser';
 import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
@@ -52,15 +52,22 @@ const CardPost =({ post }:{ post:IPost })=>  {
       }, [getAccessTokenSilently]);
     
     return (
-        
-        <Card fluid>
+        <>
+        <Card fluid className="postcard">
             <Card.Content>
-              <div className="header">{user.firstName}  {user.lastName}</div>
+            <Image
+                    floated='right'
+                    size='mini'
+                    src={monkey}
+                />
+              <Card.Header>{user.firstName}  {user.lastName}</Card.Header>
             
-            <div className="description">Message : {post.message} </div>
+              <Card.Description>{post.message} </Card.Description>
+              <Card.Meta>{post.publicationDate?.substring(0,10)}  {post.publicationDate?.substring(11,19)} </Card.Meta>
             </Card.Content>
+            
         </Card>
-
+        </>
     )
 }
 
