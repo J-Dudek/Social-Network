@@ -8,6 +8,7 @@ import Profile from './components/header/profile'
 import User from "./components/friend/users";
 import Home from './components/home/home';
 import Post from './components/post/post';
+import MyFriendPost from './components/fonctionnals/myfriendpost';
 import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from './api/external-api';
 import './App.css';
@@ -36,6 +37,7 @@ function App() {
               <ProtectedRoute path="/external-api" component={ExternalApi} />
               <ProtectedRoute path="/users" component={User} />
               <ProtectedRoute path="/posts" component={Post} />
+              <ProtectedRoute path="/myfriendposts" component={MyFriendPost} />
             </Switch>       
         </div>      
       </div>               

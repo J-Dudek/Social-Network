@@ -118,11 +118,11 @@ insert into user (id, first_name, last_name, birthdate, email, phone_number, cit
 insert into user (id, first_name, last_name, birthdate, email, phone_number, city, sign_in_date, username, is_new) values ('99', 'Esmaria', 'Wackly', '1982-01-14 05:42:39', 'ewackly2q@godaddy.com', '478 282 8353', 'Kutasari', '2020-08-25 20:39:45', 'ewackly2q', false);
 insert into user (id, first_name, last_name, birthdate, email, phone_number, city, sign_in_date, username, is_new) values ('100', 'Jacky', 'Treslove', '1991-09-09 08:58:44', 'jtreslove2r@umich.edu', '287 681 1784', 'Al Ḩawāmidīyah', '2020-10-01 01:40:49', 'jtreslove2r', false);
 
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (1, 'github|47953421', '1', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (2, 'github|47953421', '2', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (3, 'github|47953421', '3', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (4, 'github|47953421', '4', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (5, 'github|47953421', '5', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (6, 'github|47953421', '6', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (7, 'github|47953421', '7', CURRENT_TIMESTAMP, 1, 0);
-insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (8, 'github|47953421', '8', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (1, 'auth0|6096874ab638f70071578b2e', '1', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (2, 'auth0|6096874ab638f70071578b2e', '2', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (3, 'auth0|6096874ab638f70071578b2e', '3', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (4, 'auth0|6096874ab638f70071578b2e', '4', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (5, 'auth0|6096874ab638f70071578b2e', '5', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (6, 'auth0|6096874ab638f70071578b2e', '6', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (7, 'auth0|6096874ab638f70071578b2e', '7', CURRENT_TIMESTAMP, 1, 0);
+insert into friendship (id, first_user_id, second_user_id, friendship_date, status, is_new) values (8, 'auth0|6096874ab638f70071578b2e', '8', CURRENT_TIMESTAMP, 1, 0);

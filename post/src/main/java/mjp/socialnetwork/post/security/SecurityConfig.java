@@ -36,6 +36,7 @@ public class SecurityConfig  {
                 .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .pathMatchers(  HttpMethod.GET,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(  HttpMethod.POST,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers(  HttpMethod.OPTIONS,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers(  HttpMethod.POST,"/posts").hasAuthority(Scope.POST_CREATE.scope())
                         .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
