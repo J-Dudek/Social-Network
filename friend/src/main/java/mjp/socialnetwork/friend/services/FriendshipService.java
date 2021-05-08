@@ -37,6 +37,14 @@ public class FriendshipService {
         return hisRequests.mergeWith(theirRequests);
     }
 
+    public Flux<User> getFriends(String userId) {
+        Flux<User> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(userId, true)
+                .flatMap(friendship -> userRepository.findById(friendship.getSecondUserId()));
+        Flux<User> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(userId, true).
+                flatMap(friendship -> userRepository.findById(friendship.getFirstUserId()));
+        return hisRequests.mergeWith(theirRequests);
+    }
+
     public Mono<Boolean> isFriend(Principal principal, String friendId) {
         return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), friendId)
                 .flatMap(isFriend -> {

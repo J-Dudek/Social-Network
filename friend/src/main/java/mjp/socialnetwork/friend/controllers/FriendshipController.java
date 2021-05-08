@@ -34,6 +34,12 @@ public class FriendshipController {
         return friendshipService.getFriends(principal).map(UserMapper::toDto);
     }
 
+    @GetMapping(path = "/{id}")
+    public Flux<UserDTO> getUserFriends(@PathVariable("id") String userId) {
+        return this.friendshipService.getFriends(userId)
+                .map(UserMapper::toDto);
+    }
+
     /**
      * @param principal passé dans le token
      * @return la liste des invitations envoyés et non traitées
