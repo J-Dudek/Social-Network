@@ -37,7 +37,12 @@ public class SecurityConfig  {
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
                         .pathMatchers(  HttpMethod.GET,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
                         .pathMatchers(  HttpMethod.OPTIONS,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
+<<<<<<< refs/remotes/origin/postcard
                         .pathMatchers(  HttpMethod.POST,"/posts").hasAuthority(Scope.POST_CREATE.scope())
+=======
+                        .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+>>>>>>> #4 findMyPosts
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
                         .anyExchange().authenticated()
