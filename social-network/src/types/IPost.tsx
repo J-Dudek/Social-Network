@@ -3,5 +3,5 @@ export interface IPost{
     message?: string;
     publicationDate?: string ;
     userId?: string;
-    public?: string;
+    public?: number;
   }

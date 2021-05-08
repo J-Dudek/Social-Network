@@ -3,15 +3,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios  from 'axios';
 import { IPost } from '../../types/IPost';
 import { useForm, Controller } from "react-hook-form";
-import {Modal , Form, Icon, Button, Header} from 'semantic-ui-react';
+import {Modal , Checkbox, Form, Icon, Input, Button, Header, Radio, Select, TextArea,} from 'semantic-ui-react';
 
 type Post = {
     idPost?: number;
     message?: string;
     publicationDate?: string ;
     userId?: string;
-    public?: string;
+    public?: number;
 }
+
+const isPublic = [
+    { key: '0', text: '0', value: 0 },
+    { key: '1', text: '1', value: 1 },
+  ]
 
 function CreatePost(){
     const { getAccessTokenSilently } = useAuth0();
@@ -55,6 +60,21 @@ function CreatePost(){
                 <Modal.Description>
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
 
+                    <Controller control={control} name="public"
+                            render={({ field: { onChange, onBlur, value, ref } }) => (
+                                <Form.Field
+                                control={Select}
+                                options={isPublic}
+                                label={{ children: 'Public', htmlFor: 'public' }}
+                                placeholder='Public'
+                                selected={value}
+                                search
+                                searchInput={{ id: 'public' }}
+                              />
+                            )}
+
+                        />
+
                         <Controller control={control} name="message"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.TextArea fluid label='Message'
@@ -67,6 +87,8 @@ function CreatePost(){
                                 />
                             )}
                         />
+
+                        
                         
                         <Modal.Actions>
                             <Button color='black' onClick={() => setOpen(false)}>
