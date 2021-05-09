@@ -13,32 +13,32 @@ const MyPosts = () => {
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [postsPerso, setPosts] = useState<IPost[]>(defaultPersonnalPost);
 
+
+    let getMyPosts = React.useCallback(async () => {
+        const token = await getAccessTokenSilently();
+        Axios
+            .get(`${serverUrl}/posts/my`, {
+
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .subscribe(
+                response => setPosts(response.data),
+                error => console.log(error)
+
+            )
+            ;
+    }, [getAccessTokenSilently, serverUrl])
+
     useEffect(() => {
-        async function getMyPosts() {
-            const token = await getAccessTokenSilently();
-            Axios
-                .get(`${serverUrl}/posts/my`, {
-
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .subscribe(
-                    response => setPosts(response.data),
-                    error => console.log(error)
-
-                )
-                ;
-        }
-        getMyPosts()
-
-    }, [getAccessTokenSilently, serverUrl]);
-
+        getMyPosts();
+    }, [getMyPosts]);
 
     return (
         <>
-            {postsPerso.map(post => <PersonnalPost post={post} key={post.idPost} />)}
+            {postsPerso.map(post => <PersonnalPost post={post} updateParent={getMyPosts} key={post.idPost} />)}
         </>
 
     )

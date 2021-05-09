@@ -6,11 +6,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 
 
-const PersonnalPost = ({ post }: { post: IPost }) => {
+type PropsFunction = () => Promise<void>;
+const PersonnalPost = ({ post, updateParent }: { post: IPost, updateParent: PropsFunction }) => {
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const handleClick = (e) => {
+
         e.preventDefault();
         deletePost(e)
         async function deletePost(e) {
@@ -23,7 +25,7 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
                     timeout: 10000,
                 })
                 .then((response) => {
-
+                    updateParent()
 
                 })
                 .catch((ex) => {
