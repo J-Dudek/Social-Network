@@ -57,6 +57,14 @@ public class PostController {
                 .onErrorReturn(ResponseEntity.badRequest().build());
     }
 
+    @PutMapping("/update-status")
+    public Mono<ResponseEntity<PostDTO>> toggleStatus(Principal principal, @RequestBody Long postId) {
+        return this.postService.toggleStatus(postId)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+
+    }
+
     @PostMapping
     public Mono<ResponseEntity<PostDTO>> create(Principal principal, @RequestBody Mono<PostDTO> postDTOMono) {
         return this.postService.create(principal, postDTOMono)

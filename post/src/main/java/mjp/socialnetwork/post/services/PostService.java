@@ -83,4 +83,10 @@ public class PostService {
     }
 
 
+    public Mono<PostDTO> toggleStatus(Long postId) {
+        return this.postRepository.findById(postId)
+                .doOnNext(post -> post.setPublic(!post.isPublic()))
+                .flatMap(this.postRepository::save)
+                .map(PostMapper::toDto);
+    }
 }
