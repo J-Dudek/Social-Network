@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 
 @Transactional
 @AllArgsConstructor
@@ -49,6 +50,7 @@ public class PostService {
         return postDTO
                 .map(PostMapper::toEntity)
                 .doOnNext(post -> post.setUserId(principal.getName()))
+                .doOnNext(post -> post.setPublicationDate(LocalDateTime.now()))
                 .flatMap(this.postRepository::save)
                 .map(PostMapper::toDto);
     }

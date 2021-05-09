@@ -2,7 +2,7 @@ package mjp.socialnetwork.post.model.dto;
 
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor
@@ -13,11 +13,11 @@ public class PostDTO {
 
     private Long idPost;
     private String message;
-    private Timestamp publicationDate;
+    private LocalDateTime publicationDate;
     private boolean isPublic;
     private String userId;
 
-    public PostDTO(String message, Timestamp publicationDate, boolean isPublic, String userId) {
+    public PostDTO(String message, LocalDateTime publicationDate, boolean isPublic, String userId) {
         this.message = message;
         this.publicationDate = publicationDate;
         this.isPublic = isPublic;

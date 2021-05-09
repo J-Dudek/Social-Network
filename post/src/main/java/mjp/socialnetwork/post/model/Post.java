@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +19,7 @@ public class Post {
     private Long id;
     private String message;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private Timestamp publicationDate;
+    private LocalDateTime publicationDate;
     private boolean isPublic;
 
     private String userId;
