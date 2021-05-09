@@ -38,7 +38,7 @@ public class PostController {
         return this.postService.findAllByUserIdAndPublic(userId, true);
     }
 
-    @GetMapping(path = "/all/friends")
+    @PostMapping(path = "/all/friends")
     public Flux<PostDTO> findAllFriendsPosts(Principal principal, @RequestBody Flux<UserDTO> userDTOFlux) {
         return this.postService.findAllFriendsPosts(userDTOFlux);
     }
