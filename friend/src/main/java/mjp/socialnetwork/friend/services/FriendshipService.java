@@ -56,7 +56,6 @@ public class FriendshipService {
                 });
     }
 
-
     /**
      * Recupere les invitations envoyées
      *
@@ -127,69 +126,13 @@ public class FriendshipService {
     }
 
     /**
-     * Annule une invitation envoyée
-     *
-     * @param principal    passé en requete implicitement
+     * service used by several endpoint to delete a friendship or a pending invitation
      * @param idInvitation une invitation emise mais ni acceptée ni rejetée
-     * @return la suppression de l'invitation
+     * @return mono void
      */
-    public Mono<Friendship> cancelPendingInvitation(Principal principal, Long idInvitation) {
-        return friendshipRepository.findByFirstUserIdAndId(principal.getName(), idInvitation).flatMap(
-                invit -> {
-                    assert invit.getId() != null;
-                    return this.friendshipRepository
-                            .deleteById(invit.getId())
-                            .thenReturn(invit);
-                }
-        );
-    }
-
-    /**
-     * Rejet d'une invitation reçus, provoque un delete
-     *
-     * @param principal    passé en requete implicitement
-     * @param idInvitation une invitation emise mais ni acceptée ni rejetée
-     * @return l'invitation supprimée après rejet
-     */
-    public Mono<Friendship> rejectInvitation(Principal principal, Long idInvitation) {
-        return this.friendshipRepository
-                .findBySecondUserIdAndId(principal.getName(), idInvitation)
-                .flatMap(
-                        invit -> {
-                            assert invit.getId() != null;
-                            return this.friendshipRepository
-                                    .deleteById(invit.getId())
-                                    .thenReturn(invit);
-                        }
-                );
-    }
-
-    /**
-     * Quand il y a rupture entre 2 amis :'(
-     *
-     * @param principal    passé en requete implicitement
-     * @param secondUserId l'id du second user de la relation
-     * @return la relation supprimé en BDD. ils ne sont plus Friendship
-     */
-    public Mono<Friendship> deleteRelation(Principal principal, String secondUserId) {
-        return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
-                .flatMap(aBoolean -> {
-                    if (Boolean.FALSE.equals(aBoolean))
-                        return friendshipRepository.findByFirstUserIdAndSecondUserId(secondUserId, principal.getName())
-                                .flatMap(invit -> {
-                                    assert invit.getId() != null;
-                                    return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit);
-                                });
-                    else {
-                        return friendshipRepository.findByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
-                                .flatMap(invit -> {
-                                    assert invit.getId() != null;
-                                    return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit);
-                                });
-                    }
-
-                });
-
+    public Mono<Void> deleteInvitation(Long idInvitation) {
+        return this.friendshipRepository.findById(idInvitation)
+                .flatMap(this.friendshipRepository::delete);
     }
 
     /**

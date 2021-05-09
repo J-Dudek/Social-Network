@@ -7,6 +7,7 @@ import mjp.socialnetwork.friend.services.FriendshipService;
 import mjp.socialnetwork.friend.services.UserService;
 import mjp.socialnetwork.friend.utils.FriendshipMapper;
 import mjp.socialnetwork.friend.utils.UserMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -90,13 +91,15 @@ public class FriendshipController {
     /**
      * Annulation d'une invitation envoyée.
      *
-     * @param principal passé dans le token,corrsspond à celui qui a fait l'invitation
+     * @param principal passé dans le token,correspond à celui qui a fait l'invitation
      * @param idInvit   l'invitation à annuler
-     * @return l'invitation supprimée.
+     * @return mono void
      */
     @PutMapping(path = "/cancel")
-    public Mono<FriendshipDTO> cancelInvitation(Principal principal, @RequestBody Long idInvit) {
-        return friendshipService.cancelPendingInvitation(principal, idInvit).map(FriendshipMapper::toDto);
+    public Mono<ResponseEntity<Void>> cancelInvitation(Principal principal, @RequestBody Long idInvit) {
+        return this.friendshipService.deleteInvitation(idInvit)
+                .map(ResponseEntity::ok)
+                .onErrorReturn(ResponseEntity.badRequest().build());
     }
 
     /**
@@ -104,23 +107,26 @@ public class FriendshipController {
      *
      * @param principal passé dans le token, correspond à l'user
      * @param idInvit   l'invitation concernée
-     * @return l'invitation supprimée
+     * @return mono void
      */
     @DeleteMapping(path = "/reject")
-    public Mono<FriendshipDTO> rejectInvitation(Principal principal, @RequestBody Long idInvit) {
-        return friendshipService.rejectInvitation(principal, idInvit).map(FriendshipMapper::toDto);
+    public Mono<ResponseEntity<Void>> rejectInvitation(Principal principal, @RequestBody Long idInvit) {
+        return this.friendshipService.deleteInvitation(idInvit)
+                .map(ResponseEntity::ok)
+                .onErrorReturn(ResponseEntity.badRequest().build());
     }
 
     /**
      * Quand un amis supprime sa relation avec un autre
-     *
-     * @param principal    l'user qui prend la decision de rompre
-     * @param secondUserId l'id du futur ex-ami
-     * @return la relation supprimée
+     * @param principal passé dans le token, correspond à l'user
+     * @param idInvit l'invitation concernée
+     * @return mono void
      */
     @DeleteMapping(path = "delete")
-    public Mono<FriendshipDTO> deleteRelation(Principal principal, @RequestBody String secondUserId) {
-        return friendshipService.deleteRelation(principal, secondUserId).map(FriendshipMapper::toDto);
+    public Mono<ResponseEntity<Void>> deleteRelation(Principal principal, @RequestBody Long idInvit) {
+        return this.friendshipService.deleteInvitation(idInvit)
+                .map(ResponseEntity::ok)
+                .onErrorReturn(ResponseEntity.badRequest().build());
     }
 
     @GetMapping(path = "/howManyFriends")
