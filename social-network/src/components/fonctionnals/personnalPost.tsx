@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Image, Button } from 'semantic-ui-react';
+import { Card, Image, Button, Radio } from 'semantic-ui-react';
 import { IPost } from '../../types/IPost';
 import monkey from '../../images/monkeyInAsuit.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -34,13 +34,36 @@ const PersonnalPost = ({ post, updateParent }: { post: IPost, updateParent: Prop
 
         }
     }
+    const changeStatus = (e) => {
+        e.preventDefault();
+        statusChange()
+        async function statusChange() {
+            const token = await getAccessTokenSilently();
+            axios
+                .put<IPost>(`${serverUrl}/posts/update-status`, post.idPost, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    timeout: 10000,
+                })
+                .then((response) => {
+                    updateParent()
+
+                })
+                .catch((ex) => {
+                    console.log(ex);
+                });
+
+        }
+    }
 
 
     return (
         <>
-            <Card fluid className="postcard">
+            <Card fluid className="postcard" color={post.public ? ("green") : ("red")}>
                 <Card.Content>
                     <Button floated='left' icon='trash' id={post.idPost} onClick={handleClick} />
+
                     <Image
                         floated='right'
                         size='mini'
@@ -48,7 +71,17 @@ const PersonnalPost = ({ post, updateParent }: { post: IPost, updateParent: Prop
                     />
 
                     <Card.Description>{post.message} </Card.Description>
-                    <Card.Meta>{post.publicationDate?.substring(0, 10)}  {post.publicationDate?.substring(11, 19)} </Card.Meta>
+                    <Card.Meta>
+                        {post.publicationDate?.substring(0, 10)}  {post.publicationDate?.substring(11, 19)}
+                        <div className="status"><Radio toggle
+                            label={post.public ? ("Public") : ("Private")}
+                            checked={post.public}
+                            onChange={changeStatus} /></div>
+                    </Card.Meta>
+
+
+
+
                 </Card.Content>
 
             </Card>

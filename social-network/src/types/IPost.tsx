@@ -1,7 +1,7 @@
-export interface IPost{
-    idPost?: number;
-    message?: string;
-    publicationDate?: string ;
-    userId?: string;
-    public?: number;
-  }
+export interface IPost {
+  idPost?: number;
+  message?: string;
+  publicationDate?: string;
+  userId?: string;
+  public?: boolean;
+}
