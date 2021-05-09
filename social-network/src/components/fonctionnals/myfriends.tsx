@@ -4,6 +4,7 @@ import axios from 'axios';
 import Friend from './friend';
 import { IUser } from '../../types/IUser';
 import { Segment } from 'semantic-ui-react';
+import Axios from 'axios-observable';
 
 const defaultFriends: IUser[] = [];
 
@@ -15,21 +16,17 @@ const MyFriends = () => {
     useEffect(() => {
         async function getFriends() {
             const token = await getAccessTokenSilently();
-            axios
+            Axios
                 .get(`${serverUrl}/friends/friendship/friends`, {
 
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
-                    }
+                    },
                 })
-                .then((response) => {
-                    setFriends(response.data)
-
-                })
-                .catch((ex) => {
-                    console.log(ex);
-                });
+                .subscribe(
+                    response => setFriends(response.data)
+                );
         }
         getFriends()
 

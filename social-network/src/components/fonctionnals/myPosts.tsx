@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
 import { IPost } from '../../types/IPost';
 import PersonnalPost from './personnalPost';
+import Axios from 'axios-observable';
 
 const defaultPersonnalPost: IPost[] = [];
 
@@ -15,7 +16,7 @@ const MyPosts = () => {
     useEffect(() => {
         async function getMyPosts() {
             const token = await getAccessTokenSilently();
-            axios
+            Axios
                 .get(`${serverUrl}/posts/my`, {
 
                     headers: {
@@ -23,12 +24,12 @@ const MyPosts = () => {
                         'Content-Type': 'application/json',
                     }
                 })
-                .then((response) => {
-                    setPosts(response.data)
-                })
-                .catch((ex) => {
-                    console.log(ex);
-                });
+                .subscribe(
+                    response => setPosts(response.data),
+                    error => console.log(error)
+
+                )
+                ;
         }
         getMyPosts()
 

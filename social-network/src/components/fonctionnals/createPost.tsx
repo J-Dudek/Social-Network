@@ -1,16 +1,16 @@
-import React , { useEffect, useState }from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import axios  from 'axios';
+import axios from 'axios';
 import { IPost } from '../../types/IPost';
 import { IUser } from '../../types/IUser';
 import { useForm, Controller } from "react-hook-form";
 
-import {Modal , Form, Button,  Select,} from 'semantic-ui-react';
+import { Modal, Form, Button, Select, } from 'semantic-ui-react';
 
 type Post = {
     idPost?: number;
     message?: string;
-    publicationDate?: string ;
+    publicationDate?: string;
     userId?: string;
     public?: boolean;
 }
@@ -20,20 +20,20 @@ type Post = {
 const isPublic = [
     { key: '0', text: '0', value: false },
     { key: '1', text: '1', value: true },
-  ]
+]
 
 const defaultUser: IUser = {};
 var defaultPublic: boolean = false;
 
-function CreatePost(){
+function CreatePost() {
     const { getAccessTokenSilently } = useAuth0();
     const [user, setUser] = useState<IUser>(defaultUser);
     const serverUrl = process.env.REACT_APP_SERVER_URL;
     const [open, setOpen] = React.useState(false)
     const { handleSubmit, control } = useForm<Post>();
-    const   handleDropDownSelect = (event, data) => {
-           defaultPublic = data.value;
-    };       
+    const handleDropDownSelect = (event, data) => {
+        defaultPublic = data.value;
+    };
     const setData = (data: Post) => {
         data.public = defaultPublic;
         updateInfos(data);
@@ -42,28 +42,27 @@ function CreatePost(){
 
 
     useEffect(() => {
-        // Create an scoped async function in the hook
-    
         async function getInfos() {
-          const token = await getAccessTokenSilently();
-          axios
-            .get(`${serverUrl}/friends/users/aboutUser`, {
-    
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              }
-            })
-            .then((response) => {
-              setUser(response.data.t1)
-            })
-            .catch((ex) => {
-              console.log(ex);
-            });
+            const token = await getAccessTokenSilently();
+            axios
+                .get(`${serverUrl}/friends/users/aboutUser`, {
+
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then((response) => {
+                    setUser(response.data.t1)
+
+                })
+                .catch((ex) => {
+                    console.log(ex);
+                });
         }
         getInfos()
-    
-      }, [getAccessTokenSilently, serverUrl]);
+
+    }, [getAccessTokenSilently, serverUrl]);
 
     async function updateInfos(post: Post) {
         const token = await getAccessTokenSilently();
@@ -99,20 +98,20 @@ function CreatePost(){
                 <Modal.Description>
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
 
-                    <Controller control={control} name="public"
+                        <Controller control={control} name="public"
                             render={({ field: { onChange, onBlur, value, ref } }) => (
                                 <Form.Field
-                                control={Select}
-                                options={isPublic}
-                                label={{ children: 'Public', htmlFor: 'public' }}
-                                onChange={handleDropDownSelect}
-                                placeholder='Public'
-                                selected={value}
-                                search
-                                searchInput={{ id: 'public' }}
-                              />
-                            
-                              
+                                    control={Select}
+                                    options={isPublic}
+                                    label={{ children: 'Public', htmlFor: 'public' }}
+                                    onChange={handleDropDownSelect}
+                                    placeholder='Public'
+                                    selected={value}
+                                    search
+                                    searchInput={{ id: 'public' }}
+                                />
+
+
                             )}
 
                         />
@@ -131,7 +130,7 @@ function CreatePost(){
                             )}
                         />
 
-                        
+
                         <Modal.Actions>
                             <Button color='black' onClick={() => setOpen(false)}>
                                 Cancel

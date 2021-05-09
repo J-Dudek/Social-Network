@@ -95,9 +95,9 @@ const Profile = () => {
             <div><Segment inverted textAlign="center" color='blue'>
               Received Invitations
              </Segment></div>
-            <Card.Group>
-              <MyReceivedInvits />
-            </Card.Group>
+
+            <MyReceivedInvits />
+
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
             <div><Segment inverted textAlign="center" color='blue'>

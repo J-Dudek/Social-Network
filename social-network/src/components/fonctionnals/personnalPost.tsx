@@ -17,10 +17,8 @@ const PersonnalPost = ({ post }: { post: IPost }) => {
             const token = await getAccessTokenSilently();
             axios
                 .delete<IPost>(`${serverUrl}/posts/${e.target.id}`, {
-
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
                     },
                     timeout: 10000,
                 })
