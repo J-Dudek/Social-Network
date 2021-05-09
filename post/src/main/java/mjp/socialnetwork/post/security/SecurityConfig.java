@@ -19,7 +19,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebFluxSecurity
-public class SecurityConfig  {
+public class SecurityConfig {
     @Value("${auth0.audience}")
     private String audience;
 
@@ -35,19 +35,16 @@ public class SecurityConfig  {
         return http
                 .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
-                        .pathMatchers(  HttpMethod.GET,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.POST,"/posts").hasAuthority(Scope.POST_CREATE.scope())
-                        .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.DELETE,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
-                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
-                        .pathMatchers(  HttpMethod.GET,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
-                        .pathMatchers(  HttpMethod.DELETE,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
-                        .pathMatchers(  HttpMethod.OPTIONS,"/posts/**").hasAuthority(Scope.POST_DELETE.scope())
-                        .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
-                        .pathMatchers( HttpMethod.GET, "/actuator/**").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(HttpMethod.OPTIONS, "/posts/all/**").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(HttpMethod.POST, "/posts").hasAuthority(Scope.POST_CREATE.scope())
+                        .pathMatchers(HttpMethod.GET, "/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(HttpMethod.OPTIONS, "/posts/my").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(HttpMethod.GET, "/posts/**").hasAuthority(Scope.POST_SEARCH.scope())
+                        .pathMatchers(HttpMethod.DELETE, "/posts/**").hasAuthority(Scope.POST_DELETE.scope())
+                        .pathMatchers(HttpMethod.OPTIONS, "/posts/**").hasAuthority(Scope.POST_DELETE.scope())
+                        .pathMatchers(HttpMethod.PUT, "/posts/update-status").hasAuthority(Scope.POST_UPDATE.scope())
+                        .pathMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(jwtSpec -> jwtSpec.jwtDecoder(jwtDecoder())))
