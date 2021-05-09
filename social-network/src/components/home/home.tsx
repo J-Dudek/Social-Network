@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
 import UpdateUser from '../../services/updateUser';
+import HomePage from './homePage';
 
 import Users from './../friend/users';
 
@@ -61,7 +62,7 @@ const Home = () => {
     <>
       {/* Ici j'ai mis Users mais en soit ça serait mieux la liste des posts des amis*/}
       {(isAuthenticated) ?
-        ((users.email) ? (<div><Users /></div>) : (<div><UpdateUser /></div>))
+        ((users.email) ? (<div><HomePage /></div>) : (<div><UpdateUser /></div>))
         :
         (<div>WIP : Soon there will be a homepage for non logged in users </div>)}
       {error && <p className="error">{error}</p>}
