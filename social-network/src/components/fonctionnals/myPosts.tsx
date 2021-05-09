@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from 'axios';
 import { IPost } from '../../types/IPost';
 import PersonnalPost from './personnalPost';
 import Axios from 'axios-observable';
