@@ -4,14 +4,13 @@ import monkey from '../../images/monkeyInAsuit.jpg';
 import { IInvit } from '../../types/IInvit';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
+type PropsFunction = () => Promise<void>;
 
-
-const InvitationR = ({ invit }: { invit: IInvit }) => {
+const InvitationR = ({ invit, updateParent }: { invit: IInvit, updateParent: PropsFunction }) => {
     const { getAccessTokenSilently } = useAuth0();
     const serverUrl = process.env.REACT_APP_SERVER_URL;
 
     const acceptClick = (e) => {
-        alert(invit.t2.id)
         e.preventDefault();
         acceptInvit(e)
         async function acceptInvit(e) {
@@ -26,8 +25,8 @@ const InvitationR = ({ invit }: { invit: IInvit }) => {
                     timeout: 10000,
                 })
                 .then((response) => {
-                    console.log("accept")
-                    console.log(response.data)
+                    console.log(response)
+                    updateParent()
                 })
                 .catch((ex) => {
                     console.log(ex);
@@ -50,7 +49,7 @@ const InvitationR = ({ invit }: { invit: IInvit }) => {
                     timeout: 10000,
                 })
                 .then((response) => {
-                    console.log("reject")
+                    updateParent()
                     console.log(response.data)
                 })
                 .catch((ex) => {
