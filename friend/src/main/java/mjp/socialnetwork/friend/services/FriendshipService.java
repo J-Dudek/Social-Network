@@ -118,15 +118,12 @@ public class FriendshipService {
      * @param idInvitation une invitation emise mais ni acceptée ni rejetée
      * @return Relayion créée avec passage status true et date insérée
      */
-    public Mono<Friendship> acceptInvitation(Principal principal, Long idInvitation) {
-        Friendship friendship;
-        friendship = Friendship.builder().
-                id(idInvitation)
-                .secondUserId(principal.getName())
-                .friendshipDate(LocalDateTime.now())
-                .status(true)
-                .build();
-        return friendshipRepository.save(friendship);
+    public Mono<FriendshipDTO> acceptInvitation(Principal principal, Long idInvitation) {
+
+        return this.friendshipRepository.findById(idInvitation)
+                .doOnNext(friendship -> friendship.setStatus(true))
+                .flatMap(this.friendshipRepository::save)
+                .map(FriendshipMapper::toDto);
     }
 
     /**

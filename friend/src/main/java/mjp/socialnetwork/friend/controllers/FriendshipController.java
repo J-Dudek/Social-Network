@@ -84,7 +84,7 @@ public class FriendshipController {
      */
     @PutMapping(path = "/accept")
     public Mono<FriendshipDTO> acceptInvitation(Principal principal, @RequestBody Long idInvit) {
-        return friendshipService.acceptInvitation(principal, idInvit).map(FriendshipMapper::toDto);
+        return friendshipService.acceptInvitation(principal, idInvit);
     }
 
     /**
