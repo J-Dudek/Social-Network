@@ -39,6 +39,8 @@ public class SecurityConfig {
                         .pathMatchers( "/actuator/**").permitAll()
                         .pathMatchers( HttpMethod.OPTIONS,"/friends/users/aboutUser").hasAuthority(Scope.USER_READ.scope())
                         .pathMatchers( HttpMethod.GET,"/friends/users/aboutUser").hasAuthority(Scope.USER_READ.scope())
+                        .pathMatchers( HttpMethod.OPTIONS,"/friends/users/search").hasAuthority(Scope.USER_SEARCH.scope())
+                        .pathMatchers( HttpMethod.POST,"/friends/users/search").hasAuthority(Scope.USER_SEARCH.scope())
                         .pathMatchers( HttpMethod.OPTIONS,"/friends/users/all").hasAuthority(Scope.USER_READ.scope())
                         .pathMatchers( HttpMethod.GET,"/friends/users/all").hasAuthority(Scope.USER_READ.scope())
                         .pathMatchers( HttpMethod.OPTIONS,"/friends/users/howManyFriends").hasAuthority(Scope.USER_READ.scope())

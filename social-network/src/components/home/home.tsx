@@ -19,12 +19,6 @@ const Home = () => {
   const [register, setRegister] = useState<boolean>(false);
   const [logged, setLogged] = useState<boolean>(false);
 
-
-
-
-
-
-
   useEffect(() => {
     // Create an scoped async function in the hook
     async function getInfos() {

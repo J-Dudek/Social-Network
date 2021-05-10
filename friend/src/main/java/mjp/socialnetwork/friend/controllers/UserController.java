@@ -61,10 +61,10 @@ public class UserController {
         return this.userService.deleteUserById(principal);
     }
 
-    @GetMapping(path = "/{firstName}/{lastName}")
+    @PostMapping(path = "/search")
     @JsonView(UserViews.Public.class)
-    public Flux<UserDTO> findUsersByFirstNameOrLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
-        return userService.findByfirstOrlastNameLike(firstName, lastName);
+    public Flux<UserDTO> findUsersByInput(Principal principal,@RequestBody String input ) {
+        return userService.findUsersByInput(input);
     }
 
     /**

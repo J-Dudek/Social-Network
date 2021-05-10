@@ -5,6 +5,7 @@ import MySentInvit from "../fonctionnals/mySentInvits";
 import MyReceivedInvits from "../fonctionnals/MyReceivedInvits";
 import MyFriends from "../fonctionnals/myfriends";
 import MyFriendPost from "../fonctionnals/myfriendpost";
+import SearchFriends from '../fonctionnals/searchfriends'
 
 
 const HomePage = ({ register = false }: { register: Boolean }) => {
@@ -19,6 +20,16 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
           <Segment style={{ overflow: "auto", maxHeight: "50vh" }}>
             <div>
               <Segment inverted textAlign="center" color="blue">
+                Search friends
+              </Segment>
+            </div>
+            <Segment.Group vertical>
+              <SearchFriends />
+            </Segment.Group>
+          </Segment>
+          <Segment style={{ overflow: "auto", maxHeight: "50vh" }}>
+            <div>
+              <Segment inverted textAlign="center" color="blue">
                 Friends
               </Segment>
             </div>
@@ -26,6 +37,7 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
               <MyFriends />
             </Segment.Group>
           </Segment>
+          
         </Grid.Column>
         <Grid.Column width={8}>
           <Segment>

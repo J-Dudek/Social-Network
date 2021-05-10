@@ -12,6 +12,7 @@ import reactor.core.publisher.Mono;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 
 @AllArgsConstructor
@@ -83,14 +84,24 @@ public class UserService {
     }
 
     /**
-     * Permet de rechercher les utilisateur ayant un nom ou un prenom qui like
-     * @param lastname
-     * @param firstname prenom ou nom , au final ou fait un match des deux
-     * @return liste d'users compatible
+     * Permet de recuperer les users comportant l'input , on recherche volontairement qu'avec un espace maxi
+     * @param input la saisie utilisateur
+     * @return le flux d'UserDTO
      */
-    public Flux<UserDTO> findByfirstOrlastNameLike(String firstname, String lastname) {
-        return userRepository.findUsersByFirstNameLikeOrLastNameLike(firstname, lastname)
-                .map(UserMapper::toDto);
+    public Flux<UserDTO> findUsersByInput(String input){
+        String[] s = input.split(" ");
+        if(s.length>1){
+            return Flux.merge(getByInput(s[0]),getByInput(s[1])).distinct().map(UserMapper::toDto);
+        }else{
+            return getByInput(s[0]).map(UserMapper::toDto);
+        }
+    }
+    private Flux<User>getByInput(String search){
+        Flux < User > byUsername = userRepository.findUsersByUsernameLike(search);
+        Flux<User> byFirstName = userRepository.findUsersByFirstNameLike(search);
+        Flux<User> byLastName = userRepository.findUsersByLastNameLike(search);
+        return Flux.merge(byUsername, byFirstName, byLastName).distinct();
+
     }
 
     /**
