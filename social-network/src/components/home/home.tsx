@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
 import UpdateUser from '../../services/updateUser';
 import HomePage from './homePage';
 
-import Users from './../friend/users';
 
 const defaultUser: IUser = {};
 
@@ -17,11 +16,11 @@ const Home = () => {
   const [users, setUsers]: [IUser, (users: IUser) => void] = React.useState(
     defaultUser
   );
+  const [register, setRegister] = useState<boolean>(false);
+  const [logged, setLogged] = useState<boolean>(false);
 
 
-  const [error, setError]: [string, (error: string) => void] = React.useState(
-    ''
-  );
+
 
 
 
@@ -40,15 +39,16 @@ const Home = () => {
           timeout: 10000,
         })
         .then((response) => {
-          console.log(response);
-          console.log("data");
-          console.log(response.data);
           setUsers(response.data);
-
+          setLogged(true)
+          if (response.data.email) {
+            setRegister(true)
+          } else {
+            setRegister(false)
+          }
         })
         .catch((ex) => {
           console.log(ex);
-          setError("error");
 
         });
 
@@ -58,14 +58,16 @@ const Home = () => {
     }
   }, [getAccessTokenSilently, isAuthenticated, serverUrl]);
 
+
   return (
     <>
-      {/* Ici j'ai mis Users mais en soit ça serait mieux la liste des posts des amis*/}
+
       {(isAuthenticated) ?
-        ((users.email) ? (<div><HomePage /></div>) : (<div><UpdateUser /></div>))
+        (logged && <div><UpdateUser register={register} /> <HomePage register={register} /></div>)
         :
         (<div>WIP : Soon there will be a homepage for non logged in users </div>)}
-      {error && <p className="error">{error}</p>}
+
+
 
     </>)
 

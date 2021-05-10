@@ -1,43 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { IUser } from "../../types/IUser";
-import axios from "axios";
-import { Card, Image, Icon, Grid, Segment, Header } from "semantic-ui-react";
-import monkey from "../../images/monkeyInAsuit.jpg";
-import ModalUpdateUser from "../friend/modalUpdateUser";
+import React from 'react';
+
+import { Grid, Segment, Header } from "semantic-ui-react";
 import MySentInvit from "../fonctionnals/mySentInvits";
 import MyReceivedInvits from "../fonctionnals/MyReceivedInvits";
 import MyFriends from "../fonctionnals/myfriends";
 import MyFriendPost from "../fonctionnals/myfriendpost";
 
-const defaultUser: IUser = {};
 
-const HomePage = () => {
-  const { getAccessTokenSilently } = useAuth0();
-  const [user, setUser] = useState<IUser>(defaultUser);
-  const [count, setCount] = useState<number>(0);
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-
-  useEffect(() => {
-    async function getInfos() {
-      const token = await getAccessTokenSilently();
-      axios
-        .get(`${serverUrl}/friends/users/aboutUser`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          setUser(response.data.t1);
-          setCount(response.data.t2);
-        })
-        .catch((ex) => {
-          console.log(ex);
-        });
-    }
-    getInfos();
-  }, [getAccessTokenSilently, serverUrl]);
+const HomePage = ({ register = false }: { register: Boolean }) => {
+  if (!register) {
+    return null;
+  }
 
   return (
     <Grid container columns="equal">

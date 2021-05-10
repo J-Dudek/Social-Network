@@ -21,7 +21,7 @@ type User = {
 }
 
 
-const UpdateUser = () => {
+const UpdateUser = ({ register = true }: { register: Boolean }) => {
 
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -47,6 +47,9 @@ const UpdateUser = () => {
         console.log(ex);
       });
 
+  }
+  if (register) {
+    return null;
   }
   return (
     <>
