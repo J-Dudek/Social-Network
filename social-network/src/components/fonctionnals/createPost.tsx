@@ -18,8 +18,8 @@ type Post = {
 
 
 const isPublic = [
-    { key: '0', text: '0', value: false },
-    { key: '1', text: '1', value: true },
+    { key: '0', text: 'private', value: false },
+    { key: '1', text: 'public', value: true },
 ]
 
 const defaultUser: IUser = {};
@@ -86,14 +86,14 @@ function CreatePost() {
 
 
     return (
-        <Modal
-
+        <Modal className="ui center"
+            centered={true}
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
-            trigger={<Button>Ecrire un post</Button>}
+            trigger={<Button>Write a post</Button>}
         >
-            <Modal.Header>You can change your infos</Modal.Header>
+            <Modal.Header>Express yourself</Modal.Header>
             <Modal.Content image>
                 <Modal.Description>
                     <Form onSubmit={handleSubmit((data) => setData(data))} >
@@ -105,7 +105,7 @@ function CreatePost() {
                                     options={isPublic}
                                     label={{ children: 'Public', htmlFor: 'public' }}
                                     onChange={handleDropDownSelect}
-                                    placeholder='Public'
+                                    placeholder='Visibility'
                                     selected={value}
                                     search
                                     searchInput={{ id: 'public' }}

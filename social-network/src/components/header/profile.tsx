@@ -86,7 +86,7 @@ const Profile = () => {
             </Card>
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }} className="ui middle">
-            <Header color="blue" attached="top" block={true} dividing={true} textAlign="center">Les posts de l'users</Header>
+            <Header color="blue" attached="top" block={true} dividing={true} textAlign="center">My posts</Header>
             <MyPosts />
           </Segment>
         </Grid.Column>

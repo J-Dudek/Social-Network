@@ -8,6 +8,7 @@ import MyFriendPost from "../fonctionnals/myfriendpost";
 import SearchFriends from '../fonctionnals/searchfriends'
 
 
+
 const HomePage = ({ register = false }: { register: Boolean }) => {
   if (!register) {
     return null;
@@ -37,10 +38,11 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
               <MyFriends />
             </Segment.Group>
           </Segment>
-          
+
         </Grid.Column>
         <Grid.Column width={8}>
-          <Segment>
+          
+          <Segment style={{ overflow: 'auto', maxHeight: '90vh' }} className="ui middle">
             <Header
               color="blue"
               attached="top"
@@ -48,7 +50,7 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
               dividing={true}
               textAlign="center"
             >
-              Les posts de mes amis
+              Friends' posts
             </Header>
             <MyFriendPost />
           </Segment>

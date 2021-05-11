@@ -53,7 +53,7 @@ const Users = ({ friends }) => {
 
 const SearchUsers = ({ query, setQuery }) => (
     <>
-        <Input focus placeholder='Search...' onChange={setQuery} data={query} />
+        <Input placeholder='Search...' onChange={setQuery} data={query} icon="users" iconPosition='left' />
     </>
 
 
@@ -64,10 +64,10 @@ const SearchFriends = () => {
     const { users } = UseFetchUsers(query)
 
     return (
-        <div>
+        <>
             <SearchUsers query={query} setQuery={setQuery} />
             <Users friends={users} />
-        </div>
+        </>
     )
 }
 
