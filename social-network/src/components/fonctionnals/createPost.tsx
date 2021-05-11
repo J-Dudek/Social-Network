@@ -75,7 +75,7 @@ function CreatePost() {
                 },
             })
             .then(() => {
-                return window.location.href = '/posts';
+                setOpen(false);
             })
             .catch((ex) => {
                 console.log(ex);
