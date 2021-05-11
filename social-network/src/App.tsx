@@ -14,7 +14,7 @@ import ExternalApi from "./api/external-api";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Footer from './components/footer/footer'
-
+import FourOfour from "./components/fourOfour/fourOfour"
 const queryClient = new QueryClient();
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
     return <Loading />;
   }
 
+
   return (
     <QueryClientProvider client={queryClient}>
       <div id="app" className="d-flex flex-column h-100">
@@ -31,18 +32,18 @@ function App() {
         <div className="ui center aligned grid">
           <div>
             <Switch>
-              {/* <Profile /> */}
               <Route exact path="/" component={Home} />
-              <ProtectedRoute path="/profile" component={Profile} />
+              <ProtectedRoute path="/profile" exact component={Profile} />
               {/* <ProtectedRoute path="/user/:id" component={UserPage} /> */}
-              <ProtectedRoute path="/external-api" component={ExternalApi} />
-              <ProtectedRoute path="/myfriendpost" component={MyFriendPost} />
-              <ProtectedRoute path="/users" component={User} />
-              <ProtectedRoute path="/posts" component={Post} />
+              <ProtectedRoute path="/external-api" exact component={ExternalApi} />
+              <ProtectedRoute path="/myfriendpost" exact component={MyFriendPost} />
+              <ProtectedRoute path="/users" exact component={User} />
+              <ProtectedRoute path="/posts" exact component={Post} />
+              <Route component={FourOfour} />
             </Switch>
           </div>
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </QueryClientProvider>
   );
