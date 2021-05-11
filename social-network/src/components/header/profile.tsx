@@ -9,6 +9,7 @@ import MySentInvit from '../fonctionnals/mySentInvits'
 import MyReceivedInvits from '../fonctionnals/MyReceivedInvits'
 import MyFriends from '../fonctionnals/myfriends'
 import MyPosts from '../fonctionnals/myPosts'
+import SearchFriends from "../fonctionnals/searchfriends";
 
 const defaultUser: IUser = {};
 
@@ -56,6 +57,16 @@ const Profile = () => {
              </Segment></div>
             <Segment.Group vertical >
               <MyFriends />
+            </Segment.Group>
+          </Segment>
+          <Segment style={{ overflow: "auto", maxHeight: "50vh" }}>
+            <div>
+              <Segment inverted textAlign="center" color="blue">
+                Search friends
+              </Segment>
+            </div>
+            <Segment.Group vertical>
+              <SearchFriends />
             </Segment.Group>
           </Segment>
         </Grid.Column>
