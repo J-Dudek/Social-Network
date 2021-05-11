@@ -16,7 +16,6 @@ import { IUser } from './types/IUser'
 import { IInvit } from './types/IInvit'
 import { IPost } from './types/IPost'
 import HomePage from './components/home/homePage';
-import { Auth0Provider } from '@auth0/auth0-react';
 const userTest: IUser = {
   lastName: "Doe",
   firstName: "John",
