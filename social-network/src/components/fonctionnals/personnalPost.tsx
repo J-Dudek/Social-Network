@@ -43,6 +43,7 @@ const PersonnalPost = ({ post, updateParent }: { post: IPost, updateParent: Prop
                 .put<IPost>(`${serverUrl}/posts/update-status`, post.idPost, {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
                     },
                     timeout: 10000,
                 })
