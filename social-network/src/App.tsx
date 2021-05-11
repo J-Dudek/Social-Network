@@ -13,6 +13,7 @@ import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from "./api/external-api";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Footer from './components/footer/footer'
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
             </Switch>
           </div>
         </div>
+        <Footer/>
       </div>
     </QueryClientProvider>
   );
