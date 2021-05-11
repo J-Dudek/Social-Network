@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { IUser } from '../../types/IUser';
 import UpdateUser from '../../services/updateUser';
 import HomePage from './homePage';
+import HomePageLogOut from './homePageLogOut';
 
 
 const defaultUser: IUser = {};
@@ -59,7 +60,7 @@ const Home = () => {
       {(isAuthenticated) ?
         (logged && <div><UpdateUser register={register} /> <HomePage register={register} /></div>)
         :
-        (<div>WIP : Soon there will be a homepage for non logged in users </div>)}
+        (<div><HomePageLogOut /></div>)}
 
 
 

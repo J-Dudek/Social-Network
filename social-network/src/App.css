@@ -64,3 +64,15 @@ button > a {
 .status{
   text-align: right;
 }
+
+iframe{
+  width: 100rem;
+  height: 35rem;
+}
+
+*, ::before, ::after{
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
