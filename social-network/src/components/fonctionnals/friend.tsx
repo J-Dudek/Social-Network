@@ -5,20 +5,20 @@ import { IUser } from "../../types/IUser";
 import { Link } from "react-router-dom";
 
 const Friend = ({ user }: { user: IUser }) => (
-  <a href="/profile">
-    <Feed>
-      <Feed.Event>
-        <Feed.Label image={Monkey} />
-        <Feed.Content>
-          <Feed.Summary>
-            <Link to={`/user/${user.idUser}`}>
-              {user.firstName} {user.lastName}
-            </Link>
-          </Feed.Summary>
-        </Feed.Content>
-      </Feed.Event>
-    </Feed>
-  </a>
+
+  <Feed>
+    <Feed.Event>
+      <Feed.Label image={Monkey} />
+      <Feed.Content>
+        <Feed.Summary>
+          <Link to={`/user/${user.idUser}`}>
+            {user.firstName} {user.lastName}
+          </Link>
+        </Feed.Summary>
+      </Feed.Content>
+    </Feed.Event>
+  </Feed>
+
 );
 
 export default Friend;

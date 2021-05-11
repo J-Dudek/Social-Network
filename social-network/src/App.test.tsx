@@ -10,10 +10,13 @@ import InvitationS from './components/fonctionnals/invitationS'
 import CardProfil from './components/fonctionnals/cardProfil'
 import PersonnalPost from './components/fonctionnals/personnalPost'
 
+
 /** DONNEES POUR TESTS */
 import { IUser } from './types/IUser'
 import { IInvit } from './types/IInvit'
 import { IPost } from './types/IPost'
+import HomePage from './components/home/homePage';
+import { Auth0Provider } from '@auth0/auth0-react';
 const userTest: IUser = {
   lastName: "Doe",
   firstName: "John",
@@ -197,4 +200,45 @@ describe('Personnal post', () => {
 
 });
 
+describe('HomePage', () => {
+  it('Can see Search friends', () => {
+    render(
+      <BrowserRouter><HomePage register={true} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Search friends/)).toBeInTheDocument();
+  });
+
+  it('Can see Friends section', () => {
+    render(
+      <BrowserRouter><HomePage register={true} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText('Friends')).toBeInTheDocument();
+  });
+
+  it('Can see Pending invitation section', () => {
+    render(
+      <BrowserRouter><HomePage register={true} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText('Pending invitation')).toBeInTheDocument();
+  });
+
+  it('Can see Friends posts section', () => {
+    render(
+      <BrowserRouter><HomePage register={true} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Friends' posts/)).toBeInTheDocument();
+  });
+
+  it('Can see Received Invitations section', () => {
+    render(
+      <BrowserRouter><HomePage register={true} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Received Invitations/)).toBeInTheDocument();
+  });
+});
 
