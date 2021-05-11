@@ -8,11 +8,12 @@ import { BrowserRouter } from 'react-router-dom';
 import InvitationR from './components/fonctionnals/invitationR'
 import InvitationS from './components/fonctionnals/invitationS'
 import CardProfil from './components/fonctionnals/cardProfil'
-
+import PersonnalPost from './components/fonctionnals/personnalPost'
 
 /** DONNEES POUR TESTS */
 import { IUser } from './types/IUser'
 import { IInvit } from './types/IInvit'
+import { IPost } from './types/IPost'
 const userTest: IUser = {
   lastName: "Doe",
   firstName: "John",
@@ -33,6 +34,13 @@ const invitTest: IInvit = {
   t2: {
     firstUserId: "the one",
   }
+}
+const postTest: IPost = {
+  idPost: 42,
+  message: "Your time is limited, don't waste it by leading an existence that is not yours.",
+  public: true,
+  publicationDate: "2021-05-10",
+  userId: "SteveJobs",
 }
 let promiseFunc: () => Promise<void>;
 
@@ -115,3 +123,23 @@ test('Can see email on card Profil', () => {
   const linkElement = screen.getByText("Email : toto@tata.titi")
   expect(linkElement).toBeInTheDocument();
 });
+
+/**        PERSONNAL POST      */
+test('Can see message on personnal Post', () => {
+  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
+  const linkElement = screen.getByText("Your time is limited, don't waste it by leading an existence that is not yours.")
+  expect(linkElement).toBeInTheDocument();
+});
+
+test('Can see publication date on personnal Post', () => {
+  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
+  const linkElement = screen.getByText("2021-05-10")
+  expect(linkElement).toBeInTheDocument();
+});
+
+test('Can see public label on personnal public Post', () => {
+  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
+  const linkElement = screen.getByText("Public")
+  expect(linkElement).toBeInTheDocument();
+});
+
