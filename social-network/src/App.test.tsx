@@ -45,101 +45,156 @@ const postTest: IPost = {
 let promiseFunc: () => Promise<void>;
 
 
-/**        HEADER          */
-test('Log in Button', () => {
-  render(<LogIn />);
-  const linkElement = screen.getByText("Log In")
-  expect(linkElement).toBeInTheDocument();
+describe('Header', () => {
+  it('should display Login button', () => {
+    render(
+      <LogIn />,
+    );
+
+    expect(screen.getByText(/Log In/i)).toBeInTheDocument();
+  });
+
+  it('should display Profile button', () => {
+    render(
+      <ProfileButton /> ,
+    );
+
+    expect(screen.getByText(/Profile/i)).toBeInTheDocument();
+  });
+
+  it('should display Sign Up button', () => {
+    render(
+      <Header /> ,
+    );
+
+    expect(screen.getByText(/Sign Up/i)).toBeInTheDocument();
+  });
+
 });
 
-test('Profile button', () => {
-  render(<ProfileButton />);
-  const linkElement = screen.getByText("Profile")
-  expect(linkElement).toBeInTheDocument();
+describe('Profile', () => {
+  it('Can see info on profile', () => {
+    render(
+      <BrowserRouter><Friend user={userTest} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
+  });
+
 });
 
-test('Header Sign up text (include button Sign up)', () => {
-  render(<Header />);
-  const linkElement = screen.getByText("Sign Up")
-  expect(linkElement).toBeInTheDocument();
-});
-/**        PROFILE          */
-test('Can see info on profile)', () => {
-  render(<BrowserRouter><Friend user={userTest} /></BrowserRouter>);
-  const linkElement = screen.getByText("John Doe")
-  expect(linkElement).toBeInTheDocument();
-});
-/**        INVITATION   RECEIVED       */
-test('Can see boutton decline on invitation received', () => {
-  render(<BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Decline")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see boutton accept on invitation received', () => {
-  render(<BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Accept")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see user infos on invitation received', () => {
-  render(<BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Morgan Freeman")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see username infos on invitation received', () => {
-  render(<BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Free Morgan")
-  expect(linkElement).toBeInTheDocument();
-});
-/**        INVITATION   SENT       */
-test('Can see user on invitation sent', () => {
-  render(<BrowserRouter><InvitationS invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Morgan Freeman")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see button cancel on invitation sent', () => {
-  render(<BrowserRouter><InvitationS invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Cancel")
-  expect(linkElement).toBeInTheDocument();
-});
-/**        CARD PROFIL      */
-test('Can see firstname and lastname on card Profil', () => {
-  render(<BrowserRouter><CardProfil user={userTest} /></BrowserRouter>);
-  const linkElement = screen.getByText("John Doe")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see city and signin date on card Profil', () => {
-  render(<BrowserRouter><CardProfil user={userTest} /></BrowserRouter>);
-  const linkElement = screen.getByText("Lives in : Road Join : 2021-05-10")
-  expect(linkElement).toBeInTheDocument();
-});
-test('Can see phone number and lastname on card Profil', () => {
-  render(<BrowserRouter><CardProfil user={userTest} /></BrowserRouter>);
-  const linkElement = screen.getByText("Phone : 0000000000")
-  expect(linkElement).toBeInTheDocument();
+describe('Invitation received', () => {
+  it('Can see boutton decline on invitation received', () => {
+    render(
+      <BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Decline/i)).toBeInTheDocument();
+  });
+
+  it('Can see boutton accept on invitation received', () => {
+    render(
+      <BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Accept/i)).toBeInTheDocument();
+  });
+
+  it('Can see user infos on invitation received', () => {
+    render(
+      <BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Morgan Freeman/i)).toBeInTheDocument();
+  });
+
+  it('Can see username infos on invitation received', () => {
+    render(
+      <BrowserRouter><InvitationR invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Free Morgan/i)).toBeInTheDocument();
+  });
+
 });
 
-test('Can see email on card Profil', () => {
-  render(<BrowserRouter><CardProfil user={userTest} /></BrowserRouter>);
-  const linkElement = screen.getByText("Email : toto@tata.titi")
-  expect(linkElement).toBeInTheDocument();
+describe('Invitation sent', () => {
+  it('Can see info on profile', () => {
+    render(
+      <BrowserRouter><InvitationS invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Morgan Freeman/i)).toBeInTheDocument();
+  });
+
+  it('Can see button cancel on invitation sent', () => {
+    render(
+      <BrowserRouter><InvitationS invit={invitTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Cancel/i)).toBeInTheDocument();
+  });
 });
 
-/**        PERSONNAL POST      */
-test('Can see message on personnal Post', () => {
-  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Your time is limited, don't waste it by leading an existence that is not yours.")
-  expect(linkElement).toBeInTheDocument();
+describe('Card Profil', () => {
+  it('Can see firstname and lastname on card Profil', () => {
+    render(
+      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
+  });
+
+  it('Can see city and signin date on card Profil', () => {
+    render(
+      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Lives in : Road Join : 2021-05-10/i)).toBeInTheDocument();
+  });
+
+  it('Can see phone number and lastname on card Profil', () => {
+    render(
+      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Phone : 0000000000/i)).toBeInTheDocument();
+  });
+
+  it('Can see email on card Profil', () => {
+    render(
+      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Email : toto@tata.titi/i)).toBeInTheDocument();
+  });
 });
 
-test('Can see publication date on personnal Post', () => {
-  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("2021-05-10")
-  expect(linkElement).toBeInTheDocument();
+describe('Personnal post', () => {
+  it('Can see message on personnal Post', () => {
+    render(
+      <BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Your time is limited, don't waste it by leading an existence that is not yours./i)).toBeInTheDocument();
+  });
+
+  it('Can see publication date on personnal Post', () => {
+    render(
+      <BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/2021-05-10/i)).toBeInTheDocument();
+  });
+
+  it('Can see public label on personnal public Post', () => {
+    render(
+      <BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>,
+    );
+
+    expect(screen.getByText(/Public/i)).toBeInTheDocument();
+  });
+
 });
 
-test('Can see public label on personnal public Post', () => {
-  render(<BrowserRouter><PersonnalPost post={postTest} updateParent={promiseFunc} /></BrowserRouter>);
-  const linkElement = screen.getByText("Public")
-  expect(linkElement).toBeInTheDocument();
-});
 
