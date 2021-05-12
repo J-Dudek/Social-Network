@@ -12,12 +12,13 @@ interface RouterProps {
 
 const defaultIsFriend: boolean = false;
 
-interface UserIdProps extends RouteComponentProps<RouterProps> {}
+interface UserIdProps extends RouteComponentProps<RouterProps> { }
 
 const UserPage: React.FC<UserIdProps> = ({ match }) => {
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const [isFriend, setIsFriend] = useState<boolean>(defaultIsFriend);
+  const [go, start] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchIsFriend = async () => {
@@ -33,6 +34,7 @@ const UserPage: React.FC<UserIdProps> = ({ match }) => {
         .then((response) => {
           setIsFriend(response.data);
           console.log(response.data);
+          start(true)
         })
         .catch((ex) => {
           console.log(ex);
@@ -43,7 +45,7 @@ const UserPage: React.FC<UserIdProps> = ({ match }) => {
 
   return (
     <>
-      {isFriend ? (
+      {go ? (
         isFriend ? (
           <UserPagePublic userId={match.params.id} />
         ) : (
