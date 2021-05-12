@@ -5,7 +5,7 @@ import Loading from "./components/animations/Loading";
 import HeaderComponent from "./header";
 import Profile from "./components/header/profile";
 import User from "./components/friend/users";
-// import UserPage from "./components/friend/UserPage";
+import UserPage from "./components/friend/UserPage";
 import Home from "./components/home/home";
 import MyFriendPost from "./components/fonctionnals/myfriendpost";
 import Post from "./components/post/post";
@@ -13,8 +13,8 @@ import ProtectedRoute from "./auth/protected-route";
 import ExternalApi from "./api/external-api";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Footer from './components/footer/footer'
-import FourOfour from "./components/fourOfour/fourOfour"
+import Footer from "./components/footer/footer";
+import FourOfour from "./components/fourOfour/fourOfour";
 const queryClient = new QueryClient();
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
   if (isLoading) {
     return <Loading />;
   }
-
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -34,9 +33,17 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <ProtectedRoute path="/profile" exact component={Profile} />
-              {/* <ProtectedRoute path="/user/:id" component={UserPage} /> */}
-              <ProtectedRoute path="/external-api" exact component={ExternalApi} />
-              <ProtectedRoute path="/myfriendpost" exact component={MyFriendPost} />
+              <ProtectedRoute path="/user/:id" component={UserPage} />
+              <ProtectedRoute
+                path="/external-api"
+                exact
+                component={ExternalApi}
+              />
+              <ProtectedRoute
+                path="/myfriendpost"
+                exact
+                component={MyFriendPost}
+              />
               <ProtectedRoute path="/users" exact component={User} />
               <ProtectedRoute path="/posts" exact component={Post} />
               <Route component={FourOfour} />

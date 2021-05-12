@@ -1,10 +1,13 @@
 import React from "react";
-import loading from "../../assets/loading.svg";
 
-const Loading = () => (
-    <div className="spinner">
-        <img src={loading} alt="Loading" />
-    </div>
+const Loading = (props) => (
+  <div className="ui active dimmer">
+    <div className="ui big text loader">{props.message}</div>
+  </div>
 );
+
+Loading.defaultProps = {
+  message: "Loading...",
+};
 
 export default Loading;
