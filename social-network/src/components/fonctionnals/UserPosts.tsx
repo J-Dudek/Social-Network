@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { IPost } from "../../types/IPost";
-import PersonnalPost from "./personnalPost";
+import CardPost from "./CardPost";
 import Axios from "axios-observable";
 
 const defaultPersonnalPost: IPost[] = [];
@@ -31,10 +31,8 @@ const UserPosts = ({ id, isPublic }) => {
   return (
     <>
       {postsPerso.map((post) => (
-        <PersonnalPost
+        <CardPost
           post={post}
-          updateParent={getMyPosts}
-          key={post.idPost}
         />
       ))}
     </>

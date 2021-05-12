@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IUser } from "../../types/IUser";
 import UserFriends from "../fonctionnals/UserFriends";
-import UserPost from "../fonctionnals/UserPosts";
+import UserPosts from "../fonctionnals/UserPosts";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   Card,
@@ -113,7 +113,7 @@ const UserPagePublic = ({ userId }) => {
               >
                 Les posts de l'users
               </Header>
-              <UserPost id={userId} isPublic={true} />
+              <UserPosts id={userId} isPublic={true} />
             </Segment>
           </Grid.Column>
         </Grid.Row>
