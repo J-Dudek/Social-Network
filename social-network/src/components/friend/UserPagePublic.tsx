@@ -34,9 +34,9 @@ const UserPagePublic = ({ userId }) => {
           },
         })
         .then((response) => {
+          console.log("pote : ");
           console.log(response.data);
-          setUser(response.data.t1);
-          setCount(response.data.t2);
+          setUser(response.data);
         })
         .catch((ex) => {
           console.log(ex);
@@ -46,7 +46,7 @@ const UserPagePublic = ({ userId }) => {
     fetchUser();
   }, [getAccessTokenSilently, userId, serverUrl]);
 
-  const getPageContent = () => {
+
     return (
       <Grid container columns="equal">
         <Grid.Row>
@@ -121,7 +121,5 @@ const UserPagePublic = ({ userId }) => {
     );
   };
 
-  return user ? getPageContent() : <Loader />;
-};
 
 export default UserPagePublic;

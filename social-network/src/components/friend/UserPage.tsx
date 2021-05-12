@@ -45,6 +45,7 @@ const UserPage: React.FC<UserIdProps> = ({ match }) => {
 
   return (
     <>
+    Toto
       {go ? (
         isFriend ? (
           <UserPagePublic userId={match.params.id} />
