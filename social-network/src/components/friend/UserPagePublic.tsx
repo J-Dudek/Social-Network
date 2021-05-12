@@ -27,14 +27,13 @@ const UserPagePublic = ({ userId }) => {
     const fetchUser = async () => {
       const token = await getAccessTokenSilently();
       axios
-        .get(`${serverUrl}/friends/users/${userId}`, {
+        .get(`${serverUrl}/friends/users/friend/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         })
         .then((response) => {
-          console.log("pote : ");
           console.log(response.data);
           setUser(response.data);
         })
@@ -76,10 +75,10 @@ const UserPagePublic = ({ userId }) => {
                   </Card.Header>
                   <Card.Meta>
                     <div>
-                      <Icon name="mail" /> {user.email}{" "}
+                      <Icon name="mail" /> {user.email}
                     </div>
                     <div>
-                      <Icon name="phone" /> {user.phoneNumber}{" "}
+                      <Icon name="phone" /> {user.phoneNumber}
                     </div>
                   </Card.Meta>
                   <Card.Description>
@@ -87,8 +86,7 @@ const UserPagePublic = ({ userId }) => {
                       Hi, I'm {user.firstName}, I'm leave in {user.city}.
                     </div>
                     <div>
-                      <Icon name="birthday cake" />I was born on{" "}
-                      {user.birthdate}.
+                      <Icon name="birthday cake" />I was born on {user.birthdate}.
                     </div>
                   </Card.Description>
                 </Card.Content>
