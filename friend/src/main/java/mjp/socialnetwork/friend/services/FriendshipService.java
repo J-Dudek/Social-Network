@@ -134,6 +134,33 @@ public class FriendshipService {
     }
 
     /**
+     * Quand il y a rupture entre 2 amis :'(
+     * @param principal passé en requete implicitement
+     * @param secondUserId l'id du second user de la relation
+     * @return la relation supprimé en BDD. ils ne sont plus Friendship
+     */
+    public Mono<FriendshipDTO> deleteRelation(Principal principal, String secondUserId) {
+        return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
+                .flatMap(aBoolean -> {
+                    if (!aBoolean)
+                        return friendshipRepository.findByFirstUserIdAndSecondUserId(secondUserId, principal.getName())
+                                .flatMap(invit -> {
+                                    assert invit.getId() != null;
+                                    return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit).map(FriendshipMapper::toDto);
+                                });
+                    else {
+                        return friendshipRepository.findByFirstUserIdAndSecondUserId(principal.getName(), secondUserId)
+                                .flatMap(invit -> {
+                                    assert invit.getId() != null;
+                                    return this.friendshipRepository.deleteById(invit.getId()).thenReturn(invit).map(FriendshipMapper::toDto);
+                                });
+                    }
+
+                });
+
+    }
+
+    /**
      * Compte les amis de l'user
      *
      * @param principal l'user concerné

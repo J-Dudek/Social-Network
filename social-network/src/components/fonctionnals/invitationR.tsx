@@ -34,13 +34,12 @@ const InvitationR = ({ invit, updateParent }: { invit: IInvit, updateParent: Pro
         }
     }
     const declineClick = (e) => {
-        alert(invit.t2.id)
         e.preventDefault();
         declineInvit(e)
         async function declineInvit(e) {
             const token = await getAccessTokenSilently();
             axios
-                .put<IInvit>(`${serverUrl}/friends/friendship/reject`, invit.t2.id, {
+                .delete(`${serverUrl}/friends/friendship/reject/${invit.t2.id}`, {
 
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -16,7 +16,7 @@ const CardProfil = ({ user, friend = true }: { user: IUser, friend: boolean }) =
     async function cancelInvit(e) {
       const token = await getAccessTokenSilently();
       axios
-        .put<IInvit>(`${serverUrl}/friends/friendship/delete`, user.idUser, {
+        .delete(`${serverUrl}/friends/friendship/deleteFriend/${user.idUser}`, {
 
           headers: {
             Authorization: `Bearer ${token}`,
