@@ -33,7 +33,6 @@ const UpdateUser = ({ register = true }: { register: boolean }) => {
 
   async function updateInfos(user: User) {
     const token = await getAccessTokenSilently();
-    alert(user.username)
     axios
       .put<IUser>(`${serverUrl}/friends/users/update`, user, {
         headers: {
