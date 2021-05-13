@@ -28,13 +28,13 @@ public class PostController {
         return this.postService.findAllByUserId(userId);
     }
 
-    @GetMapping(path = "/all/private/{id}")
-    public Flux<PostDTO> findAllPrivateByUserId(Principal principal, @PathVariable("id") String userId) {
+    @PostMapping(path = "/all/private")
+    public Flux<PostDTO> findAllPrivateByUserId(Principal principal, @RequestBody String userId) {
         return this.postService.findAllByUserIdAndPublic(userId, false);
     }
 
-    @GetMapping(path = "/all/public/{id}")
-    public Flux<PostDTO> findAllPublicByUserId(Principal principal, @PathVariable("id") String userId) {
+    @PostMapping(path = "/all/public")
+    public Flux<PostDTO> findAllPublicByUserId(Principal principal, @RequestBody String userId) {
         return this.postService.findAllByUserIdAndPublic(userId, true);
     }
 

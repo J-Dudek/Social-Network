@@ -13,7 +13,11 @@ const UserPosts = ({ id, isPublic }) => {
 
   let getMyPosts = React.useCallback(async () => {
     const token = await getAccessTokenSilently();
-    Axios.get(`${serverUrl}/posts/all${isPublic ? "" : "/public"}/${id}`, {
+
+    const forFriend = `/private`;
+    const forVisitors = `/public`;
+
+    Axios.post(`${serverUrl}/posts/all${isPublic ? forFriend : forVisitors}`, id, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
