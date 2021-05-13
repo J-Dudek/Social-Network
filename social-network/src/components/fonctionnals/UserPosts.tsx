@@ -35,7 +35,7 @@ const UserPosts = ({ id, isPublic }) => {
   return (
     <>
       {postsPerso.map((post) => (
-        <CardPost
+        <CardPost key={post.idPost}
           post={post}
         />
       ))}

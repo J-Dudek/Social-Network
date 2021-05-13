@@ -4,7 +4,6 @@ import { IUser } from '../../types/IUser';
 import monkey from '../../images/monkeyInAsuit.jpg';
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from 'axios';
-import { IInvit } from '../../types/IInvit';
 
 const CardProfil = ({ user, friend = true }: { user: IUser, friend: boolean }) => {
   const { getAccessTokenSilently } = useAuth0();

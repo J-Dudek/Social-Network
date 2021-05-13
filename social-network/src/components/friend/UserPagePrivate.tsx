@@ -29,13 +29,13 @@ const UserPagePrivate = ({ userId }) => {
           },
         })
         .then((response) => {
-          
+
           setUser(response.data);
         })
         .catch((ex) => {
           console.log(ex);
         });
-      
+
     };
 
     fetchUser();
@@ -52,7 +52,7 @@ const UserPagePrivate = ({ userId }) => {
                 Friends
                 </Segment>
             </div>
-            <Segment.Group vertical>
+            <Segment.Group >
               <UserFriends id={userId} />
             </Segment.Group>
           </Segment>
