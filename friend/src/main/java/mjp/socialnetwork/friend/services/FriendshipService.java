@@ -63,7 +63,7 @@ public class FriendshipService {
      * @return l'invitation en question
      */
     public Flux<Tuple2<UserDTO, FriendshipDTO>> findInvitationSent(Principal principal) {
-        return friendshipRepository.findAllByFirstUserId(principal.getName())
+        return friendshipRepository.findAllByFirstUserId(principal.getName()).filter(friendship -> !friendship.isStatus())
                     .flatMap(friendship -> Mono.zip(
                             this.userRepository.findById(friendship.getSecondUserId())
                                     .map(UserMapper::toDto),
@@ -80,7 +80,7 @@ public class FriendshipService {
      * @return la liste des invitation acceptée ou en pending
      */
     public Flux<Tuple2<UserDTO, FriendshipDTO>> findInvitationReceived(Principal principal) {
-        return friendshipRepository.findAllBySecondUserId(principal.getName())
+        return friendshipRepository.findAllBySecondUserId(principal.getName()).filter(friendship -> !friendship.isStatus())
                 .flatMap(friendship -> Mono.zip(
                         this.userRepository.findById(friendship.getFirstUserId())
                                 .map(UserMapper::toDto),
@@ -98,16 +98,13 @@ public class FriendshipService {
      * @return L'invitation créée
      */
     public Mono<Friendship> createInvitation(Principal principal, String idNewFriend) {
-        Friendship.FriendshipBuilder builder = Friendship.builder();
-        builder.firstUserId(principal.getName());
-        builder.secondUserId(idNewFriend);
-        builder.friendshipDate(LocalDateTime.now());
-        builder.status(false);
-        builder.newFriendShip(true);
-        Friendship friendship;
-        friendship = builder
-                .build();
-        return friendshipRepository.save(friendship);
+
+        return friendshipRepository.save(
+                Friendship.builder()
+                        .friendshipDate(LocalDateTime.now()).status(false)
+                        .isNew(true)
+                        .firstUserId(principal.getName())
+                        .secondUserId(idNewFriend).build());
     }
 
     /**
@@ -121,6 +118,7 @@ public class FriendshipService {
 
         return this.friendshipRepository.findById(idInvitation)
                 .doOnNext(friendship -> friendship.setStatus(true))
+                .doOnNext(friendship -> friendship.setIsNew(false))
                 .flatMap(this.friendshipRepository::save)
                 .map(FriendshipMapper::toDto);
     }
