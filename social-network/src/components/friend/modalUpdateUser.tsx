@@ -26,7 +26,6 @@ function ModalUpdateUser({ auser }: { auser: IUser }) {
     const [open, setOpen] = React.useState(false)
     const { handleSubmit, control } = useForm<User>();
     const setData = (data: User) => {
-        console.log("data", data);
         updateInfos(data);
     };
 

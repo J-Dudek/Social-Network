@@ -33,7 +33,7 @@ const UserPage: React.FC<UserIdProps> = ({ match }) => {
         })
         .then((response) => {
           setIsFriend(response.data);
-          console.log(response.data);
+        
           start(true)
         })
         .catch((ex) => {

@@ -29,13 +29,13 @@ const UserPagePrivate = ({ userId }) => {
           },
         })
         .then((response) => {
-          console.log(response.data);
+          
           setUser(response.data);
         })
         .catch((ex) => {
           console.log(ex);
         });
-      console.log(userId);
+      
     };
 
     fetchUser();
