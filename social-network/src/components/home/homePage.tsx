@@ -9,7 +9,7 @@ import SearchFriends from '../fonctionnals/searchfriends'
 
 
 
-const HomePage = ({ register = false }: { register: Boolean }) => {
+const HomePage = ({ register = false }: { register: boolean }) => {
   if (!register) {
     return null;
   }
@@ -41,7 +41,7 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
 
         </Grid.Column>
         <Grid.Column width={8}>
-          
+
           <Segment style={{ overflow: 'auto', maxHeight: '90vh' }} className="ui middle">
             <Header
               color="blue"

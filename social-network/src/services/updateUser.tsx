@@ -21,7 +21,7 @@ type User = {
 }
 
 
-const UpdateUser = ({ register = true }: { register: Boolean }) => {
+const UpdateUser = ({ register = true }: { register: boolean }) => {
 
   const { getAccessTokenSilently } = useAuth0();
   const serverUrl = process.env.REACT_APP_SERVER_URL;
@@ -33,6 +33,7 @@ const UpdateUser = ({ register = true }: { register: Boolean }) => {
 
   async function updateInfos(user: User) {
     const token = await getAccessTokenSilently();
+    alert(user.username)
     axios
       .put<IUser>(`${serverUrl}/friends/users/update`, user, {
         headers: {
@@ -41,7 +42,8 @@ const UpdateUser = ({ register = true }: { register: Boolean }) => {
         },
       })
       .then(() => {
-        return window.location.href = '/';
+        const home = `/`;
+        return window.location.href = home;
       })
       .catch((ex) => {
         console.log(ex);
