@@ -37,23 +37,20 @@ public class UserController {
     @JsonView(UserViews.Public.class)
     public Mono<ResponseEntity<UserDTO>> findUserByUserId(@PathVariable("userId") String userId) {
         return userService.findById(userId)
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok);
     }
 
     @GetMapping(path = "/friend/{userId}")
     @JsonView(UserViews.Friends.class)
     public Mono<ResponseEntity<UserDTO>> findFriendByUserId(@PathVariable("userId") String userId) {
         return userService.findById(userId)
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok);
     }
 
     @PutMapping(path = "/update")
     public Mono<ResponseEntity<UserDTO>> updateUser(Principal principal, @RequestBody Mono<UserDTO> userDTOMono) {
         return this.userService.updateUser(principal, userDTOMono)
-                .map(ResponseEntity::ok)
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok);
     }
 
     @DeleteMapping
