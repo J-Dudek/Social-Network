@@ -46,12 +46,12 @@ public class FriendshipService {
     }
 
     public Mono<Boolean> isFriend(Principal principal, String friendId) {
-        return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(principal.getName(), friendId)
+        return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserIdAndStatus(principal.getName(), friendId,true)
                 .flatMap(isFriend -> {
                     if (Boolean.TRUE.equals(isFriend)) {
                         return Mono.just(true);
                     } else {
-                        return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserId(friendId, principal.getName());
+                        return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserIdAndStatus(friendId, principal.getName(),true);
                     }
                 });
     }
@@ -92,19 +92,42 @@ public class FriendshipService {
 
     /**
      * Permet de créer une invitation
-     *
+     *On verifie dans un premier temps si l'user invité a invité le premier, si oui on accepte et la return
+     * Si non, on verifie si le même user a déjà fait une invitation, si oui on la return
+     * Si non, on cré l'invitation et on la sauvegarde
      * @param principal   passé en requete implicitement
      * @param idNewFriend l'id de la personne demandée en amis
      * @return L'invitation créée
      */
-    public Mono<Friendship> createInvitation(Principal principal, String idNewFriend) {
+    public Mono<FriendshipDTO> createInvitation(Principal principal, String idNewFriend) {
+        return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserIdAndStatus(idNewFriend, principal.getName(), false)
+                .flatMap(aBoolean -> {
+                    if (aBoolean) {
+                        return friendshipRepository.findByFirstUserIdAndSecondUserId(idNewFriend, principal.getName())
+                                .flatMap(friendship -> {
+                                    friendship.setIsNew(false);
+                                    friendship.setStatus(true);
+                                    return friendshipRepository.save(friendship).map(FriendshipMapper::toDto);
+                                });
+                    } else {
+                        return friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserIdAndStatus( principal.getName(),idNewFriend, false)
+                                .flatMap(aBoolean1 -> {
+                                    if(aBoolean1){
+                                        return friendshipRepository.findByFirstUserIdAndSecondUserId(principal.getName(),idNewFriend).map(FriendshipMapper::toDto);
+                                    }else{
+                                        Friendship build = Friendship.builder()
+                                                .friendshipDate(LocalDateTime.now())
+                                                .status(false)
+                                                .isNew(true)
+                                                .firstUserId(principal.getName())
+                                                .secondUserId(idNewFriend).build();
+                                        return friendshipRepository.save(build).map(FriendshipMapper::toDto);
+                                    }
+                                });
 
-        return friendshipRepository.save(
-                Friendship.builder()
-                        .friendshipDate(LocalDateTime.now()).status(false)
-                        .isNew(true)
-                        .firstUserId(principal.getName())
-                        .secondUserId(idNewFriend).build());
+                    }
+                });
+
     }
 
     /**
@@ -170,4 +193,5 @@ public class FriendshipService {
 
         return friendshipRepository.countFriendshipByStatusAndFirstUserIdOrSecondUserId(true, principal.getName(), principal.getName());
     }
+
 }

@@ -68,7 +68,7 @@ public class FriendshipController {
      */
     @PostMapping(path = "/sendInvit")
     public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser) {
-        return friendshipService.createInvitation(principal, idUser).map(FriendshipMapper::toDto);
+        return friendshipService.createInvitation(principal, idUser);
     }
 
     @GetMapping(path = "/verify/{id}")
