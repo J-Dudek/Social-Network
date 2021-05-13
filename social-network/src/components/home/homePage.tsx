@@ -24,7 +24,7 @@ const HomePage = ({ register = false }: { register: boolean }) => {
                 Search friends
               </Segment>
             </div>
-            <Segment.Group vertical={true}>
+            <Segment.Group >
               <SearchFriends />
             </Segment.Group>
           </Segment>
@@ -34,7 +34,7 @@ const HomePage = ({ register = false }: { register: boolean }) => {
                 Friends
               </Segment>
             </div>
-            <Segment.Group vertical={true}>
+            <Segment.Group >
               <MyFriends />
             </Segment.Group>
           </Segment>

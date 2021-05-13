@@ -51,7 +51,7 @@ const UserPagePublic = ({ userId }) => {
                 Friends
                 </Segment>
             </div>
-            <Segment.Group vertical>
+            <Segment.Group >
               <UserFriends id={userId} />
             </Segment.Group>
           </Segment>
