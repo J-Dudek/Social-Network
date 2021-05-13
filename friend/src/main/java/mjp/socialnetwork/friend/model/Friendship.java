@@ -26,6 +26,7 @@ public class Friendship implements Persistable {
 
     private boolean status;
 
+    private Boolean isNew;
     @Transient
     private boolean newFriendShip;
 
