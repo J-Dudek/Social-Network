@@ -76,7 +76,7 @@ const CardProfil = ({ user, friend = true }: { user: IUser, friend: boolean }) =
           </span>
           <Card.Header >{user.username}</Card.Header>
 
-          <Card.Header><small>({user.lastName} {user.firstName})</small></Card.Header>
+          <Card.Header><small>{user.lastName} {user.firstName}</small></Card.Header>
           {friend && (
             <Card.Meta>
               <div><Icon name="mail" /> {user.email} </div>
