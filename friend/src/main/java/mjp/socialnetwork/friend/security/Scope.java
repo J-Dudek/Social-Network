@@ -11,7 +11,7 @@ public enum Scope {
     FRIEND_READ ("SCOPE_friend:read"),
     FRIEND_UPDATE ("SCOPE_firend:update"),
     FRIEND_DELETE ("SCOPE_friend:delete"),
-    FRIEND_SEARCH ("SCOPE_friend:serach"),
+    FRIEND_SEARCH ("SCOPE_friend:search"),
     FRIEND_ADD ("SCOPE_friend:add");
 
     private String scope ;

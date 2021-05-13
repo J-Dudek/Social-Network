@@ -122,7 +122,7 @@ public class FriendshipController {
      * @param idInvit l'invitation concernée
      * @return mono void
      */
-    @DeleteMapping(path = "delete")
+    @PutMapping(path = "/delete")
     public Mono<ResponseEntity<Void>> deleteRelation(Principal principal, @RequestBody Long idInvit) {
         return this.friendshipService.deleteInvitation(idInvit)
                 .map(ResponseEntity::ok)
