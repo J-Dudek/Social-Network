@@ -23,7 +23,7 @@ const UserFriends = ({ id }) => {
       }).subscribe((response) => setFriends(response.data));
     }
     getFriends();
-  }, [getAccessTokenSilently, serverUrl]);
+  }, [getAccessTokenSilently, id, serverUrl]);
 
   return (
     <>

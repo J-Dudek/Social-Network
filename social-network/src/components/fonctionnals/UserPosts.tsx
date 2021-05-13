@@ -22,7 +22,7 @@ const UserPosts = ({ id, isPublic }) => {
       (response) => setPosts(response.data),
       (error) => console.log(error)
     );
-  }, [getAccessTokenSilently, serverUrl]);
+  }, [getAccessTokenSilently, id, isPublic, serverUrl]);
 
   useEffect(() => {
     getMyPosts();

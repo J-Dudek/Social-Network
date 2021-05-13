@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import UserPagePublic from "../friend/UserPagePublic";
 import UserPagePrivate from "../friend/UserPagePrivate";
 import Loader from "../animations/Loading";
