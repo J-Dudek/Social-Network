@@ -57,7 +57,7 @@ const User = () => {
       <Input icon="users" iconPosition="left" placeholder="Search users..." />
       <div className="ui items">
         {users.map((user) => (
-          <CardProfil user={user} key={user.idUser} />
+          <CardProfil user={user} key={user.idUser} friend/>
         ))}
 
         {error && <p className="error">{error}</p>}

@@ -24,6 +24,8 @@ public class UserMapper {
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .phoneNumber(userDTO.getPhoneNumber())
+                .username((userDTO.getUsername()))
+                .signInDate(userDTO.getSignInDate())
                 .birthdate(userDTO.getBirthdate().plusDays(1))
                 .build();
     }

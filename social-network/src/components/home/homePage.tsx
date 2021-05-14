@@ -9,7 +9,7 @@ import SearchFriends from '../fonctionnals/searchfriends'
 
 
 
-const HomePage = ({ register = false }: { register: Boolean }) => {
+const HomePage = ({ register = false }: { register: boolean }) => {
   if (!register) {
     return null;
   }
@@ -24,7 +24,7 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
                 Search friends
               </Segment>
             </div>
-            <Segment.Group vertical>
+            <Segment.Group >
               <SearchFriends />
             </Segment.Group>
           </Segment>
@@ -34,14 +34,14 @@ const HomePage = ({ register = false }: { register: Boolean }) => {
                 Friends
               </Segment>
             </div>
-            <Segment.Group vertical>
+            <Segment.Group >
               <MyFriends />
             </Segment.Group>
           </Segment>
 
         </Grid.Column>
         <Grid.Column width={8}>
-          
+
           <Segment style={{ overflow: 'auto', maxHeight: '90vh' }} className="ui middle">
             <Header
               color="blue"

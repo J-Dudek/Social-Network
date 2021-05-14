@@ -68,7 +68,7 @@ public class FriendshipController {
      */
     @PostMapping(path = "/sendInvit")
     public Mono<FriendshipDTO> createInvitation(Principal principal, @RequestBody String idUser) {
-        return friendshipService.createInvitation(principal, idUser).map(FriendshipMapper::toDto);
+        return friendshipService.createInvitation(principal, idUser);
     }
 
     @GetMapping(path = "/verify/{id}")
@@ -104,13 +104,25 @@ public class FriendshipController {
 
     /**
      * Refu d'une invitation recus
-     *
+     * @param principal l'utilisateur
+     * @param idInvit id de l'invitation à supprimer
+     * @return la suppression
+     */
+    @DeleteMapping(path = "/reject/{idInvit}")
+    public Mono<ResponseEntity<Void>> rejectInvitation(Principal principal, @PathVariable("idInvit") Long idInvit) {
+        return this.friendshipService.deleteInvitation(idInvit)
+                .map(ResponseEntity::ok)
+                .onErrorReturn(ResponseEntity.badRequest().build());
+    }
+
+    /**
+     * Concerne l'annulation des invitations non acceptées
      * @param principal passé dans le token, correspond à l'user
-     * @param idInvit   l'invitation concernée
+     * @param idInvit l'invitation concernée
      * @return mono void
      */
-    @DeleteMapping(path = "/reject")
-    public Mono<ResponseEntity<Void>> rejectInvitation(Principal principal, @RequestBody Long idInvit) {
+    @PutMapping(path = "/delete")
+    public Mono<ResponseEntity<Void>> deleteRelation(Principal principal, @RequestBody Long idInvit) {
         return this.friendshipService.deleteInvitation(idInvit)
                 .map(ResponseEntity::ok)
                 .onErrorReturn(ResponseEntity.badRequest().build());
@@ -118,15 +130,13 @@ public class FriendshipController {
 
     /**
      * Quand un amis supprime sa relation avec un autre
-     * @param principal passé dans le token, correspond à l'user
-     * @param idInvit l'invitation concernée
-     * @return mono void
+     * @param principal le detenteur du compte
+     * @param secondUserId l'id à supprimer
+     * @return la relation supprimée
      */
-    @DeleteMapping(path = "delete")
-    public Mono<ResponseEntity<Void>> deleteRelation(Principal principal, @RequestBody Long idInvit) {
-        return this.friendshipService.deleteInvitation(idInvit)
-                .map(ResponseEntity::ok)
-                .onErrorReturn(ResponseEntity.badRequest().build());
+    @DeleteMapping(path="/deleteFriend/{secondUserId}")
+    public Mono<FriendshipDTO> deleteRelation(Principal principal,@PathVariable("secondUserId") String secondUserId){
+        return friendshipService.deleteRelation(principal,secondUserId);
     }
 
     @GetMapping(path = "/howManyFriends")

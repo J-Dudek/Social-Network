@@ -2,6 +2,7 @@ package mjp.socialnetwork.post.services;
 
 import lombok.AllArgsConstructor;
 import mjp.socialnetwork.post.exceptions.PostException;
+import mjp.socialnetwork.post.model.Post;
 import mjp.socialnetwork.post.model.dto.PostDTO;
 import mjp.socialnetwork.post.model.dto.UserDTO;
 import mjp.socialnetwork.post.repositories.PostRepository;
@@ -32,8 +33,11 @@ public class PostService {
     }
 
     public Flux<PostDTO> findAllByUserIdAndPublic(String userId, boolean isPublic) {
-        return this.postRepository.findPostByUserIdAndPublic(userId, isPublic)
-                .map(PostMapper::toDto);
+        if(isPublic){
+            return postRepository.findAllByUserId(userId).filter(Post::isPublic).map(PostMapper::toDto);
+        }else{
+            return postRepository.findAllByUserId(userId).map(PostMapper::toDto);
+        }
     }
 
     public Flux<PostDTO> findAllFriendsPosts(Flux<UserDTO> userDTOFlux) {

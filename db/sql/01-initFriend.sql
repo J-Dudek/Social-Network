@@ -10,7 +10,7 @@ CREATE TABLE user (id VARCHAR(255)  PRIMARY KEY,
                    is_new BOOLEAN
                    );
 create table friendship (
-                           id bigint,
+                           id bigint auto_increment PRIMARY KEY,
                            first_user_id VARCHAR(255),
                            second_user_id VARCHAR(255),
                            friendship_date DATETIME,

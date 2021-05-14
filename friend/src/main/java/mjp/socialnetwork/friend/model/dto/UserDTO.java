@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class UserDTO {
 
-    @JsonView(UserViews.Private.class)
+    @JsonView(UserViews.Public.class)
     private String idUser;
     @JsonView(UserViews.Public.class)
     private String firstName;
@@ -26,7 +26,7 @@ public class UserDTO {
     private String city;
     @JsonView(UserViews.Friends.class)
     private LocalDateTime signInDate;
-    @JsonView(UserViews.Friends.class)
+    @JsonView(UserViews.Public.class)
     private String username;
 
     public UserDTO() {

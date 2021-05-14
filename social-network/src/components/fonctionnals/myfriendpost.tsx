@@ -75,7 +75,10 @@ const MyFriendPost = () => {
           console.log(ex);
         });
     }
-    getfriendsPosts(friends)
+    if (friends.length > 0) {
+      getfriendsPosts(friends)
+    }
+
   }, [friends, getAccessTokenSilently, serverUrl]);
 
 

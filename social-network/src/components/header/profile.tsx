@@ -55,7 +55,7 @@ const Profile = () => {
             <div><Segment inverted textAlign="center" color='blue'>
               Friends
              </Segment></div>
-            <Segment.Group vertical >
+            <Segment.Group>
               <MyFriends />
             </Segment.Group>
           </Segment>
@@ -65,7 +65,7 @@ const Profile = () => {
                 Search friends
               </Segment>
             </div>
-            <Segment.Group vertical={true}>
+            <Segment.Group>
               <SearchFriends />
             </Segment.Group>
           </Segment>

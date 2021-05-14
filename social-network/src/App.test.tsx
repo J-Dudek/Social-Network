@@ -16,6 +16,7 @@ import { IUser } from './types/IUser'
 import { IInvit } from './types/IInvit'
 import { IPost } from './types/IPost'
 import HomePage from './components/home/homePage';
+import UserPagePublic from './components/friend/UserPagePublic';
 const userTest: IUser = {
   lastName: "Doe",
   firstName: "John",
@@ -141,34 +142,34 @@ describe('Invitation sent', () => {
 describe('Card Profil', () => {
   it('Can see firstname and lastname on card Profil', () => {
     render(
-      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+      <BrowserRouter><CardProfil user={userTest} friend={true} /></BrowserRouter>,
     );
 
-    expect(screen.getByText(/John Doe/i)).toBeInTheDocument();
+    expect(screen.getByText(/Doe John/i)).toBeInTheDocument();
   });
 
   it('Can see city and signin date on card Profil', () => {
     render(
-      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+      <BrowserRouter><CardProfil user={userTest} friend={true} /></BrowserRouter>,
     );
 
-    expect(screen.getByText(/Lives in : Road Join : 2021-05-10/i)).toBeInTheDocument();
+    expect(screen.getByText(/Hi, I'm John, I'm leave in Road./i)).toBeInTheDocument();
   });
 
   it('Can see phone number and lastname on card Profil', () => {
     render(
-      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+      <BrowserRouter><CardProfil user={userTest} friend={true} /></BrowserRouter>,
     );
 
-    expect(screen.getByText(/Phone : 0000000000/i)).toBeInTheDocument();
+    expect(screen.getByText(/0000000000/i)).toBeInTheDocument();
   });
 
   it('Can see email on card Profil', () => {
     render(
-      <BrowserRouter><CardProfil user={userTest} /></BrowserRouter>,
+      <BrowserRouter><CardProfil user={userTest} friend={true} /></BrowserRouter>,
     );
 
-    expect(screen.getByText(/Email : toto@tata.titi/i)).toBeInTheDocument();
+    expect(screen.getByText(/toto@tata.titi/i)).toBeInTheDocument();
   });
 });
 
@@ -240,4 +241,3 @@ describe('HomePage', () => {
     expect(screen.getByText(/Received Invitations/)).toBeInTheDocument();
   });
 });
-
