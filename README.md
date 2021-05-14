@@ -6,7 +6,16 @@ Pour le détail des modules de l'architecture micro service mise en place pour l
 
 Liste des modules :
 
+- [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/readme/gateway)
+- [Module friend](https://github.com/J-Dudek/Social-Network/tree/readme/friend)
+- [Module post](https://github.com/J-Dudek/Social-Network/tree/readme/post)
+- [Module admin](https://github.com/J-Dudek/Social-Network/tree/readme/admin)
+- [Module configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration)
+- [Scripts base de données](https://github.com/J-Dudek/Social-Network/tree/readme/db)
+
 Pour le project d'application front-end développé à l'aide de React pour le cours de programmation fonctionnelle vous trouverez le README détaillé du projet ici : 
+
+- [Application front-end](https://github.com/J-Dudek/Social-Network/tree/readme/social-network)
 
 ## Pile technique
 ### Back-end
@@ -35,15 +44,15 @@ schéma en cours...
 
 
 ## Lancement applicatif
-Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à kla racine du projet:
-```docker-compose up -d```
-Vous accèderez à l'interface à cette adresse http://localhost:8888
-Utilisez les identifiants suivants :
-username ```m1s2TpProg```
-password ```l@Cath0M1s2```
-il n'est pas nécessaire de remplir le champ ```database```
+Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à kla racine du projet:  
+```docker-compose up -d```  
+Vous accèderez à l'interface à cette adresse http://localhost:8888  
+Utilisez les identifiants suivants :  
+username ```m1s2TpProg```  
+password ```l@Cath0M1s2```  
+il n'est pas nécessaire de remplir le champ ```database```  
 
-Par default le profil utilisé sur les projets java est ** DEV **.
+Par default le profil utilisé sur les projets java est ** DEV **.  
 
 ## Deploiement
 A chaque merge sur la branche main une nouvelle image des application est dockerizée puis pushée sur le repo. Le serveur fait un check des mises à jour toutes les 3 minutes.
