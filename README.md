@@ -39,8 +39,7 @@ Pour le project d'application front-end développé à l'aide de React pour le c
 > - Axios pour faciliter la gestion des requêtes http vers l'API
 
 ## Architecture
-schéma en cours...
-
+![Micro-service architecture](https://github.com/J-Dudek/Social-Network/blob/readme/doc/archi_microservices.png)
 
 ## Déploiement de la base de données
 Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à kla racine du projet:  
