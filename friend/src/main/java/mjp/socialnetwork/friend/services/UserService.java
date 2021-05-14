@@ -78,7 +78,6 @@ public class UserService {
                         .doOnNext(u -> u.setIsNew(false))
                         .doOnNext(u -> u.setId(user.getId()))
                         .doOnNext(u -> u.setSignInDate(user.getSignInDate()))
-                        .doOnNext(u -> u.setBirthdate(u.getBirthdate().plusDays(1)))
                 )
                 .flatMap(this.userRepository::save)
                 .map(UserMapper::toDto);
