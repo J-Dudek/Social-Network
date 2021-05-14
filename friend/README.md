@@ -84,6 +84,6 @@ CorsConfigurationSource corsConfigurationSource() {
 Comme dit dans le readme prinicap du repositorie, l'adoption des flux a été adopté ainsi que qu'une base de données réactive.
 Nous avons fait le choix d'utiliser plusieurs type de retour sur nos différents endpoints afin d'implémenter différentes façon de retourner les donnnées.
 
-Ainsi, vous trouverez des endpoints retournant parfois des  ```Monoy<UserDTO>>``` ou ```Fluxy<UserDTO>>``` mais également des ```Mono<ResponseEntity<UserDTO>>```.
+Ainsi, vous trouverez des endpoints retournant parfois des  ```Monoy<UserDTO>``` ou ```Fluxy<UserDTO>``` mais également des ```Mono<ResponseEntity<UserDTO>>```.
 
 
