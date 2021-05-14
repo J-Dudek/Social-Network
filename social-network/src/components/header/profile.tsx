@@ -84,7 +84,7 @@ const Profile = () => {
                   <div><Icon name="phone" /> {user.phoneNumber} </div>
                 </Card.Meta>
                 <Card.Description>
-                  <div>Hi, I'm {user.firstName}, I'm leave in {user.city}.</div>
+                  <div>Hi, I'm {user.firstName}, I live in {user.city}.</div>
                   <div><Icon name="birthday cake" />I was born on {user.birthdate}.</div>
                 </Card.Description>
               </Card.Content>
@@ -112,7 +112,7 @@ const Profile = () => {
           </Segment>
           <Segment style={{ overflow: 'auto', maxHeight: '50vh' }}>
             <div><Segment inverted textAlign="center" color='blue'>
-              Pending invitation
+              Sent invitation
              </Segment></div>
             <MySentInvit />
           </Segment>
