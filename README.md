@@ -42,15 +42,40 @@ Pour le project d'application front-end développé à l'aide de React pour le c
 ![Micro-service architecture](https://github.com/J-Dudek/Social-Network/blob/readme/doc/archi_microservices.png)
 
 ## Déploiement de la base de données
-Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à kla racine du projet:  
+Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à la racine du projet:  
 ```docker-compose up -d```  
-Vous accèderez à l'interface à cette adresse http://localhost:8888  
+Vous pourrez acceder à l'interface à cette adresse http://localhost:8888  
+
+
 Utilisez les identifiants suivants :  
+
 username ```m1s2TpProg```  
 password ```l@Cath0M1s2```  
-il n'est pas nécessaire de remplir le champ ```database```  
+
+Il n'est pas nécessaire de remplir le champ ```database```  
 
 Par default le profil utilisé sur les projets java est **DEV**.  
 
 ## Devops
-A chaque merge sur la branche main une nouvelle image des application est dockerizée puis pushée sur le repo. Le serveur fait un check des mises à jour toutes les 3 minutes.
+Nous avons décidé d'utiliser [CircleCI](https://circleci.com/) afin de gérer l'intégration continu.
+
+- Concernant les modules Java à chaque commit sur une branche quelqonque une verification du build de l'application complète est faite en utilisant le profil **DEV**. Lors d'un merge ou un commit sur la branche ```main``` à la suite de l'étape de vérification de build, une image docker est poussée vers un repositorie [docker](https://www.docker.com/) en utiliant le profil **PROD**.
+- Concernat le module embarquant la base de donnée, la mise à jour de l'image docker est faite uniqueme sur la branche ```main```.
+- Concernant la partie front-end en React , L'image docker est poussée également uniquement sur la branche ```main```.
+
+
+Pour la partie deploiement nous avons décidé d'utiliser un nas Synology afin d'être indépendant de tout autre structure. Cette étape a demandée plusieurs règlages réseau afin que l'ouverture des flux soit effectives et que la sécurité soit préservée.
+Un container [watchower](https://github.com/containrrr/watchtower) est paramétré afin de mettre à jour les containers de chaque application. Un ordre de lancement de ces containers est également défini.
+
+## Sécurité Auth0
+Afin de permettre à quiconque d'utiliser l'application nous avons décidé de faire un compte qui sera utilisé uniquement pour celle-ci. C'est pour ces raisons que nous avons mis à disposition en clair les clés d'identification applicatives.
+
+En termes de sécurité, l'application front doit s'authentifier auprès d'auth0 afin d'obtenir un token lui permettant d'accéder à la parie back.
+Lors de l'inscription d'un utilisateur sur auth0 nous avons définie une règle de gestion via leur interface permettant d'ajouter certaines informations au token.
+Ainsi un utilisateur enregistré posséde les scopes suivant:
+
+```user:read user:update user:delete user:search post:create post:update post:delete post:search friend:read friend:update friend:delete friend:search friend:add```
+Ce qui permet une meilleure granulometrie au niveau des filtres pour les endpoints.
+
+L'application n'ayant pas d'interface d'administration nous n'avons pas crée de règle ou de scope pour cela mais la mise en place est assez simple au vue de la stack technique déjà implémentée.
+
