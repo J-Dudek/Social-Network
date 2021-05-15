@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Route, Switch } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
 import Loading from "./components/animations/Loading";
 import HeaderComponent from "./header";
 import Profile from "./components/header/profile";
@@ -10,11 +9,14 @@ import Home from "./components/home/home";
 import MyFriendPost from "./components/fonctionnals/myfriendpost";
 import Post from "./components/post/post";
 import ProtectedRoute from "./auth/protected-route";
-import ExternalApi from "./api/external-api";
-import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Footer from "./components/footer/footer";
 import FourOfour from "./components/fourOfour/fourOfour";
+
+import "./App.css";
+import "semantic-ui-css/semantic.min.css";
+
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -34,11 +36,6 @@ function App() {
               <Route exact path="/" component={Home} />
               <ProtectedRoute path="/profile" exact component={Profile} />
               <ProtectedRoute path="/user/:id" component={UserPage} />
-              <ProtectedRoute
-                path="/external-api"
-                exact
-                component={ExternalApi}
-              />
               <ProtectedRoute
                 path="/myfriendpost"
                 exact
