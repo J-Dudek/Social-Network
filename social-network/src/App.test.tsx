@@ -16,7 +16,7 @@ import { IUser } from './types/IUser'
 import { IInvit } from './types/IInvit'
 import { IPost } from './types/IPost'
 import HomePage from './components/home/homePage';
-import UserPagePublic from './components/friend/UserPagePublic';
+
 const userTest: IUser = {
   lastName: "Doe",
   firstName: "John",
