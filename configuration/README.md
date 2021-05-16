@@ -1,6 +1,6 @@
 # Module CONFIGURATION
 
-Ce module a pour but de servir les fichiers de configuration aux micro-services [Friend](https://github.com/J-Dudek/Social-Network/tree/readme/friend) et [Post](https://github.com/J-Dudek/Social-Network/tree/readme/post).
+Ce module a pour but de servir les fichiers de configuration aux micro-services [Friend](https://github.com/J-Dudek/Social-Network/tree/main/friend) et [Post](https://github.com/J-Dudek/Social-Network/tree/main/post).
 
 Il récupère les fichiers de configuration dans le dossier [Configs](https://github.com/J-Dudek/Social-Network/tree/main/configs) ce qui permet de ne pas avoir à re-builder chaque application lors d'une modification des properties.
 
