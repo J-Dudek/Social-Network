@@ -80,7 +80,7 @@ L'application n'ayant pas d'interface d'administration nous n'avons pas créé d
 
 ## Détails des fonctionnalités
 
-Une fois à l’adresse : https://juliendudek.synology.me:20206/ (ou http://localhost:3000/ dans le cas d’un run en local), cliquez sur le bouton ‘Sign Up’ en haut à droite. Deux possibilités : 
+Une fois à l’adresse http://localhost:3000/, cliquez sur le bouton ‘Sign Up’ en haut à droite. Deux possibilités : 
 - Se connecter avec son compte GitHub ;
 - Renseigner un email et un mot de passe.
 
@@ -100,7 +100,7 @@ Vous pouvez rechercher des utilisateurs du site grâce à la Search Bar à gauch
 
 Si vous cliquez sur l’étiquette sous la Search Bar vous arriverez sur l’espace personnel de l’utilisateur.
 
-Pour effectuer une demande en ami cliquez sur l’icone avec un plus à droite de la carte profil de l’utilisateur.
+Pour effectuer une demande en ami cliquez sur l’icone avec un plus à droite de la carte profil de l’utilisateur. Si cet utilisateur est déjà votre amis, ce bouton sera remplacer par un bouton permettant de révoquer le lien d'amitié.
 
 En cliquant à nouveau sur ‘Profile’, vous retournerez sur votre espace personnel et verrez votre invitation en attente sous l’encart ‘Sent invitation’.
 
