@@ -2,9 +2,9 @@
 
 Gestion des utilisateurs ```user``` et des relations ```friendship```.
 
-Au démarrage de l'application, quel que soit le profil (**DEV** ou **PROD**), le microservice va tenter de récupérer sa configuration auprès du [Module configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration). Nous avons fait le choix de faire une duplication des fichiers de configuration, ainsi si l'application de configuration n'est pas lancé ou rencontre un problème elle peut vivre avec ses fichiers embarqués.
+Au démarrage de l'application, quel que soit le profil (**DEV** ou **PROD**), le microservice va tenter de récupérer sa configuration auprès du [Module configuration](https://github.com/J-Dudek/Social-Network/tree/main/configuration). Nous avons fait le choix de faire une duplication des fichiers de configuration, ainsi si l'application de configuration n'est pas lancé ou rencontre un problème elle peut vivre avec ses fichiers embarqués.
 
-L'application s'enregistre ensuite auprès du [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/readme/gateway).
+L'application s'enregistre ensuite auprès du [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/main/gateway).
 
 Les scopes utilisés pour les différents endpoints sont les suivants :
 ```
