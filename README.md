@@ -78,3 +78,33 @@ Ce qui permet une meilleure granulométrie au niveau des filtres pour les endpoi
 
 L'application n'ayant pas d'interface d'administration nous n'avons pas créé de règle ou de scope pour cela mais la mise en place est assez simple au vu de la stack technique déjà implémentée.
 
+## Détails des fonctionnalités
+
+Une fois à l’adresse : https://juliendudek.synology.me:20206/ (ou http://localhost:3000/ dans le cas d’un run en local), cliquez sur le bouton ‘Sign Up’ en haut à droite. Deux possibilités : 
+- Se connecter avec son compte GitHub ;
+- Renseigner un email et un mot de passe.
+
+Cela déclenche un enregistrement Auth0 et l’attribution d’un token de session.
+
+Vous arrivez ensuite sur un formulaire d’inscription à remplir pour pouvoir accéder au réseau social. Lorsque vous cliquez sur ‘save’ cela déclenche l’enregistrement en base de votre compte utilisateur.
+
+Une fois connecté vous arrivez alors sur votre home page. (Vide car vous n’avez pour le moment pas d’amis)
+
+Cliquez sur le bouton ‘profile’ en haut à droite pour accéder à votre espace personnel.
+
+Vous y trouverez une carte reprenant vos informations personnelles. Vous pouvez cliquer sur l’icône en haut à droite de la carte pour éditer ces informations.
+
+Vous pouvez cliquer sur le bouton ‘Write a post’ en haut à gauche pour écrire un post. Un menu drop down vous permet de décider si votre post sera public (visible de tous les utilisateurs du réseau) ou privé (visible uniquement par vos amis). Vous aurez la possibilité de passer vos post de privé à public et inversement grâce au toggle en bas à droite des cartes post dans votre espace personnel.
+
+Vous pouvez rechercher des utilisateurs du site grâce à la Search Bar à gauche. Pour cela rentrez le nom, le prénom ou le username du contact recherché.
+
+Si vous cliquez sur l’étiquette sous la Search Bar vous arriverez sur l’espace personnel de l’utilisateur.
+
+Pour effectuer une demande en ami cliquez sur l’icone avec un plus à droite de la carte profil de l’utilisateur.
+
+En cliquant à nouveau sur ‘Profile’, vous retournerez sur votre espace personnel et verrez votre invitation en attente sous l’encart ‘Sent invitation’.
+
+Si vous recevez une invitation elle apparaitra sous l’encart ‘Received invitation’, vous pourrez alors accepter ou décliner.
+
+En cliquant sur le logo de l’université en haut à gauche, vous arriverez sur votre home page et pourrez voir les posts de vos amis (public et privé).
+
