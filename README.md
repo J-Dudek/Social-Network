@@ -86,7 +86,7 @@ Une fois à l’adresse http://localhost:3000/, cliquez sur le bouton ‘Sign Up
 
 Cela déclenche un enregistrement Auth0 et l’attribution d’un token de session.
 
-Vous arrivez ensuite sur un formulaire d’inscription à remplir pour pouvoir accéder au réseau social. Lorsque vous cliquez sur ‘save’ cela déclenche l’enregistrement en base de votre compte utilisateur.
+Vous arrivez ensuite sur un formulaire d’inscription à remplir pour pouvoir accéder au réseau social. Lorsque vous cliquez sur ‘save’ cela déclenche l’enregistrement en base de votre compte utilisateur. L'adresse mail saisie dans ce formulaire est l'adresse mail publique pour les autres utilisateurs, mais ne correspond pas à l'adresse mail pour l'authentification Auth0.
 
 Une fois connecté vous arrivez alors sur votre home page. (Vide car vous n’avez pour le moment pas d’amis)
 
