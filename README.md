@@ -5,16 +5,16 @@ Bienvenue sur le projet Social Network réalisé par Pierre Darcas, Julien Dudek
 Pour le détail des modules de l'architecture micro service mise en place pour le cours de programmation par composant, vous pouvez vou référez à ce fichier pour une présentation de l'architecture générale puis aux README.md présents dans chaque module pour une présentation plus spécifique.
 
 **Liste des modules :**
-- [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/readme/gateway)
-- [Module friend](https://github.com/J-Dudek/Social-Network/tree/readme/friend)
-- [Module post](https://github.com/J-Dudek/Social-Network/tree/readme/post)
-- [Module admin](https://github.com/J-Dudek/Social-Network/tree/readme/admin)
-- [Module configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration)
-- [Scripts base de données](https://github.com/J-Dudek/Social-Network/tree/readme/db)
+- [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/main/gateway)
+- [Module friend](https://github.com/J-Dudek/Social-Network/tree/main/friend)
+- [Module post](https://github.com/J-Dudek/Social-Network/tree/main/post)
+- [Module admin](https://github.com/J-Dudek/Social-Network/tree/main/admin)
+- [Module configuration](https://github.com/J-Dudek/Social-Network/tree/main/configuration)
+- [Scripts base de données](https://github.com/J-Dudek/Social-Network/tree/main/db)
 
 Pour le project d'application front-end développé à l'aide de React pour le cours de programmation fonctionnelle vous trouverez le README détaillé du projet ici : 
 
-- [Application front-end](https://github.com/J-Dudek/Social-Network/tree/readme/social-network)
+- [Application front-end](https://github.com/J-Dudek/Social-Network/tree/main/social-network)
 
 ## Pile technique
 > ### Back-end
@@ -39,7 +39,7 @@ Pour le project d'application front-end développé à l'aide de React pour le c
 > - Axios pour faciliter la gestion des requêtes http vers l'API
 
 ## Architecture
-![Micro-service architecture](https://github.com/J-Dudek/Social-Network/blob/readme/doc/archi_microservices.png)
+![Micro-service architecture](https://github.com/J-Dudek/Social-Network/blob/main/doc/archi_microservices.png)
 
 ## Déploiement de la base de données
 Afin de générer la base de données et de profiter de l'interface Adminer pour l'administrer entrez cette commande à la racine du projet:  
