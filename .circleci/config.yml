@@ -9,7 +9,7 @@ workflows:
             - buildadmin
           filters:
             branches:
-              only: main
+              only: deactivated
       - buildconfig
       - dockconfig:
           context: Perso
@@ -17,7 +17,7 @@ workflows:
             - buildconfig
           filters:
             branches:
-              only: main
+              only: deactivated
       - buildfriend
       - dockfriend:
           context: Perso
@@ -25,7 +25,7 @@ workflows:
             - buildfriend
           filters:
             branches:
-              only: main
+              only: deactivated
       - buildgateway
       - dockgateway:
           context: Perso
@@ -33,7 +33,7 @@ workflows:
             - buildgateway
           filters:
             branches:
-              only: main
+              only: deactivated
       - buildpost
       - dockpost:
           context: Perso
@@ -41,17 +41,17 @@ workflows:
             - buildpost
           filters:
             branches:
-              only: main
+              only: deactivated
       - dockbdd:
           context: Perso
           filters:
             branches:
-              only: main
+              only: deactivated
       - dockfront:
           context: Perso
           filters:
             branches:
-              only: main
+              only: deactivated
 
 jobs:
   # --------------------------------------------
