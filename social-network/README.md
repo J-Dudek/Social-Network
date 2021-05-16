@@ -1,11 +1,60 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/db003998-dd26-48f7-b6e1-74cefda032ec/deploy-status)](https://app.netlify.com/sites/the-social-network/deploys)
+# Module FRONT
 
+Module front de l'application Social-network. Dans le cas d'une exécution du projet en local il est nécessaire de vérifier que la variable ```REACT_APP_SERVER_URL``` dans le fichier [.env](https://github.com/J-Dudek/Social-Network/blob/main/social-network/.env) est bien définie sur ```http://localhost:8080```.
 
-use [Tailwind](https://tailwindcss.com/)
+Cette application s'authentifie auprès de auth0 afin d'obtenir un token permettant de contacter l'API back-end.
 
-use [React Query](https://react-query.tanstack.com/)
+Utilisation de ```react-routeur```ainsi qu'une personnalisation du routage afin de rendre les routes protégées. Ainsi, la seule route publique, ne nécessitant aucun enregistrement est ```/```
+On retrouve donc :
+```javascript
 
-use [axios](https://yarnpkg.com/package/axios)
+<QueryClientProvider client={queryClient}>
+      <div id="app" className="d-flex flex-column h-100">
+        <HeaderComponent />
+        <div className="ui center aligned grid">
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <ProtectedRoute path="/profile" exact component={Profile} />
+              <ProtectedRoute path="/user/:id" component={UserPage} />
+              <ProtectedRoute
+                path="/myfriendpost"
+                exact
+                component={MyFriendPost}
+              />
+              <ProtectedRoute path="/users" exact component={User} />
+              <ProtectedRoute path="/posts" exact component={Post} />
+              <Route component={FourOfour} />
+            </Switch>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </QueryClientProvider>
+
+```
+Utilisation des ```hooks``` .
+
+Utilisation de [Semantic UI React](https://react.semantic-ui.com/)
+
+Utilisation de [React Query](https://react-query.tanstack.com/)
+
+Utilisation de  [axios](https://yarnpkg.com/package/axios)
+
+Utilisation de [Typescript](https://www.typescriptlang.org/)
+
+Utilisation de [Auth0](https://auth0.com/)
+
+Tests with ```@testing-library/react``` 
+
+Un ```dockerfile```est également présent, ce qui permet de générer une image docker du projet assez facilement. Nous avons ici choisi de passer la commande ```yarn start```et non ```yarn build```afin d'avoir une version assez verbeuse en console mais nous permettant d'avoir un maximum d'information.
+
+Dans le cas d'un livrable de production cela n'aurait pas été le cas. 
+
+Nous remarquons d'ailleurs une erreur remontée en console à l'heure actuelle, après recherche elle est la conséquence d'un composant de chez semantic-ui. Cette erreur est relevée uniquement car nous utilisons le ```<React.StrictMode>```.
+
+De même que pour la partie Back nous avons décidé de laisser toutes les clés en clair afin qu'un utilisateur lambda puisse se servir de cette application. Le compte auth0 associé à cette application est présent uniquement pour cette application et n'est pas provisionné.
+
 
 # Getting Started with Create React App
 
