@@ -2,12 +2,11 @@
 
 Gestion des utilisateurs (user) et des relations (friendship).
 
-Au demarrage de l'application, quelque soit le profil (dev ou prod), le microservices va tenter de récuperer sa configuration auprés du [Module configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration) . Nous avons fait le choix de faire une duplication des fichiers de configuration, ainisi si l'application de configuration n'est pas lancé ou rencontre un problème elle peut vivre avec ses fichiers embarqués.
+Au démarrage de l'application, quelque-soit le profil (**DEV** ou **PROD**), le microservices va tenter de récupérer sa configuration auprès du [Module configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration). Nous avons fait le choix de faire une duplication des fichiers de configuration, ainsi si l'application de configuration n'est pas lancée ou rencontre un problème elle peut vivre avec ses fichiers embarqués.
 
 L'application s'enregistre ensuite auprès du [Module Gateway](https://github.com/J-Dudek/Social-Network/tree/readme/gateway).
 
-
-Les scopes utilisés pour les différents endpoints sont les suivant:
+Les scopes utilisés pour les différents endpoints sont les suivants:
 
 ```
 USER_READ ("SCOPE_user:read"),
@@ -20,7 +19,7 @@ FRIEND_DELETE ("SCOPE_friend:delete"),
 FRIEND_SEARCH ("SCOPE_friend:search"),
 FRIEND_ADD ("SCOPE_friend:add");
 ```
-Dans ces cas d'utilisations:
+Dans ces cas d'utilisation :
 ```java
 @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -65,9 +64,9 @@ Dans ces cas d'utilisations:
     }
 ```
 
-Au niveau des configurations des origins des requêtes, seules les requêtes provenant de l'application web sont acceptées:
+Au niveau des configurations des origins des requêtes, seules les requêtes provenant de l'application web sont acceptées :
 
-```frontDomain``` correspond à l'url de l'application front (mise dans les properties, permet donc un changement rapide en fonction de l'environement choisi. 
+```frontDomain``` correspond à l'url de l'application front (mise dans les properties) qui permet un changement rapide en fonction de l'environnement choisi. 
 
 ```java
 CorsConfigurationSource corsConfigurationSource() {
@@ -81,9 +80,9 @@ CorsConfigurationSource corsConfigurationSource() {
     }
 ```
 
-Comme dit dans le readme prinicap du repositorie, l'adoption des flux a été adopté ainsi que qu'une base de données réactive.
-Nous avons fait le choix d'utiliser plusieurs type de retour sur nos différents endpoints afin d'implémenter différentes façon de retourner les donnnées.
+Comme expliqué dans le readme principal du repository, nous avons opté pour l'utilisation des flux ainsi que d'une base de données réactive.
+Nous avons fait le choix d'utiliser plusieurs types de retour sur nos différents endpoints afin d'implémenter et d'expérimenter différentes façons de retourner les données.
 
-Ainsi, vous trouverez des endpoints retournant parfois des  ```Monoy<UserDTO>``` ou ```Fluxy<UserDTO>``` mais également des ```Mono<ResponseEntity<UserDTO>>```.
+Ainsi, vous trouverez des endpoints retournant parfois des  ```Mono<UserDTO>``` ou ```Flux<UserDTO>``` mais également des ```Mono<ResponseEntity<UserDTO>>```.
 
 
