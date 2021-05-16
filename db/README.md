@@ -5,3 +5,9 @@ Ce module comporte le dockerfile permettant de créer les bases de données bas�
 2 bases sont ainsi générées :
 - [Friend](https://github.com/J-Dudek/Social-Network/blob/main/db/sql/01-initFriend.sql) comportant les tables ```user``` et ```friendship```
 - [Post](https://github.com/J-Dudek/Social-Network/blob/main/db/sql/03-initPost.sql) comportant la table ```post```
+
+## Tables Base de données Friend
+[bdd friend](https://github.com/J-Dudek/Social-Network/blob/readme/doc/bdd_user.png)
+
+## Tables Base de données Post
+[bdd post](https://github.com/J-Dudek/Social-Network/blob/readme/doc/bdd_post.png)
