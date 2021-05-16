@@ -2,10 +2,10 @@
 
 Module d'administration des projets :
 
-- [Gateway](https://github.com/J-Dudek/Social-Network/tree/readme/gateway)
-- [Friend](https://github.com/J-Dudek/Social-Network/tree/readme/friend)
-- [Post](https://github.com/J-Dudek/Social-Network/tree/readme/post)
-- [Configuration](https://github.com/J-Dudek/Social-Network/tree/readme/configuration)
+- [Gateway](/gateway)
+- [Friend](/friend)
+- [Post](/post)
+- [Configuration](/configuration)
 
 Chaque service vient d'enregistrer auprès de celui-ci au démarrage de l'applicatif. Si le module est off cela ne gêne aucunement les applications.
 
