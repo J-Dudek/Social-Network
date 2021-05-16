@@ -7,7 +7,7 @@ Ce module comporte le dockerfile permettant de créer les bases de données bas�
 - [Post](https://github.com/J-Dudek/Social-Network/blob/main/db/sql/03-initPost.sql) comportant la table ```post```
 
 ## Tables Base de données Friend
-![bdd friend](https://github.com/J-Dudek/Social-Network/blob/readme/doc/bdd_user.png)
+![bdd friend](https://github.com/J-Dudek/Social-Network/blob/main/doc/bdd_user.png)
 
 ## Tables Base de données Post
-![bdd post](https://github.com/J-Dudek/Social-Network/blob/readme/doc/bdd_post.png)
+![bdd post](https://github.com/J-Dudek/Social-Network/blob/main/doc/bdd_post.png)
