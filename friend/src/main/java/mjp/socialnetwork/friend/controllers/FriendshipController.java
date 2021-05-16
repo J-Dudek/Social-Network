@@ -31,13 +31,12 @@ public class FriendshipController {
      */
     @GetMapping(path = "/friends")
     public Flux<UserDTO> getMyFriends(Principal principal) {
-        return friendshipService.getFriends(principal).map(UserMapper::toDto);
+        return friendshipService.getFriends(principal);
     }
 
     @GetMapping(path = "/{id}")
     public Flux<UserDTO> getUserFriends(@PathVariable("id") String userId) {
-        return this.friendshipService.getFriends(userId)
-                .map(UserMapper::toDto);
+        return this.friendshipService.getFriends(userId);
     }
 
     /**

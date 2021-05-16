@@ -22,7 +22,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    //TODO DELETE just for test
+    /**
+     * Seulement pour la page de demo
+     * @return Flux de tous les Utilisateurs de l'application
+     */
     public Flux<UserDTO> findAllUsers() {
         return userRepository.findAll().map(UserMapper::toDto);
     }

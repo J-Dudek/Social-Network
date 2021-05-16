@@ -29,22 +29,38 @@ public class FriendshipService {
     private final FriendshipRepository friendshipRepository;
     private final UserRepository userRepository;
 
-    public Flux<User> getFriends(Principal principal) {
+    /**
+     * Recupere la liste des amis de l'utilisateur
+     * @param principal contenu dans l'objet security
+     * @return Fluyx d'UserDTO
+     */
+    public Flux<UserDTO> getFriends(Principal principal) {
         Flux<User> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(principal.getName(), true)
                 .flatMap(friendship -> userRepository.findById(friendship.getSecondUserId()));
         Flux<User> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(principal.getName(), true).
                 flatMap(friendship -> userRepository.findById(friendship.getFirstUserId()));
-        return hisRequests.mergeWith(theirRequests);
+        return hisRequests.mergeWith(theirRequests).map(UserMapper::toDto);
     }
 
-    public Flux<User> getFriends(String userId) {
+    /**
+     * Recupere la liste des amis d'un utilisateur
+     * @param userId l'id de l'utilisateur
+     * @return FLux d' UserDTO
+     */
+    public Flux<UserDTO> getFriends(String userId) {
         Flux<User> hisRequests = friendshipRepository.findByFirstUserIdAndStatus(userId, true)
                 .flatMap(friendship -> userRepository.findById(friendship.getSecondUserId()));
         Flux<User> theirRequests = friendshipRepository.findBySecondUserIdAndStatus(userId, true).
                 flatMap(friendship -> userRepository.findById(friendship.getFirstUserId()));
-        return hisRequests.mergeWith(theirRequests);
+        return hisRequests.mergeWith(theirRequests).map(UserMapper::toDto);
     }
 
+    /**
+     * Verifie si une relation existe déjà
+     * @param principal l'utilisateur
+     * @param friendId le second utilisateur
+     * @return Mono  true or false
+     */
     public Mono<Boolean> isFriend(Principal principal, String friendId) {
         return this.friendshipRepository.existsFriendshipByFirstUserIdAndSecondUserIdAndStatus(principal.getName(), friendId,true)
                 .flatMap(isFriend -> {
