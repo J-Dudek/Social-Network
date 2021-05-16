@@ -80,6 +80,8 @@ L'application n'ayant pas d'interface d'administration nous n'avons pas créé d
 
 ## Détails des fonctionnalités
 
+Ce site est optimisé pour chrome
+
 Une fois à l’adresse http://localhost:3000/, cliquez sur le bouton ‘Sign Up’ en haut à droite. Deux possibilités : 
 - Se connecter avec son compte GitHub ;
 - Renseigner un email et un mot de passe.
