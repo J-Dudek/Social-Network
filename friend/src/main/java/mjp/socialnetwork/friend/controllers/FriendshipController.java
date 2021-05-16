@@ -5,7 +5,6 @@ import mjp.socialnetwork.friend.model.dto.FriendshipDTO;
 import mjp.socialnetwork.friend.model.dto.UserDTO;
 import mjp.socialnetwork.friend.services.FriendshipService;
 import mjp.socialnetwork.friend.services.UserService;
-import mjp.socialnetwork.friend.utils.FriendshipMapper;
 import mjp.socialnetwork.friend.utils.UserMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
